@@ -1,0 +1,5 @@
+back/node_modules
+back/dist
+back/.env
+font/node_modules
+font/.env
