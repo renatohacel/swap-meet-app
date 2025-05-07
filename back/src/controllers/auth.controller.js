@@ -32,4 +32,10 @@ export class AuthController {
   static async logout(req, res) {
     res.clearCookie("access_token").send({ message: "logout success" });
   }
+
+
+  //PRUEBA RUTA PROTEGIDA
+  // static async prueba(req, res) {
+  //   res.send({ user: req.user }); // req.user contiene los datos del usuario
+  // }
 }

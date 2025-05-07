@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import { HOST, PORT, FRONT_BASE_URL } from "./config/constans.config.js";
 //routers
 import { authRouter } from "./routes/auth.router.js";
+import { userRouter } from "./routes/user.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -24,39 +25,9 @@ app.use(
 );
 app.use(cookieParser());
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
-// Middleware para validar la cookie
-app.use((req, res, next) => {
-  const token = req.cookies.access_token;
-  req.session = { user: null };
-
-  if (!token) {
-    console.log("No token provided");
-    return next();
-  }
-
-  try {
-    const data = jwt.verify(token, JWT_SECRET);
-    req.session.user = data;
-    console.log("Token verified successfully");
-  } catch (err) {
-    console.error("Error verificando token:", err.message);
-  }
-  next();
-});
-
 // Rutas
 app.use("/", authRouter);
-
-// app.get("/prueba", (req, res) => {
-//   const { user } = req.session;
-//   if (user) {
-//     res.send({ user });
-//   } else {
-//     res.status(401).send("unauthorized");
-//   }
-// });
+app.use("/users", userRouter);
 
 // RUN
 app.listen(PORT, HOST, () => {
