@@ -1,41 +1,45 @@
 import { useReducer } from "react";
 import { authReducer } from "../reducers/authReducer";
 import { CONSTANTS } from "../../../utils/constans";
-import { loginUser } from "../services/authService";
+import { loginUser, logoutUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
   isAuth: false,
-  token: undefined,
+  user: undefined,
 };
 
 export const useAuth = () => {
   const [login, dispatch] = useReducer(authReducer, initialLogin);
   const navigate = useNavigate();
 
-  const handleLogin = async ({ username, password }) => {
+const handleLogin = async ({ username, password }) => {
     try {
-      const { token } = await loginUser({ username, password });
+      const response = await loginUser({ username, password });
       dispatch({
         type: CONSTANTS.LOGIN,
-        payload: token,
+        payload: response.user,
       });
       sessionStorage.setItem(
         "login",
         JSON.stringify({
           isAuth: true,
-          token,
+          user: response.user,
         })
       );
       navigate("/home");
     } catch (error) {
-      console.error(error);
+      return toast.error(error.response?.data?.message, {
+        position: "top-center",
+        duration: 1500,
+      });
     }
   };
 
-  const handleLogout = () => {
-    console.log('entra')
+  const handleLogout = async () => {
     try {
+      await logoutUser();
       dispatch({
         type: CONSTANTS.LOGOUT,
       });

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "./modules/auth/context/AuthContext";
 
 import LoginPage from "./modules/auth/components/LoginPage";
-import Home from "./modules/dashboard/components/Home";
+import DashboardRoutes from "./routes/DashboardRoutes";
 
 function App() {
   const { login } = useContext(AuthContext);
@@ -11,7 +11,7 @@ function App() {
     <>
       <Routes>
         {login.isAuth ? (
-          <Route path="/*" element={<Home />} />
+          <Route path="/*" element={<DashboardRoutes />} />
         ) : (
           <>
             <Route path="/login" element={<LoginPage />} />

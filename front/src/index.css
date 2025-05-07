@@ -6,8 +6,10 @@
         #6bb9ff;
     --color-secondary:
         #aad7ff;
-    --color-darkprimary:
-        #36a0fe;
+    --color-dark-primary:
+        #2563eb;
+    --color-secondary-complement:
+        white;
 }
 
 #root {
