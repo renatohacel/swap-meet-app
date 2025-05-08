@@ -8,7 +8,7 @@ const DashboardRoutes = () => {
     <main className="min-h-screen bg-secondary/20">
       <Sidebar />
       <div className="py-24 px-12 lg:ml-64">
-        <div className="bg-secondary-complement rounded-lg p-8">
+        <div className="bg-secondary-complement rounded-lg py-8 px-16">
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />

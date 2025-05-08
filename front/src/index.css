@@ -10,6 +10,8 @@
         #2563eb;
     --color-secondary-complement:
         white;
+    --color-primary-text:
+        #1e3a8a;
 }
 
 #root {

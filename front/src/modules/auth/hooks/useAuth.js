@@ -14,18 +14,18 @@ export const useAuth = () => {
   const [login, dispatch] = useReducer(authReducer, initialLogin);
   const navigate = useNavigate();
 
-const handleLogin = async ({ username, password }) => {
+  const handleLogin = async ({ username, password }) => {
     try {
-      const response = await loginUser({ username, password });
+      const result = await loginUser({ username, password });
       dispatch({
         type: CONSTANTS.LOGIN,
-        payload: response.user,
+        payload: result.user,
       });
       sessionStorage.setItem(
         "login",
         JSON.stringify({
           isAuth: true,
-          user: response.user,
+          user: result.user,
         })
       );
       navigate("/home");
@@ -46,13 +46,26 @@ const handleLogin = async ({ username, password }) => {
       sessionStorage.removeItem("login");
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      validateSession(error);
+    }
+  };
+
+  const validateSession = (error) => {
+    if (error.response?.status === 401) {
+      dispatch({
+        type: CONSTANTS.LOGOUT,
+      });
+      sessionStorage.removeItem("login");
     }
   };
 
   return {
+    //constants
     login,
+
+    //functions
     handleLogin,
     handleLogout,
+    validateSession,
   };
 };

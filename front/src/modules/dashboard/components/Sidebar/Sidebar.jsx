@@ -53,7 +53,7 @@ const Sidebar = () => {
               to={"/home"}
             >
               <span className="text-3xl text-center text-secondary-complement">
-                TIANGUIS APP
+                TIANGUIS
               </span>
             </NavLink>
             <hr className="mb-10 text-secondary-complement/50 border-1" />
