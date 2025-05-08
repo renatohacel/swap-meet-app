@@ -13,7 +13,11 @@ const Sidebar = () => {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md text-gray-400 hover:text-secondary-complement hover:bg-secondary cursor-pointer"
+        className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md cursor-pointer transition-all ${
+          isOpen
+            ? "hover:bg-secondary text-dark-primary hover:text-primary-text"
+            : "hover:bg-primary text-primary hover:text-secondary-complement"
+        }`}
       >
         <svg
           className="h-6 w-6"
@@ -99,7 +103,7 @@ const Sidebar = () => {
                   {user.Nombre.split(" ")[0][0]}
                 </div>
                 <span className="text-secondary-complement font-medium">
-                  {user.Nombre.split(" ")[0]}
+                  {`${user.Nombre.split(" ")[0]} ${user.Nombre.split(" ")[2]}`}
                 </span>
               </div>
               <button

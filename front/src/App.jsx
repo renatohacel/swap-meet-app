@@ -8,18 +8,16 @@ import DashboardRoutes from "./routes/DashboardRoutes";
 function App() {
   const { login } = useContext(AuthContext);
   return (
-    <>
-      <Routes>
-        {login.isAuth ? (
-          <Route path="/*" element={<DashboardRoutes />} />
-        ) : (
-          <>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/*" element={<Navigate to="/login" />} />
-          </>
-        )}
-      </Routes>
-    </>
+    <Routes>
+      {login.isAuth ? (
+        <Route path="/*" element={<DashboardRoutes />} />
+      ) : (
+        <>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/*" element={<Navigate to="/login" />} />
+        </>
+      )}
+    </Routes>
   );
 }
 
