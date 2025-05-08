@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../../ui/components/table/Table";
 import { useUser } from "./hooks/useUser";
+import Loader from "../../ui/components/Loader";
 
 const COLUMNS = ["ID", "USUARIO", "APELLIDO", "NOMBRE", "ESTATUS", "TIPO"];
 const FIELDS = ["id", "usuario", "apellido", "nombre", "estatus", "tipo"];
@@ -34,13 +35,13 @@ const Users = () => {
       </h1>
       <hr className="mb-12 text-primary/60 border-1" />
 
-      <Table
-        columns={COLUMNS}
-        data={usersCleaned}
-        getFunction={getUsers}
-        loading={loading}
-        filterFields={FIELDS}
-      />
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <Loader className="w-64 opacity-60 text-primary"/>
+        </div>
+      ) : (
+        <Table columns={COLUMNS} data={usersCleaned} filterFields={FIELDS} />
+      )}
     </>
   );
 };
