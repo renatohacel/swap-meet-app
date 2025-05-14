@@ -1,8 +1,9 @@
 import { useState } from "react";
 import TableRow from "./TableRow";
 import { useFilter } from "../../hooks/useFilter";
+import { NavLink } from "react-router-dom";
 
-const Table = ({ columns, data, filterFields }) => {
+const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10; // Número de filas por página
@@ -35,11 +36,14 @@ const Table = ({ columns, data, filterFields }) => {
           type="text"
           name="search"
           placeholder="Buscar"
-          className="rounded-md p-2 outline-2 outline-secondary/100 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base"
+          className="rounded-md p-2 outline-2 outline-secondary/100 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:outline-dark-primary focus:text-dark-primary transition-all"
           value={searchInput}
           onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
         />
-        <button className="bg-primary items-center flex gap-1 p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base">
+        <NavLink
+          className="bg-primary items-center flex gap-1 p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base"
+          to={addLink}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
@@ -48,8 +52,8 @@ const Table = ({ columns, data, filterFields }) => {
           >
             <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
           </svg>{" "}
-          ADD
-        </button>
+          NUEVO
+        </NavLink>
       </div>
 
       <div className="overflow-x-auto w-full rounded-lg">
@@ -72,7 +76,7 @@ const Table = ({ columns, data, filterFields }) => {
           <tbody className="bg-secondary-complement">
             {filteredData.length > 0 ? (
               currentData.map((row, index) => (
-                <TableRow key={index} row={row} />
+                <TableRow key={index} row={row} editFunction={editFunction} />
               ))
             ) : (
               // Mostrar "NO HAY REGISTROS" si no hay datos filtrados
@@ -109,7 +113,7 @@ const Table = ({ columns, data, filterFields }) => {
           <button
             key={i}
             onClick={() => handlePageChange(i + 1)}
-            className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base ${
+            className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${
               currentPage === i + 1
                 ? "bg-dark-primary text-secondary-complement"
                 : "bg-primary text-secondary-complement hover:bg-dark-primary"

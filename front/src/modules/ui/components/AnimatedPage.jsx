@@ -8,7 +8,7 @@ const AnimatedPage = ({ children }) => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 10 }}
       transition={{
-        duration: 0.12,
+        duration: 0.10,
         ease: "easeOut",
       }}
     >

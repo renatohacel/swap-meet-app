@@ -1,6 +1,5 @@
 //dependencies
 import express from "express";
-import jwt from "jsonwebtoken"; // <-- Asegúrate de importar jwt
 //db init
 import "./config/db.config.js";
 //middlewares
@@ -11,6 +10,7 @@ import { HOST, PORT, FRONT_BASE_URL } from "./config/constans.config.js";
 //routers
 import { authRouter } from "./routes/auth.router.js";
 import { userRouter } from "./routes/user.router.js";
+import { tarifasRouter } from "./routes/tarifas.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -28,6 +28,7 @@ app.use(cookieParser());
 // Rutas
 app.use("/", authRouter);
 app.use("/users", userRouter);
+app.use('/tarifas', tarifasRouter)
 
 // RUN
 app.listen(PORT, HOST, () => {

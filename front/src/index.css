@@ -2,16 +2,18 @@
 
 @theme {
     --color-primary:
-        /*#aeb6bf*/
-        #6bb9ff;
+        /* #6f49bd; */
+        #805ec4;
     --color-secondary:
-        #aad7ff;
+        #ADA9BA;
+    --color-dark-secondary:
+        #706F8E;
     --color-dark-primary:
-        #2563eb;
+        #393A5A;
     --color-secondary-complement:
-        white;
+        #E9E9E9;
     --color-primary-text:
-        #1e3a8a;
+        #22222E;
 }
 
 #root {

@@ -1,10 +1,13 @@
 import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
-import { getUsersService } from "../services/userService";
+import { getUsersService, insertUserService, updateUserService } from "../services/userService";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useAuth } from "../../../auth/hooks/useAuth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useUser = () => {
+  const navigate = useNavigate();
   const { validateSession } = useAuth();
   const [users, dispatch] = useReducer(userReducer, []);
   const [loading, setLoading] = useState(false);
@@ -14,7 +17,7 @@ export const useUser = () => {
       setLoading(true);
       const result = await getUsersService();
       dispatch({
-        type: CONSTANTS.GET_USERS,
+        type: CONSTANTS.USERS.GET_USERS,
         payload: result,
       });
     } catch (error) {
@@ -24,11 +27,71 @@ export const useUser = () => {
     }
   };
 
+  const handleInsertUser = async (newUser) => {
+    try {
+      const result = await insertUserService(newUser)
+
+      dispatch({
+        type: CONSTANTS.USERS.ADD_USER,
+        payload: result,
+      });
+      navigate('/users', {
+        state: {
+          toast: {
+            type: 'success',
+            message: 'USUARIO CREADO CON ÉXITO'
+          }
+        }
+      });
+
+    } catch (error) {
+      validateSession(error);
+      return toast.error(error.response?.data?.message, {
+        position: "top-center",
+        duration: 1500,
+      });
+    }
+  };
+
+  const handleUpdateUser = async (updatedUser) => {
+    try {
+      const result = await updateUserService(updatedUser);
+
+      dispatch({
+        type: CONSTANTS.USERS.UPDATE_USER,
+        payload: result,
+      });
+
+      navigate('/users', {
+        state: {
+          toast: {
+            type: 'success',
+            message: 'USUARIO ACTUALIZADO CON ÉXITO'
+          }
+        }
+      });
+
+    } catch (error) {
+      validateSession(error);
+      return toast.error(error.response?.data?.message, {
+        position: "top-center",
+        duration: 1500,
+      });
+    }
+  }
+
+  const editNavigate = (row) => {
+    navigate('/users/update', { state: { user: row } })
+  }
+
   return {
     //constants
     users,
     loading,
     //functions
     getUsers,
+    handleInsertUser,
+    handleUpdateUser,
+    editNavigate,
   };
 };

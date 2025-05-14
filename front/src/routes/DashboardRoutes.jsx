@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Sidebar from "../modules/dashboard/components/Sidebar/Sidebar";
 import Home from "../modules/dashboard/Home";
-import Users from "../modules/catalogs/users/Users";
 import AnimatedPage from "../modules/ui/components/AnimatedPage";
+import UsersRoutes from "./UsersRoutes";
+import TarifasRoutes from "./TarifasRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -15,7 +16,9 @@ const DashboardRoutes = () => {
         <div className="bg-secondary-complement rounded-lg py-8 px-4 md:px-16">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+
               <Route path="/" element={<Navigate to="/home" />} />
+
               <Route
                 path="/home"
                 element={
@@ -24,14 +27,29 @@ const DashboardRoutes = () => {
                   </AnimatedPage>
                 }
               />
+
+
               <Route
-                path="/users"
+                path="/users/*"
                 element={
                   <AnimatedPage>
-                    <Users />
+                    <UsersRoutes />
                   </AnimatedPage>
                 }
               />
+
+              <Route
+                path="/tarifas/*"
+                element={
+                  <AnimatedPage>
+                    <TarifasRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+
+
+
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </AnimatePresence>

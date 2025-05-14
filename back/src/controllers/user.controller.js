@@ -10,4 +10,33 @@ export class UserController {
       throw error;
     }
   }
+
+  static async insertUser(req, res) {
+    const formData = req.body;
+    try {
+      const newUser = await UserModel.insert(formData);
+
+      if (newUser?.Error) return res.status(409).send({ message: newUser.Error });
+
+      res.status(201).send(newUser);
+    } catch (error) {
+      console.error("Error in UserController.insertUser:", error);
+      throw error;
+    }
+
+  }
+
+  static async updateUser(req, res) {
+    const { id } = req.params
+    const user = req.body
+    try {
+      const updatedUser = await UserModel.update(id, user)
+      if (updatedUser?.Error) return res.status(409).send({ message: updatedUser.Error });
+
+      res.status(201).send(updatedUser);
+    } catch (error) {
+      console.error("Error in UserController.updateUser:", error);
+      throw error;
+    }
+  }
 }

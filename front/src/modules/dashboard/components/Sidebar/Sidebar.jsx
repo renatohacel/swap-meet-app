@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../auth/context/AuthContext";
 import { NavLink } from "react-router-dom";
 import CatalogosMenu from "./CatalogosMenu";
+import Logo from "../../../ui/components/Logo";
 
 const Sidebar = () => {
   const { handleLogout, login } = useContext(AuthContext);
@@ -13,11 +14,10 @@ const Sidebar = () => {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md cursor-pointer transition-all ${
-          isOpen
-            ? "hover:bg-secondary text-dark-primary hover:text-primary-text"
-            : "hover:bg-primary text-primary hover:text-secondary-complement"
-        }`}
+        className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md cursor-pointer transition-all ${isOpen
+          ? "hover:bg-secondary text-dark-primary hover:text-primary-text"
+          : "hover:bg-primary text-primary hover:text-secondary-complement"
+          }`}
       >
         <svg
           className="h-6 w-6"
@@ -45,20 +45,17 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 w-64 bg-primary shadow-xl`}
+        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 w-64 bg-primary shadow-xl`}
       >
         <div className="h-full px-3 py-4 overflow-y-auto flex flex-col justify-between">
           <div>
             {/* TITLE */}
             <NavLink
-              className="flex justify-center items-center font-extrabold mb-5 mt-10 hover:bg-secondary/70 p-1 rounded-lg transition-all duration-200 hover:scale-103 hover:-translate-y-1"
+              className="flex justify-center items-center font-extrabold mb-5 mt-10 hover:bg-secondary/70 p-1 rounded-lg transition-all duration-200 hover:scale-103 hover:-translate-y-1 text-3xl text-center text-secondary-complement"
               to={"/home"}
             >
-              <span className="text-3xl text-center text-secondary-complement">
-                TIANGUIS
-              </span>
+              <Logo />
             </NavLink>
             <hr className="mb-10 text-secondary-complement/50 border-1" />
             <ul className="space-y-2">
@@ -99,10 +96,10 @@ const Sidebar = () => {
             <hr className="mb-7 text-secondary-complement/50 border-1" />
             <div className="flex items-center justify-between p-3 bg-secondary/40 rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-dark-primary">
+                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-dark-primary uppercase">
                   {user.Nombre.split(" ")[0][0]}
                 </div>
-                <span className="text-secondary-complement font-medium">
+                <span className="text-secondary-complement font-medium uppercase">
                   {`${user.Nombre.split(" ")[0]} ${user.Nombre.split(" ")[2]}`}
                 </span>
               </div>

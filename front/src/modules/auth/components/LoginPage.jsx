@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { useForm } from "../../ui/hooks/useForm";
 import { AuthContext } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import Logo from "../../ui/components/Logo";
 
 const LoginPage = () => {
   const { handleLogin } = useContext(AuthContext);
@@ -27,14 +28,20 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-primary/20">
+    <main className="flex flex-col items-center justify-center min-h-dvh bg-primary/20">
       <Toaster />
-      <div className="w-full max-w-xs md:max-w-lg bg-primary/80 p-8 rounded-lg shadow-xl">
-        {/* Títles */}
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-secondary-complement mb-5">
-          TIANGUIS
-        </h1>
-        <h2 className="text-3xl text-secondary-complement font-medium text-center mb-8">
+      {/* FONDO */}
+      <img src="/src/assets/fondo_tianguis_recortado.png" alt="Imagen aluciva de fondo" className="-z-2 opacity-40" />
+      {/* MODAL */}
+      <div className="w-full max-w-xs md:max-w-lg bg-primary/98 p-8 rounded-lg shadow-xl absolute">
+        {/* LOGO */}
+        <div className="flex items-center justify-center">
+          <Logo className={'w-90 h-auto mb-5 -mt-5'} />
+        </div>
+
+        <hr className="mb-12 text-secondary-complement/40 border-1" />
+
+        <h2 className="text-3xl text-secondary-complement font-medium text-center mb-6">
           Inicio de Sesión
         </h2>
 
@@ -46,7 +53,7 @@ const LoginPage = () => {
             <input
               type="text"
               placeholder="Usuario"
-              className="w-full px-4 py-2 bg-secondary-complement text-dark-primary placeholder-primary/80 rounded-lg outline-none focus:ring-2 focus:ring-dark-primary transition-all duration-200 font-semibold"
+              className="w-full px-4 py-2 bg-secondary-complement text-dark-primary placeholder-primary/80 rounded-lg outline-none focus:ring-2 focus:ring-dark-primary transition-all duration-200 font-semibold uppercase"
               name="username"
               value={username}
               onChange={onInputChange}
@@ -59,7 +66,7 @@ const LoginPage = () => {
             <input
               type="password"
               placeholder="Contraseña"
-              className="w-full px-4 py-2 bg-gray-50 text-dark-primary placeholder-primary/80 rounded-lg outline-none focus:ring-2 focus:ring-dark-primary transition-all duration-200 font-semibold"
+              className="w-full px-4 py-2 bg-gray-50 text-dark-primary placeholder-primary/80 rounded-lg outline-none focus:ring-2 focus:ring-dark-primary transition-all duration-200 font-semibold uppercase"
               name="password"
               value={password}
               onChange={onInputChange}

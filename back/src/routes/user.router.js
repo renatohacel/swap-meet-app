@@ -5,3 +5,5 @@ import { UserController } from "../controllers/user.controller.js";
 export const userRouter = Router();
 
 userRouter.get("/", authenticate, UserController.getUsers);
+userRouter.post("/", authenticate, UserController.insertUser);
+userRouter.patch('/:id', authenticate, UserController.updateUser);
