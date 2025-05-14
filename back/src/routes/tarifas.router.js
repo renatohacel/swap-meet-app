@@ -12,4 +12,7 @@ tarifasRouter.patch("/puestos", authenticate, TarifasPuestosController.updateTar
 
 //TARJETAS
 tarifasRouter.get('/tarjetas', authenticate, TarifasTarjetasController.getTarifas)
+tarifasRouter.post('/tarjetas', authenticate, TarifasTarjetasController.insertTarifa)
+tarifasRouter.patch('/tarjetas', authenticate, TarifasTarjetasController.updateTarifa)
+tarifasRouter.delete('/tarjetas/:id', authenticate, TarifasTarjetasController.deleteTarifa)
 

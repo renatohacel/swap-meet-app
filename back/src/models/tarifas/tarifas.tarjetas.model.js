@@ -12,27 +12,61 @@ export class TarifasTarjetasModel {
         }
     }
 
-    // static async update(tarifa) {
+    static async insert(newTarifa) {
 
-    //     console.log(tarifa)
+        newTarifa.color = newTarifa.color.toUpperCase()
 
-    //     const sql = `
-    //       EXEC usp_MtoTarifasPuestos
-    //       @TarifaA = :tarifa_a,  
-    //       @TarifaB = :tarifa_b, 
-    //       @TarifaC = :tarifa_c, 
-    //       @TarifaAInsen = :tarifa_a_insen, 
-    //       @TarifaBInsen = :tarifa_b_insen, 
-    //       @TarifaCInsen = :tarifa_a_insen, 
-    //       @Basura = :basura,
-    //       @Movimiento = 'M'
-    //     `;
+        const sql = `
+            EXEC usp_MtoTarifasTarjetas 
+            @IdTarifaTarjeta = 0, 
+            @Año = :anio, 
+            @Importe = :importe,
+            @Color = :color, 
+            @Movimiento = 'I'
+        `;
 
-    //         const result = await sequelize.query(sql, {
-    //             replacements: tarifa,
-    //         });
+        const result = await sequelize.query(sql, {
+            replacements: newTarifa,
+        });
 
-    //     return result[0][0]
+        return result[0][0];
+    }
 
-    // }
+    static async update(updatedTarifa) {
+
+        updatedTarifa.color = updatedTarifa.color.toUpperCase()
+
+        const sql = `
+            EXEC usp_MtoTarifasTarjetas 
+            @IdTarifaTarjeta = :id, 
+            @Año = :anio, 
+            @Importe = :importe,
+            @Color = :color, 
+            @Movimiento = 'M'
+        `;
+
+        const result = await sequelize.query(sql, {
+            replacements: updatedTarifa,
+        });
+
+        return result[0][0];
+    }
+
+    static async delete(id) {
+
+        const sql = `
+            EXEC usp_MtoTarifasTarjetas 
+            @IdTarifaTarjeta = :id, 
+            @Año = NULL, 
+            @Importe = NULL,
+            @Color = NULL, 
+            @Movimiento = 'E'
+        `;
+
+        const result = await sequelize.query(sql, {
+            replacements: { id: parseInt(id) },
+        });
+
+        return result[0][0];
+    }
 }

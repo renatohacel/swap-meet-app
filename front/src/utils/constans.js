@@ -55,42 +55,57 @@ export const CONSTANTS = {
           {
             label: "TARIFA A",
             name: "tarifa_a",
-            type: "number"
+            type: "number",
+            min: '1',
+
           },
           {
             label: "TARIFA B",
             name: "tarifa_b",
             type: "number",
+            min: '1',
+
           },
           {
             label: "TARIFA C",
             name: "tarifa_c",
             type: "number",
+            min: '1',
+
           },
         ],
         TARIFAS_INSEN: [
           {
             label: "TARIFA A INSEN",
             name: "tarifa_a_insen",
-            type: "number"
+            type: "number",
+            min: '1',
+
           },
           {
             label: "TARIFA B INSEN",
             name: "tarifa_b_insen",
             type: "number",
+            min: '1',
+
           },
           {
             label: "TARIFA C INSEN",
             name: "tarifa_c_insen",
             type: "number",
+            min: '1',
           },
         ],
 
-        BASURA: [{ label: "BASURA", name: "basura", type: "number" }],
+        BASURA: [{ label: "BASURA", name: "basura", type: "number", min: '1' }],
       }
     },
     TARJETAS: {
-      GET_TARIFAS: 'GET_TARIFAS_TARJETAS'
-    }
+      GET_TARIFAS: 'GET_TARIFAS_TARJETAS',
+      ADD_TARIFA: "ADD_TARIFAS_TARJETAS",
+      UPDATE_TARIFA: "UPDATE_TARIFAS_TARJETAS",
+      DELETE_TARIFA: "DELETE_TARIFAS_TARJETAS",
+    },
+
   },
 };

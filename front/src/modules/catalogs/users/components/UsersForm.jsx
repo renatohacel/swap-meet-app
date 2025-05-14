@@ -12,13 +12,14 @@ import { useUser } from "../hooks/useUser";
 import { Toaster } from "react-hot-toast";
 
 const initialForm = {
-  ...CONSTANTS.USERS.USERS_TYPES.reduce(
+  ...CONSTANTS.USERS.USER_FORM.reduce(
     (acc, { name }) => (name ? { ...acc, [name]: "" } : acc),
     {}
   ),
   type: CONSTANTS.USERS.USERS_TYPES[0].value,
   id: undefined,
 };
+
 
 const UsersForm = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const UsersForm = () => {
 
   const userToEdit = location.state?.user;
 
-  const { onInputChange, formState, setFormState} = useForm(userToEdit || initialForm);
+  const { onInputChange, formState, setFormState } = useForm(userToEdit || initialForm);
 
   const { handleInsertUser, handleUpdateUser } = useUser();
 
@@ -59,8 +60,6 @@ const UsersForm = () => {
     } else {
       handleInsertUser(formState)
     }
-
-
     setErrors({})
   };
 
@@ -73,7 +72,7 @@ const UsersForm = () => {
           USUARIO
         </h1>
         <NavLink
-          className="bg-secondary items-center flex gap-1 p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
+          className="bg-secondary items-center p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
           to={"/users"}
         >
           CANCELAR
@@ -145,14 +144,13 @@ const UsersForm = () => {
           <hr className="mb-12 text-primary/60 border-1" />
         </SectionForm> */}
 
-        <div className="flex justify-center gap-5 md:col-start-2">
-          <button
-            type="submit"
-            className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10 ${!userToEdit && 'w-full'} md:row-end-5 focus:outline-dark-primary`}
-          >
-            GUARDAR
-          </button>
-        </div>
+
+        <button
+          type="submit"
+          className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10  md:row-end-5 focus:outline-dark-primary md:col-start-2`}
+        >
+          GUARDAR
+        </button>
 
 
       </Form>

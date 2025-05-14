@@ -1,16 +1,18 @@
-import { Toaster } from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import { useTarifasTarjetas } from "./hooks/useTarifasTarjetas"
 import { useEffect, useState } from "react";
 import Loader from "../../../ui/components/Loader";
 import Table from "../../../ui/components/table/Table";
+import { useLocation } from "react-router-dom";
 
 const COLUMNS = ["ID", "AÑO", "IMPORTE", "COLOR"];
 const FIELDS = ["id", "anio", "importe", "color"];
 
 const TarjetasTarifas = () => {
-    const { tarjetas, getTarifasTarjetas, loading } = useTarifasTarjetas();
-    const [tarjetasCleaned, setTarjetasCleaned] = useState([]);
+    const location = useLocation()
 
+    const { tarjetas, getTarifasTarjetas, loading, editNavigate } = useTarifasTarjetas();
+    const [tarjetasCleaned, setTarjetasCleaned] = useState([]);
 
     useEffect(() => {
         getTarifasTarjetas();
@@ -28,7 +30,18 @@ const TarjetasTarifas = () => {
         }
     }, [tarjetas]);
 
-    console.log(tarjetasCleaned)
+    useEffect(() => {
+        if (location.state?.toast) {
+            const { type, message } = location.state.toast;
+            toast[type](message, {
+                position: "top-center",
+                duration: 1500,
+            });
+
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
+
     return (
         <section>
             <Toaster />
@@ -48,7 +61,7 @@ const TarjetasTarifas = () => {
                     data={tarjetasCleaned}
                     filterFields={FIELDS}
                     addLink={"add"}
-                //   editFunction={editNavigate}
+                    editFunction={editNavigate}
                 />
             )}
         </section>

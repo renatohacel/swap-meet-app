@@ -4,14 +4,13 @@ import { NavLink, useLocation } from "react-router-dom";
 const CatalogosMenu = () => {
   const location = useLocation();
   const [catalogosOpen, setCatalogosOpen] = useState(
-    location.pathname.includes("/users")
+    location.pathname.includes("/users") || location.pathname.includes("/puestos") || location.pathname.includes("/tarjetas")
   );
   return (
     <>
       <button
-        className={`flex gap-2 items-center font-semibold p-3  rounded-lg hover:bg-secondary/70 transition-all duration-200 w-full cursor-pointer hover:text-dark-primary ${
-          catalogosOpen ? "bg-secondary/70 text-dark-primary" : "text-white"
-        }`}
+        className={`flex gap-2 items-center font-semibold p-3  rounded-lg hover:bg-secondary/70 transition-all duration-200 w-full cursor-pointer hover:text-dark-primary ${catalogosOpen ? "bg-secondary/70 text-dark-primary" : "text-white"
+          }`}
         onClick={() => setCatalogosOpen(!catalogosOpen)}
       >
         <svg
@@ -27,27 +26,24 @@ const CatalogosMenu = () => {
       {catalogosOpen && (
         <ul className="ml-10 space-y-1 mt-2 p-2 bg-secondary/70 rounded-lg">
           <li
-            className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${
-              location.pathname.includes("/users")
+            className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/users")
                 ? "text-dark-primary"
                 : "text-white"
-            }`}
+              }`}
           >
             <NavLink className={`flex`} to={"/users"}>
               USUARIOS
             </NavLink>
           </li>
-          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${
-              location.pathname.includes("/puestos")
-                ? "text-dark-primary"
-                : "text-white"
+          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/puestos")
+              ? "text-dark-primary"
+              : "text-white"
             }`}>
             <NavLink to={"/tarifas/puestos"} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
           </li>
-          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${
-              location.pathname.includes("/tarjetas")
-                ? "text-dark-primary"
-                : "text-white"
+          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/tarjetas")
+              ? "text-dark-primary"
+              : "text-white"
             }`}>
             <NavLink to={"/tarifas/tarjetas"} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
           </li>

@@ -40,7 +40,7 @@ const PuestosTarifas = () => {
         );
 
         if (emptyFields.length > 0) {
-            return toast.error("TODOS LOS CAMPOS SON OBLIGATORIOS", {
+            return toast.error("LOS CAMPOS SON OBLIGATORIOS", {
                 duration: 1500,
                 position: "top-center",
             });
@@ -66,7 +66,7 @@ const PuestosTarifas = () => {
                         </h3>
                         <hr className="mb-2 self-center w-64 text-primary/60 border-1" />
                     </SectionForm>
-                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.TARIFAS_BASE.map(({ name, label, type }, index) => (
+                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.TARIFAS_BASE.map(({ name, label, type, min }, index) => (
                         <SectionForm key={index}>
                             <Label htmlFor={name}>{label}</Label>
                             <div className='flex gap-2 items-center'>
@@ -79,6 +79,8 @@ const PuestosTarifas = () => {
                                     value={formState[name] || ''}
                                     className={'uppercase w-full'}
                                     autoComplete={"off"}
+                                    min={min}
+                                    step="any"
                                 />
                             </div>
                         </SectionForm>
@@ -91,7 +93,7 @@ const PuestosTarifas = () => {
                         </h3>
                         <hr className="mb-2 self-center w-64 text-primary/60 border-1" />
                     </SectionForm>
-                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.TARIFAS_INSEN.map(({ name, label, type }, index) => (
+                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.TARIFAS_INSEN.map(({ name, label, type, min }, index) => (
                         <SectionForm key={index}>
                             <Label htmlFor={name}>{label}</Label>
                             <div className='flex gap-2 items-center'>
@@ -104,6 +106,8 @@ const PuestosTarifas = () => {
                                     value={formState[name] || ''}
                                     className={'uppercase w-full'}
                                     autoComplete={"off"}
+                                    min={min}
+                                    step="any"
                                 />
                             </div>
                         </SectionForm>
@@ -117,7 +121,7 @@ const PuestosTarifas = () => {
                         </h3>
                         <hr className="mb-2 self-center w-64 text-primary/60 border-1" />
                     </SectionForm>
-                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.BASURA.map(({ name, label, type }, index) => (
+                    {CONSTANTS.TARIFAS.PUESTOS.TARIFAS_FORM.BASURA.map(({ name, label, type, min }, index) => (
                         <SectionForm key={index}>
                             <Label htmlFor={name}>{label}</Label>
                             <div className='flex gap-2 items-center'>
@@ -130,21 +134,21 @@ const PuestosTarifas = () => {
                                     value={formState[name] || ''}
                                     className={'uppercase w-full'}
                                     autoComplete={"off"}
+                                    min={min}
+                                    step="any"
                                 />
                             </div>
                         </SectionForm>
                     ))}
                 </section>
-                <div className="flex justify-center gap-5 md:col-start-2">
-                    <button
-                        type="submit"
-                        className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10 md:row-end-5 focus:outline-dark-primary w-full`}
-                    >
-                        ACTUALIZAR
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    className={`bg-primary md:col-start-2 items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10 md:row-end-5 focus:outline-dark-primary w-full`}
+                >
+                    ACTUALIZAR
+                </button>
             </Form>
-
+            s
         </section>
     )
 }
