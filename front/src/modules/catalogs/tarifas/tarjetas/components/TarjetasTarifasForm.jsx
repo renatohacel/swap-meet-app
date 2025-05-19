@@ -106,6 +106,12 @@ const TarjetasTarifasForm = () => {
                         })}
                     </select>
                 </SectionForm>
+
+                <SectionForm>
+                    <Label htmlFor="color">COLOR</Label>
+                    <Input value={formState['color'] || ''} name='color' id='color' type='text' onChange={onInputChange} className={'uppercase'} step="any" />
+                </SectionForm>
+
                 <SectionForm>
                     <Label htmlFor="importe">IMPORTE</Label>
                     <div className='flex gap-2 items-center'>
@@ -113,10 +119,6 @@ const TarjetasTarifasForm = () => {
 
                         <Input value={formState['importe'] || ''} name='importe' id="importe" type='number' min='1' className={'w-full'} onChange={onInputChange} step="any" />
                     </div>
-                </SectionForm>
-                <SectionForm>
-                    <Label htmlFor="color">COLOR</Label>
-                    <Input value={formState['color'] || ''} name='color' id='color' type='text' onChange={onInputChange} className={'uppercase'} step="any" />
                 </SectionForm>
 
                 <div className='md:col-start-2 mt-10 flex gap-3 items-center justify-center'>

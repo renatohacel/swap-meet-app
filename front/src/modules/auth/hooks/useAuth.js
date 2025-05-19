@@ -56,6 +56,7 @@ export const useAuth = () => {
         type: CONSTANTS.LOGOUT,
       });
       sessionStorage.removeItem("login");
+      window.location.reload();
     }
   };
 

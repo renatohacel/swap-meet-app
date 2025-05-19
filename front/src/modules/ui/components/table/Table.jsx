@@ -113,11 +113,10 @@ const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
           <button
             key={i}
             onClick={() => handlePageChange(i + 1)}
-            className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${
-              currentPage === i + 1
+            className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === i + 1
                 ? "bg-dark-primary text-secondary-complement"
                 : "bg-primary text-secondary-complement hover:bg-dark-primary"
-            }`}
+              }`}
           >
             {i + 1}
           </button>

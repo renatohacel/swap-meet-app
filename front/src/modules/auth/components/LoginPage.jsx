@@ -31,9 +31,9 @@ const LoginPage = () => {
     <main className="flex flex-col items-center justify-center min-h-dvh bg-primary/20">
       <Toaster />
       {/* FONDO */}
-      <img src="/src/assets/fondo_tianguis_recortado.png" alt="Imagen aluciva de fondo" className="-z-2 opacity-40" />
+      <img src="/src/assets/fondo_tianguis_morado.png" alt="Imagen aluciva de fondo" className="-z-2 opacity-40 absolute mb-48" />
       {/* MODAL */}
-      <div className="w-full max-w-xs md:max-w-lg bg-primary/98 p-8 rounded-lg shadow-xl absolute">
+      <div className="w-full max-w-xs md:max-w-lg bg-primary/98 p-8 rounded-lg shadow-xl">
         {/* LOGO */}
         <div className="flex items-center justify-center">
           <Logo className={'w-90 h-auto mb-5 -mt-5'} />

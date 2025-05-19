@@ -6,6 +6,7 @@ import Home from "../modules/dashboard/Home";
 import AnimatedPage from "../modules/ui/components/AnimatedPage";
 import UsersRoutes from "./UsersRoutes";
 import TarifasRoutes from "./TarifasRoutes";
+import AdminRoutes from "./AdminRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -46,6 +47,16 @@ const DashboardRoutes = () => {
                   </AnimatedPage>
                 }
               />
+
+              <Route
+                path="/admin/*"
+                element={
+                  <AnimatedPage>
+                    <AdminRoutes />
+                  </AnimatedPage>
+                }
+              />
+
 
 
 
