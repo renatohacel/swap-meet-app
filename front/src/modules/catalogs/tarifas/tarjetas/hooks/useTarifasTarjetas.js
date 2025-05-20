@@ -5,6 +5,7 @@ import { deleteTarifaTarjetasService, getTarifaTarjetasService, insertTarifaTarj
 import { CONSTANTS } from "../../../../../utils/constans"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import { CONSTANTS_ROUTES } from "../../../../../utils/constansRoutes"
 
 
 export const useTarifasTarjetas = () => {
@@ -37,7 +38,7 @@ export const useTarifasTarjetas = () => {
                 type: CONSTANTS.TARIFAS.TARJETAS.ADD_TARIFA,
                 payload: result,
             });
-            navigate('/tarifas/tarjetas', {
+            navigate(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`, {
                 state: {
                     toast: {
                         type: 'success',
@@ -48,7 +49,7 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-center",
+                position: "top-right",
                 duration: 1500,
             });
         }
@@ -61,7 +62,7 @@ export const useTarifasTarjetas = () => {
                 type: CONSTANTS.TARIFAS.TARJETAS.UPDATE_TARIFA,
                 payload: result,
             });
-            navigate('/tarifas/tarjetas', {
+            navigate(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`, {
                 state: {
                     toast: {
                         type: 'success',
@@ -72,7 +73,7 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-center",
+                position: "top-right",
                 duration: 1500,
             });
         }
@@ -85,7 +86,7 @@ export const useTarifasTarjetas = () => {
                 type: CONSTANTS.TARIFAS.TARJETAS.DELETE_TARIFA,
                 payload: id,
             });
-            navigate('/tarifas/tarjetas', {
+            navigate(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`, {
                 state: {
                     toast: {
                         type: 'success',
@@ -96,14 +97,14 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-center",
+                position: "top-right",
                 duration: 1500,
             });
         }
     }
 
     const editNavigate = (row) => {
-        navigate('/tarifas/tarjetas/update', { state: { tarifa: row } })
+        navigate(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}/update`, { state: { tarifa: row } })
     }
 
 

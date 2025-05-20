@@ -1,0 +1,12 @@
+import { axiosInstance } from "../../../../utils/axiosInstance";
+
+
+export const getLotesService = async () => {
+  const response = await axiosInstance.get("/generacion-lotes");
+  return response.data;
+};
+
+export const insertLoteService = async (newLote) => {
+  const response = await axiosInstance.post("/generacion-lotes", newLote);
+  return response.data;
+}

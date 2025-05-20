@@ -5,6 +5,7 @@ import { CONSTANTS } from "../../../../utils/constans";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 
 export const useUser = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export const useUser = () => {
         type: CONSTANTS.USERS.ADD_USER,
         payload: result,
       });
-      navigate('/users', {
+      navigate(CONSTANTS_ROUTES.CATALOGO.USUARIOS, {
         state: {
           toast: {
             type: 'success',
@@ -47,7 +48,7 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
       return toast.error(error.response?.data?.message, {
-        position: "top-center",
+        position: "top-right",
         duration: 1500,
       });
     }
@@ -62,7 +63,7 @@ export const useUser = () => {
         payload: result,
       });
 
-      navigate('/users', {
+      navigate(CONSTANTS_ROUTES.CATALOGO.USUARIOS, {
         state: {
           toast: {
             type: 'success',
@@ -74,14 +75,14 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
       return toast.error(error.response?.data?.message, {
-        position: "top-center",
+        position: "top-right",
         duration: 1500,
       });
     }
   }
 
   const editNavigate = (row) => {
-    navigate('/users/update', { state: { user: row } })
+    navigate(`${CONSTANTS_ROUTES.CATALOGO.USUARIOS}/update`, { state: { user: row } })
   }
 
   return {

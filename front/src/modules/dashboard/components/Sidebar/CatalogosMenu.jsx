@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 
 const CatalogosMenu = () => {
   const location = useLocation();
   const [catalogosOpen, setCatalogosOpen] = useState(
-    location.pathname.includes("/users") || location.pathname.includes("/puestos") || location.pathname.includes("/tarjetas")
+    location.pathname.includes(CONSTANTS_ROUTES.CATALOGO.BASE)
   );
   return (
     <>
@@ -26,26 +27,26 @@ const CatalogosMenu = () => {
       {catalogosOpen && (
         <ul className="ml-10 space-y-1 mt-2 p-2 bg-secondary/70 rounded-lg">
           <li
-            className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/users")
-                ? "text-dark-primary"
-                : "text-white"
+            className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(CONSTANTS_ROUTES.CATALOGO.USUARIOS)
+              ? "text-dark-primary"
+              : "text-white"
               }`}
           >
-            <NavLink className={`flex`} to={"/users"}>
+            <NavLink className={`flex`} to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
               USUARIOS
             </NavLink>
           </li>
-          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/puestos")
-              ? "text-dark-primary"
-              : "text-white"
+          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`)
+            ? "text-dark-primary"
+            : "text-white"
             }`}>
-            <NavLink to={"/tarifas/puestos"} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
+            <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
           </li>
-          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/tarjetas")
-              ? "text-dark-primary"
-              : "text-white"
+          <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`)
+            ? "text-dark-primary"
+            : "text-white"
             }`}>
-            <NavLink to={"/tarifas/tarjetas"} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
+            <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
           </li>
         </ul>
       )}

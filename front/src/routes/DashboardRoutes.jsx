@@ -6,7 +6,8 @@ import Home from "../modules/dashboard/Home";
 import AnimatedPage from "../modules/ui/components/AnimatedPage";
 import UsersRoutes from "./UsersRoutes";
 import TarifasRoutes from "./TarifasRoutes";
-import AdminRoutes from "./AdminRoutes";
+import LotesRoutes from "./LotesRoutes";
+import { CONSTANTS_ROUTES } from "../utils/constansRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -18,10 +19,10 @@ const DashboardRoutes = () => {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
 
-              <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/" element={<Navigate to={CONSTANTS_ROUTES.HOME} />} />
 
               <Route
-                path="/home"
+                path={CONSTANTS_ROUTES.HOME}
                 element={
                   <AnimatedPage>
                     <Home />
@@ -31,7 +32,7 @@ const DashboardRoutes = () => {
 
 
               <Route
-                path="/users/*"
+                path={`${CONSTANTS_ROUTES.CATALOGO.USUARIOS}/*`}
                 element={
                   <AnimatedPage>
                     <UsersRoutes />
@@ -40,7 +41,7 @@ const DashboardRoutes = () => {
               />
 
               <Route
-                path="/tarifas/*"
+                path={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}/*`}
                 element={
                   <AnimatedPage>
                     <TarifasRoutes />
@@ -48,18 +49,16 @@ const DashboardRoutes = () => {
                 }
               />
 
+
               <Route
-                path="/admin/*"
+                path={`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/*`}
                 element={
                   <AnimatedPage>
-                    <AdminRoutes />
+                    <LotesRoutes />
                   </AnimatedPage>
+
                 }
               />
-
-
-
-
 
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

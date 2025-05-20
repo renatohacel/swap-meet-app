@@ -8,6 +8,7 @@ import SectionForm from '../../../../ui/components/form/SectionForm';
 import Input from '../../../../ui/components/form/Input';
 import { useTarifasTarjetas } from '../hooks/useTarifasTarjetas';
 import DeleteButton from '../../../../ui/components/buttons/DeleteButton';
+import { CONSTANTS_ROUTES } from '../../../../../utils/constansRoutes';
 
 const initialForm = {
     id: undefined,
@@ -32,7 +33,7 @@ const TarjetasTarifasForm = () => {
     useEffect(() => {
         if (location.pathname.includes('/update')) {
             if (!tarifaToEdit) {
-                navigate('/tarifas/tarjetas')
+                navigate(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`)
             }
         }
     }, [])
@@ -55,7 +56,7 @@ const TarjetasTarifasForm = () => {
         if (emptyFields.length > 0) {
             return toast.error("LOS CAMPOS SON OBLIGATORIOS", {
                 duration: 1500,
-                position: "top-center",
+                position: "top-right",
             });
         }
 
@@ -80,7 +81,7 @@ const TarjetasTarifasForm = () => {
                 </h1>
                 <NavLink
                     className="bg-secondary p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
-                    to={"/tarifas/tarjetas"}
+                    to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`}
                 >
                     CANCELAR
                 </NavLink>

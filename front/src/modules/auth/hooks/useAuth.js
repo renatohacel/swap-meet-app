@@ -4,6 +4,7 @@ import { CONSTANTS } from "../../../utils/constans";
 import { loginUser, logoutUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { CONSTANTS_ROUTES } from "../../../utils/constansRoutes";
 
 const initialLogin = JSON.parse(sessionStorage.getItem("login")) || {
   isAuth: false,
@@ -28,10 +29,10 @@ export const useAuth = () => {
           user: result.user,
         })
       );
-      navigate("/home");
+      navigate(CONSTANTS_ROUTES.HOME);
     } catch (error) {
       return toast.error(error.response?.data?.message, {
-        position: "top-center",
+        position: "top-right",
         duration: 1500,
       });
     }
@@ -44,7 +45,7 @@ export const useAuth = () => {
         type: CONSTANTS.LOGOUT,
       });
       sessionStorage.removeItem("login");
-      navigate("/login");
+      navigate(CONSTANTS_ROUTES.AUTH.LOGIN);
     } catch (error) {
       validateSession(error);
     }

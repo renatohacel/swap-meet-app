@@ -44,7 +44,7 @@ export const CONSTANTS = {
       { label: "NOMBRE", name: "full_name", type: "text" },
     ],
   },
-
+  //------------------------------- TARIFAS -------------------------------//
   TARIFAS: {
     PUESTOS: {
       GET_TARIFAS: 'GET_TARIFAS_PUESTOS',
@@ -108,4 +108,15 @@ export const CONSTANTS = {
     },
 
   },
+
+  //---------------------------------------------------------------------//
+  //                            ADMINIST                                 //
+  //---------------------------------------------------------------------//
+  //------------------------------- LOTES -------------------------------//
+  LOTES: {
+    GET_LOTES: 'GET_LOTES',
+    ADD_LOTE: 'ADD_LOTE',
+    UPDATE_LOTE: 'UPDATE_LOTE',
+  },
+
 };

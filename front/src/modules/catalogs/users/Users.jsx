@@ -22,7 +22,7 @@ const Users = () => {
     if (location.state?.toast) {
       const { type, message } = location.state.toast;
       toast[type](message, {
-        position: "top-center",
+        position: "top-right",
         duration: 1500,
       });
 

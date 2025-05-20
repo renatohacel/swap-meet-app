@@ -10,6 +10,7 @@ import { validateForm } from "../../../../utils/validateForm";
 import { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { Toaster } from "react-hot-toast";
+import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 
 const initialForm = {
   ...CONSTANTS.USERS.USER_FORM.reduce(
@@ -35,7 +36,7 @@ const UsersForm = () => {
   useEffect(() => {
     if (location.pathname.includes('/update')) {
       if (!userToEdit) {
-        navigate('/users')
+        navigate(CONSTANTS_ROUTES.CATALOGO.USUARIOS)
       }
     }
   }, [])
@@ -73,7 +74,7 @@ const UsersForm = () => {
         </h1>
         <NavLink
           className="bg-secondary items-center p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
-          to={"/users"}
+          to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}
         >
           CANCELAR
         </NavLink>

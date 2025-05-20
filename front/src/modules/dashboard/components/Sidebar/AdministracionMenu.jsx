@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 
 const AdministracionMenu = () => {
     const location = useLocation();
-    const [administracionOpen, setAdministracionOpen] = useState(
-        location.pathname.includes("/admin") || location.pathname.includes("/admin/generacion-tarjetas")
+    const [administracionOpen, setAdministracionOpen] = useState(location.pathname.includes(CONSTANTS_ROUTES.ADMIN.BASE)
     );
     return (
         <>
@@ -20,12 +20,12 @@ const AdministracionMenu = () => {
             {administracionOpen && (
                 <ul className="ml-10 space-y-1 mt-2 p-2 bg-secondary/70 rounded-lg">
                     <li
-                        className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes("/admin/generacion-tarjetas")
+                        className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS)
                             ? "text-dark-primary"
                             : "text-white"
                             }`}
                     >
-                        <NavLink className={`flex`} to={"/admin/generacion-tarjetas"}>
+                        <NavLink className={`flex`} to={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}>
                             GENERACIÓN DE TARJETAS
                         </NavLink>
                     </li>

@@ -11,6 +11,7 @@ import { HOST, PORT, FRONT_BASE_URL } from "./config/constans.config.js";
 import { authRouter } from "./routes/auth.router.js";
 import { userRouter } from "./routes/user.router.js";
 import { tarifasRouter } from "./routes/tarifas.router.js";
+import { lotesRouter } from "./routes/lotes.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use("/", authRouter);
 app.use("/users", userRouter);
 app.use('/tarifas', tarifasRouter)
+app.use('/generacion-lotes', lotesRouter)
 
 // RUN
 app.listen(PORT, HOST, () => {

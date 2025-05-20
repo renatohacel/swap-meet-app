@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { authenticate } from "../middlewares/auth.middleware.js";
+import { LotesTarjetasController } from "../controllers/lotes.controller.js";
+
+
+export const lotesRouter = Router();
+
+//TARJETAS
+lotesRouter.get('/', authenticate, LotesTarjetasController.getLotes)
+lotesRouter.post('/', authenticate, LotesTarjetasController.insertLote)
+// lotesRouter.patch('/tarjetas', authenticate, TarifasTarjetasController.updateTarifa)
+// lotesRouter.delete('/tarjetas/:id', authenticate, TarifasTarjetasController.deleteTarifa)
+

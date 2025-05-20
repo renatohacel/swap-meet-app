@@ -32,7 +32,7 @@ export const useTarifaPuestos = () => {
       })
       return toast.success("TARIFAS ACTUALIZADAS CON ÉXITO", {
         duration: 1500,
-        position: "top-center",
+        position: "top-right",
       });
     } catch (error) {
       validateSession(error);

@@ -91,7 +91,7 @@ const Sidebar = () => {
                   {user.Nombre.split(" ")[0][0]}
                 </div>
                 <span className="text-secondary-complement font-medium uppercase">
-                  {`${user.Nombre.split(" ")[0]} ${user.Nombre.split(" ")[2]}`}
+                  {`${user.Nombre.split(' ')[0]} ${user.ApellidoPaterno}`}
                 </span>
               </div>
               <button

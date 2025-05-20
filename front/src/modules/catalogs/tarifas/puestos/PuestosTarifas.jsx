@@ -42,7 +42,7 @@ const PuestosTarifas = () => {
         if (emptyFields.length > 0) {
             return toast.error("LOS CAMPOS SON OBLIGATORIOS", {
                 duration: 1500,
-                position: "top-center",
+                position: "top-right",
             });
         }
         updateTarifaPuestos(formState)
