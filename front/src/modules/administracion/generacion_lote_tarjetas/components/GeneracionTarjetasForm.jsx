@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-binary-expression */
 import { Toaster } from "react-hot-toast"
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes"
@@ -13,28 +14,27 @@ import { AuthContext } from "../../../auth/context/AuthContext"
 import { useGenLoteTarjetas } from "../hooks/useGenLoteTarjetas"
 
 
-
-
-
 const GeneracionTarjetasForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
     const { getTarifasTarjetas, tarjetas } = useTarifasTarjetas();
-    const { handleInsertLote } = useGenLoteTarjetas();
+    const { handleInsertLote, getTarjetasG, tarjetasGen } = useGenLoteTarjetas();
     const [tarifas, setTarifas] = useState([])
 
     const loteToEdit = location.state?.lote;
-
-    useEffect(() => { getTarifasTarjetas() }, [])
-
     const { onInputChange, formState, setFormState } = useForm(loteToEdit || {});
 
+
     useEffect(() => {
+        getTarifasTarjetas()
+
         if (loteToEdit) {
-            setFormState(loteToEdit);
+            const { id } = loteToEdit;
+            getTarjetasG(id)
         }
-    }, [loteToEdit]);
+
+    }, [])
 
     useEffect(() => {
         if (location.pathname.includes('/update')) {
@@ -44,7 +44,25 @@ const GeneracionTarjetasForm = () => {
         }
     }, [])
 
+    useEffect(() => {
+        if (tarjetasGen.length > 0) {
+            const generatedObject = tarjetasGen.reduce((acc, tarjeta) => {
+                const idKey = tarjeta.IdTarifaTarjeta;
+                const totalValue = tarjeta.TotalTarjetas.trim();
+                return {
+                    ...acc,
+                    [idKey]: totalValue,
+                };
+            }, {});
 
+            setFormState((prevState) => ({
+                ...prevState,
+                ...generatedObject,
+                id: loteToEdit?.id,
+                comentarios: loteToEdit?.comentario ?? '',
+            }));
+        }
+    }, [tarjetasGen, loteToEdit]);
 
     useEffect(() => {
         if (tarjetas.length > 0) {
@@ -75,7 +93,11 @@ const GeneracionTarjetasForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleInsertLote(formState)
+        if (!loteToEdit) {
+            handleInsertLote(formState)
+        } else {
+            //handleUpdateLote(formState)
+        }
     }
 
     return (
@@ -106,11 +128,11 @@ const GeneracionTarjetasForm = () => {
             <Form className={`grid-cols-1 md:grid-cols-2 2xl:grid-cols-4`} onSubmit={handleSubmit}>
                 {tarifas.map((tarifa, i) => (
                     <SectionForm key={`${i}-father`}>
-                        <div className="flex gap-2 justify-center">
+                        <div className="flex gap-2 justify-center mb-4">
                             <p className="font-semibold text-center text-lg">{tarifa.color}</p>
                             <span className="font-semibold text-sm flex items-center text-secondary-complement bg-primary rounded-lg px-2">${tarifa.importe}</span>
                         </div>
-                        <Label htmlFor={tarifa.id} className={'text-center'}>CANT.</Label>
+                        {/* <Label htmlFor={tarifa.id} className={'text-center'}>CANT.</Label> */}
                         <Input
                             id={tarifa.id}
                             name={tarifa.id}

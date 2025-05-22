@@ -20,7 +20,7 @@ const LoginPage = () => {
     if (!username || !password) {
       toast.error("Por favor, completa todos los campos.", {
         duration: 1500,
-        position: "top-right",
+        position: "top-left",
       });
       return;
     }

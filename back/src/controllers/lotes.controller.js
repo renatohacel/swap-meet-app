@@ -11,6 +11,17 @@ export class LotesTarjetasController {
         }
     }
 
+    static async getTarjetasG(req, res) {
+        const { id } = req.params
+        try {
+            const tarjetas_generadas = await LotesTarjetasModel.findTarjetasG(id);
+            res.status(200).send(tarjetas_generadas);
+        } catch (error) {
+            console.error("Error in LotesTarjetasController.getTarjetasG:", error);
+            throw error;
+        }
+    }
+
     static async insertLote(req, res) {
         const lote = req.body
         try {
@@ -20,7 +31,8 @@ export class LotesTarjetasController {
 
             res.status(201).send(newLote);
         } catch (error) {
-
+            console.error("Error in LotesTarjetasController.insertLote:", error);
+            throw error;
         }
     }
 }

@@ -1,16 +1,17 @@
 import { useReducer, useState } from "react";
-import { lotesReducer } from "../reducers/lotesReducer";
+import { lotesReducer, tarjetasGenReducer } from "../reducers/lotesReducer";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useNavigate } from "react-router-dom";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
-import { getLotesService, insertLoteService } from "../services/genLoteService";
+import { getLotesService, getTarjetasGService, insertLoteService } from "../services/genLoteService";
 import toast from "react-hot-toast";
 
 export const useGenLoteTarjetas = () => {
     const navigate = useNavigate();
     const { validateSession } = useAuth();
     const [lotes, dispatch] = useReducer(lotesReducer, [])
+    const [tarjetasGen, dispatchTG] = useReducer(tarjetasGenReducer, [])
     const [loading, setLoading] = useState(false);
 
     const getLotes = async () => {
@@ -25,6 +26,18 @@ export const useGenLoteTarjetas = () => {
             validateSession(error);
         } finally {
             setLoading(false);
+        }
+    }
+
+    const getTarjetasG = async (id) => {
+        try {
+            const result = await getTarjetasGService(id)
+            dispatchTG({
+                type: CONSTANTS.LOTES.GET_TARJETAS_G,
+                payload: result
+            })
+        } catch (error) {
+            validateSession(error);
         }
     }
 
@@ -57,7 +70,9 @@ export const useGenLoteTarjetas = () => {
         lotes,
         loading,
         getLotes,
+        getTarjetasG,
         editNavigate,
         handleInsertLote,
+        tarjetasGen,
     }
 }

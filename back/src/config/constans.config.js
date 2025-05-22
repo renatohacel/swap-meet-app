@@ -11,4 +11,6 @@ export const {
   DB_USER = "si_merca",
   DB_PASSWORD = "mercados",
   DB_DIALECT = "mssql",
+
+  SALT_ROUNDS = 12,
 } = process.env;

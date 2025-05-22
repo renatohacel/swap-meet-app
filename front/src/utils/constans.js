@@ -117,6 +117,8 @@ export const CONSTANTS = {
     GET_LOTES: 'GET_LOTES',
     ADD_LOTE: 'ADD_LOTE',
     UPDATE_LOTE: 'UPDATE_LOTE',
+
+    GET_TARJETAS_G: 'GET_TARJETAS_G',
   },
 
 };

@@ -8,6 +8,7 @@ const LotesRoutes = () => {
         <Routes>
             <Route path="/" element={<GeneracionTarjetas />} />
             <Route path="/add" element={<GeneracionTarjetasForm />} />
+            <Route path="/update" element={<GeneracionTarjetasForm />} />
 
 
             <Route path='/*' element={<Navigate to={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS} />} />

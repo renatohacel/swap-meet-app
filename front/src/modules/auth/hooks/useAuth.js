@@ -32,7 +32,7 @@ export const useAuth = () => {
       navigate(CONSTANTS_ROUTES.HOME);
     } catch (error) {
       return toast.error(error.response?.data?.message, {
-        position: "top-right",
+        position: "top-center",
         duration: 1500,
       });
     }
