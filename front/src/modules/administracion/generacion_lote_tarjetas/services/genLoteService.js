@@ -15,3 +15,8 @@ export const insertLoteService = async (newLote) => {
   const response = await axiosInstance.post("/generacion-lotes", newLote);
   return response.data;
 }
+
+export const updateLoteService = async (updatedLote) => {
+  const response = await axiosInstance.patch("/generacion-lotes", updatedLote);
+  return response.data;
+}

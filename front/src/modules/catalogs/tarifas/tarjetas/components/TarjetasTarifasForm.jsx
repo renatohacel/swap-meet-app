@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
-import Form from '../../../../ui/components/form/Form'
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { motion } from 'framer-motion'; // Importa motion y AnimatePresence
+import Form from '../../../../ui/components/form/Form';
 import { useForm } from '../../../../ui/hooks/useForm';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Label from '../../../../ui/components/form/Label';
@@ -16,7 +18,6 @@ const initialForm = {
     color: '',
     anio: new Date().getFullYear()
 };
-
 
 const TarjetasTarifasForm = () => {
     const location = useLocation();
@@ -56,7 +57,7 @@ const TarjetasTarifasForm = () => {
         if (emptyFields.length > 0) {
             return toast.error("LOS CAMPOS SON OBLIGATORIOS", {
                 duration: 1500,
-                position: "top-right",
+                position: "top-center",
             });
         }
 
@@ -130,28 +131,47 @@ const TarjetasTarifasForm = () => {
                         GUARDAR
                     </button>}
 
-                    {(tarifaToEdit && !isDelete) && <DeleteButton onClick={() => { setIsDelete(!isDelete) }} type="button" className={'h-9 w-9 flex items-center justify-center'} />}
-                    {isDelete &&
-                        <div className='flex flex-col justify-center text-center gap-2'>
+                    {(tarifaToEdit && !isDelete) && (
+                        <DeleteButton
+                            onClick={() => setIsDelete(!isDelete)}
+                            type="button"
+                            className={'h-9 w-9 flex items-center justify-center'}
+                        />
+                    )}
+
+                    {isDelete && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="flex flex-col justify-center text-center gap-2"
+                        >
                             <span className='mb-2 font-semibold text-primary'>
                                 ¿ESTÁS SEGURO DE ELIMINAR ESTA TARIFA?
                             </span>
                             <div className='flex justify-center gap-2'>
-                                <button type='button' onClick={() => { onDelete(formState.id) }} className='bg-secondary p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 sm:mb-0 w-full text-center'>
+                                <button
+                                    type='button'
+                                    onClick={() => { onDelete(formState.id) }}
+                                    className='bg-secondary p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 sm:mb-0 w-full text-center'
+                                >
                                     SI
                                 </button>
-                                <button onClick={() => { setIsDelete(!isDelete) }} type='button' className='bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base  md:row-end-5 focus:outline-dark-primary w-full'>
+                                <button
+                                    onClick={() => { setIsDelete(!isDelete) }}
+                                    type='button'
+                                    className='bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base  md:row-end-5 focus:outline-dark-primary w-full'
+                                >
                                     NO
                                 </button>
                             </div>
-
-                        </div>
-                    }
+                        </motion.div>
+                    )}
                 </div>
-
             </Form>
         </section>
-    )
-}
+    );
+};
 
-export default TarjetasTarifasForm
+export default TarjetasTarifasForm;

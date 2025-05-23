@@ -4,7 +4,7 @@ import { useAuth } from "../../../auth/hooks/useAuth";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useNavigate } from "react-router-dom";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
-import { getLotesService, getTarjetasGService, insertLoteService } from "../services/genLoteService";
+import { getLotesService, getTarjetasGService, insertLoteService, updateLoteService } from "../services/genLoteService";
 import toast from "react-hot-toast";
 
 export const useGenLoteTarjetas = () => {
@@ -61,6 +61,26 @@ export const useGenLoteTarjetas = () => {
         }
     }
 
+    const handleUpdateLote = async (updatedLote) => {
+        try {
+            await updateLoteService(updatedLote)
+            navigate(CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS, {
+                state: {
+                    toast: {
+                        type: 'success',
+                        message: 'LOTE ACTUALIZADO CON ÉXITO'
+                    }
+                }
+            })
+        } catch (error) {
+            validateSession(error);
+            return toast.error(error.response?.data?.message, {
+                position: "top-right",
+                duration: 1500,
+            });
+        }
+    }
+
     const editNavigate = (row) => {
         navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/update`, { state: { lote: row } })
     }
@@ -73,6 +93,7 @@ export const useGenLoteTarjetas = () => {
         getTarjetasG,
         editNavigate,
         handleInsertLote,
+        handleUpdateLote,
         tarjetasGen,
     }
 }

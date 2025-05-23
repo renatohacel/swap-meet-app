@@ -9,6 +9,5 @@ export const lotesRouter = Router();
 lotesRouter.get('/', authenticate, LotesTarjetasController.getLotes)
 lotesRouter.get('/:id', authenticate, LotesTarjetasController.getTarjetasG)
 lotesRouter.post('/', authenticate, LotesTarjetasController.insertLote)
-// lotesRouter.patch('/tarjetas', authenticate, TarifasTarjetasController.updateTarifa)
-// lotesRouter.delete('/tarjetas/:id', authenticate, TarifasTarjetasController.deleteTarifa)
+lotesRouter.patch('/', authenticate, LotesTarjetasController.updateLote)
 

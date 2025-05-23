@@ -35,4 +35,17 @@ export class LotesTarjetasController {
             throw error;
         }
     }
+
+    static async updateLote(req, res) {
+        const lote = req.body
+        try {
+            const updatedLote = await LotesTarjetasModel.update(lote);
+            if (updatedLote?.Error) return res.status(409).send({ message: updatedLote.Error });
+
+            res.status(201).send(updatedLote);
+        } catch (error) {
+            console.error("Error in LotesTarjetasController.updateLote:", error);
+            throw error;
+        }
+    }
 }

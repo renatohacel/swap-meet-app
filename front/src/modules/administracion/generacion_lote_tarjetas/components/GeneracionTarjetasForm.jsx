@@ -19,7 +19,7 @@ const GeneracionTarjetasForm = () => {
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
     const { getTarifasTarjetas, tarjetas } = useTarifasTarjetas();
-    const { handleInsertLote, getTarjetasG, tarjetasGen } = useGenLoteTarjetas();
+    const { handleInsertLote, getTarjetasG, tarjetasGen, handleUpdateLote } = useGenLoteTarjetas();
     const [tarifas, setTarifas] = useState([])
 
     const loteToEdit = location.state?.lote;
@@ -51,14 +51,14 @@ const GeneracionTarjetasForm = () => {
                 const totalValue = tarjeta.TotalTarjetas.trim();
                 return {
                     ...acc,
-                    [idKey]: totalValue,
+                    [idKey]: parseInt(totalValue),
                 };
             }, {});
 
-            setFormState((prevState) => ({
-                ...prevState,
+            setFormState(({
                 ...generatedObject,
                 id: loteToEdit?.id,
+                user: login.user.Usuario,
                 comentarios: loteToEdit?.comentario ?? '',
             }));
         }
@@ -96,7 +96,8 @@ const GeneracionTarjetasForm = () => {
         if (!loteToEdit) {
             handleInsertLote(formState)
         } else {
-            //handleUpdateLote(formState)
+            // console.log(formState)
+            handleUpdateLote(formState)
         }
     }
 
@@ -154,10 +155,6 @@ const GeneracionTarjetasForm = () => {
                     GUARDAR
                 </button>
             </Form>
-
-
-
-
         </section>
     )
 }
