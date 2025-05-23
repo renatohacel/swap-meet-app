@@ -24,7 +24,6 @@ export class LotesTarjetasModel {
     }
 
 
-
     //--------------------------------INSERT----------------------------------------------//
 
     static async insert(lote) {
@@ -125,6 +124,8 @@ export class LotesTarjetasModel {
     static async update(lote) {
         let tarjetas = {};
         let total_tarjetas = 0;
+
+        console.log(lote)
 
         for (const [key, value] of Object.entries(lote)) {
             if (!isNaN(value) && value !== 0 && key !== 'id') {

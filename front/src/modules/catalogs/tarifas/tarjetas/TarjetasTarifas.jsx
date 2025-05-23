@@ -1,9 +1,10 @@
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 import { useTarifasTarjetas } from "./hooks/useTarifasTarjetas"
 import { useEffect, useState } from "react";
 import Loader from "../../../ui/components/Loader";
 import Table from "../../../ui/components/table/Table";
 import { useLocation } from "react-router-dom";
+import { CardMain } from "../../../ui/components/cards/CardMain";
 
 const COLUMNS = ["ID", "AÑO", "IMPORTE", "COLOR"];
 const FIELDS = ["id", "anio", "importe", "color"];
@@ -43,14 +44,7 @@ const TarjetasTarifas = () => {
     }, [location.state]);
 
     return (
-        <section>
-            <Toaster />
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-                <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-                    TARIFAS DE TARJETAS
-                </h1>
-            </div>
-            <hr className="mb-12 text-primary/30 border-1" />
+        <CardMain title="TARIFAS DE TARJETAS">
             {loading ? (
                 <div className="flex justify-center items-center">
                     <Loader className="w-32 opacity-60 text-primary" />
@@ -64,7 +58,7 @@ const TarjetasTarifas = () => {
                     editFunction={editNavigate}
                 />
             )}
-        </section>
+        </CardMain>
     )
 }
 

@@ -85,6 +85,10 @@ export const useGenLoteTarjetas = () => {
         navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/update`, { state: { lote: row } })
     }
 
+    const viewNavigate = (row) => {
+        navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/view`, { state: { lote: row } })
+    }
+
 
     return {
         lotes,
@@ -95,5 +99,6 @@ export const useGenLoteTarjetas = () => {
         handleInsertLote,
         handleUpdateLote,
         tarjetasGen,
+        viewNavigate,
     }
 }

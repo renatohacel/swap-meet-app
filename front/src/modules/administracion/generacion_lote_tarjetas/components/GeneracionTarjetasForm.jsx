@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-binary-expression */
-import { Toaster } from "react-hot-toast"
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes"
 import { useTarifasTarjetas } from "../../../catalogs/tarifas/tarjetas/hooks/useTarifasTarjetas"
 import { useContext, useEffect, useState } from "react"
@@ -12,6 +11,7 @@ import { useForm } from "../../../ui/hooks/useForm"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../auth/context/AuthContext"
 import { useGenLoteTarjetas } from "../hooks/useGenLoteTarjetas"
+import { CardMain } from "../../../ui/components/cards/CardMain"
 
 
 const GeneracionTarjetasForm = () => {
@@ -23,7 +23,7 @@ const GeneracionTarjetasForm = () => {
     const [tarifas, setTarifas] = useState([])
 
     const loteToEdit = location.state?.lote;
-    const { onInputChange, formState, setFormState } = useForm(loteToEdit || {});
+    const { onInputChange, formState, setFormState } = useForm({});
 
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const GeneracionTarjetasForm = () => {
     }, [])
 
     useEffect(() => {
-        if (tarjetasGen.length > 0) {
+        if (loteToEdit) {
             const generatedObject = tarjetasGen.reduce((acc, tarjeta) => {
                 const idKey = tarjeta.IdTarifaTarjeta;
                 const totalValue = tarjeta.TotalTarjetas.trim();
@@ -55,12 +55,14 @@ const GeneracionTarjetasForm = () => {
                 };
             }, {});
 
-            setFormState(({
+            const updatedObject = {
                 ...generatedObject,
                 id: loteToEdit?.id,
                 user: login.user.Usuario,
                 comentarios: loteToEdit?.comentario ?? '',
-            }));
+            }
+
+            setFormState(updatedObject);
         }
     }, [tarjetasGen, loteToEdit]);
 
@@ -96,29 +98,13 @@ const GeneracionTarjetasForm = () => {
         if (!loteToEdit) {
             handleInsertLote(formState)
         } else {
-            // console.log(formState)
+            console.log(formState)
             handleUpdateLote(formState)
         }
     }
 
     return (
-        <section>
-            <Toaster />
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-                <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-                    {location.pathname.includes("/add") ? "NUEVO" : "ACTUALIZACIÓN DE"}{" "}
-                    LOTE
-                </h1>
-                <NavLink
-                    className="bg-secondary items-center p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
-                    to={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}
-                >
-                    CANCELAR
-                </NavLink>
-            </div>
-
-            <hr className="mb-12 text-primary/30 border-1" />
-
+        <CardMain cancelButton={true} cancelLink={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS} formTitle="LOTE">
             <div className="flex flex-col justify-center">
                 <h3 className="text-primary text-center text-xl sm:text-2xl font-bold mb-5">
                     TARIFA ACTUAL DE TARJETAS
@@ -133,7 +119,6 @@ const GeneracionTarjetasForm = () => {
                             <p className="font-semibold text-center text-lg">{tarifa.color}</p>
                             <span className="font-semibold text-sm flex items-center text-secondary-complement bg-primary rounded-lg px-2">${tarifa.importe}</span>
                         </div>
-                        {/* <Label htmlFor={tarifa.id} className={'text-center'}>CANT.</Label> */}
                         <Input
                             id={tarifa.id}
                             name={tarifa.id}
@@ -155,7 +140,7 @@ const GeneracionTarjetasForm = () => {
                     GUARDAR
                 </button>
             </Form>
-        </section>
+        </CardMain>
     )
 }
 

@@ -12,6 +12,7 @@ import { authRouter } from "./routes/auth.router.js";
 import { userRouter } from "./routes/user.router.js";
 import { tarifasRouter } from "./routes/tarifas.router.js";
 import { lotesRouter } from "./routes/lotes.router.js";
+import { tarjetasRouter } from "./routes/tarjetas.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -31,6 +32,7 @@ app.use("/", authRouter);
 app.use("/users", userRouter);
 app.use('/tarifas', tarifasRouter)
 app.use('/generacion-lotes', lotesRouter)
+app.use('/tarjetas', tarjetasRouter)
 
 // RUN
 app.listen(PORT, HOST, () => {

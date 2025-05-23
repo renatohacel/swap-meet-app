@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Table from "../../ui/components/table/Table";
 import { useUser } from "./hooks/useUser";
 import Loader from "../../ui/components/Loader";
-import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
+import { CardMain } from "../../ui/components/cards/CardMain";
 
 const COLUMNS = ["ID", "USUARIO", "APELLIDO PATERNO", "APELLIDO MATERNO", "NOMBRE", "ESTATUS", "TIPO"];
 const FIELDS = ["id", "usuario", "apellido", "nombre", "estatus", "tipo"];
@@ -46,13 +46,7 @@ const Users = () => {
   }, [users]);
 
   return (
-    <section>
-      <Toaster />
-      <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-        USUARIOS
-      </h1>
-      <hr className="mb-12 text-primary/30 border-1" />
-
+    <CardMain title="USUARIOS">
       {loading ? (
         <div className="flex justify-center items-center">
           <Loader className="w-32 opacity-60 text-primary" />
@@ -66,7 +60,8 @@ const Users = () => {
           editFunction={editNavigate}
         />
       )}
-    </section>
+    </CardMain>
+
   );
 };
 

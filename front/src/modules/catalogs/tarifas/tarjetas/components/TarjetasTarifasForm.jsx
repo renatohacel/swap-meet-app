@@ -11,6 +11,7 @@ import Input from '../../../../ui/components/form/Input';
 import { useTarifasTarjetas } from '../hooks/useTarifasTarjetas';
 import DeleteButton from '../../../../ui/components/buttons/DeleteButton';
 import { CONSTANTS_ROUTES } from '../../../../../utils/constansRoutes';
+import { CardMain } from '../../../../ui/components/cards/CardMain';
 
 const initialForm = {
     id: undefined,
@@ -73,21 +74,7 @@ const TarjetasTarifasForm = () => {
     }
 
     return (
-        <section>
-            <Toaster />
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-                <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-                    {location.pathname.includes("/add") ? "NUEVA" : "ACTUALIZACIÓN DE"}{" "}
-                    TARIFA
-                </h1>
-                <NavLink
-                    className="bg-secondary p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
-                    to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`}
-                >
-                    CANCELAR
-                </NavLink>
-            </div>
-            <hr className="mb-12 text-primary/30 border-1" />
+        <CardMain aTerminacion={true} formTitle='TARIFA' cancelButton={true} cancelLink={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`}>
             <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
                 <SectionForm>
                     <Label htmlFor="anio">AÑO</Label>
@@ -170,7 +157,8 @@ const TarjetasTarifasForm = () => {
                     )}
                 </div>
             </Form>
-        </section>
+
+        </CardMain>
     );
 };
 

@@ -1,18 +1,18 @@
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 import Table from "../../ui/components/table/Table"
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useGenLoteTarjetas } from "./hooks/useGenLoteTarjetas"
 import Loader from "../../ui/components/Loader"
+import { CardMain } from "../../ui/components/cards/CardMain"
 
 const COLUMNS = ['ID', 'FECHA DE CREACIÓN', 'USUARIO RESPONSABLE', 'COMENTARIO', 'TARJETAS GENERADAS']
 const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
 
 
 const GeneracionTarjetas = () => {
-
   const location = useLocation()
-  const { lotes, getLotes, loading, editNavigate } = useGenLoteTarjetas();
+  const { lotes, getLotes, loading, editNavigate, viewNavigate } = useGenLoteTarjetas();
   const [lotesCleaned, setLotesCleaned] = useState([])
 
   useEffect(() => {
@@ -48,13 +48,7 @@ const GeneracionTarjetas = () => {
   }, [lotes]);
 
   return (
-    <section>
-      <Toaster />
-      <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-        GENERACIÓN DE TARJETAS
-      </h1>
-      <hr className="mb-12 text-primary/30 border-1" />
-
+    <CardMain title="GENERACIÓN DE TARJETAS">
       {loading ? (
         <div className="flex justify-center items-center">
           <Loader className="w-32 opacity-60 text-primary" />
@@ -64,12 +58,13 @@ const GeneracionTarjetas = () => {
           columns={COLUMNS}
           data={lotesCleaned}
           filterFields={FIELDS}
-          addLink={"add"}
+          addLink={""}
           editFunction={editNavigate}
+          details={true}
+          viewFunction={viewNavigate}
         />
       )}
-
-    </section>
+    </CardMain>
   )
 }
 

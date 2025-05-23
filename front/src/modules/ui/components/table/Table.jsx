@@ -3,7 +3,17 @@ import TableRow from "./TableRow";
 import { useFilter } from "../../hooks/useFilter";
 import { NavLink } from "react-router-dom";
 
-const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
+const Table = ({
+  columns,
+  data,
+  filterFields,
+  addLink,
+  editFunction,
+  details = false,
+  viewFunction = '',
+  showNuevo = true,
+  showAcciones = true,
+}) => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10; // Número de filas por página
@@ -40,7 +50,7 @@ const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
           value={searchInput}
           onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
         />
-        <NavLink
+        {showNuevo && <NavLink
           className="bg-primary items-center flex gap-1 p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base"
           to={addLink}
         >
@@ -53,7 +63,7 @@ const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
             <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
           </svg>{" "}
           NUEVO
-        </NavLink>
+        </NavLink>}
       </div>
 
       <div className="overflow-x-auto w-full rounded-lg">
@@ -68,15 +78,18 @@ const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
                   {column}
                 </th>
               ))}
-              <th className="p-2 hover:bg-dark-primary bg-primary text-secondary-complement text-sm md:text-xl divide-x divide-secondary">
-                ACCIONES
-              </th>
+              {
+                showAcciones &&
+                <th className="p-2 hover:bg-dark-primary bg-primary text-secondary-complement text-sm md:text-xl divide-x divide-secondary">
+                  ACCIONES
+                </th>
+              }
             </tr>
           </thead>
           <tbody className="bg-secondary-complement">
             {filteredData.length > 0 ? (
               currentData.map((row, index) => (
-                <TableRow key={index} row={row} editFunction={editFunction} />
+                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones}/>
               ))
             ) : (
               // Mostrar "NO HAY REGISTROS" si no hay datos filtrados
@@ -114,8 +127,8 @@ const Table = ({ columns, data, filterFields, addLink, editFunction }) => {
             key={i}
             onClick={() => handlePageChange(i + 1)}
             className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === i + 1
-                ? "bg-dark-primary text-secondary-complement"
-                : "bg-primary text-secondary-complement hover:bg-dark-primary"
+              ? "bg-dark-primary text-secondary-complement"
+              : "bg-primary text-secondary-complement hover:bg-dark-primary"
               }`}
           >
             {i + 1}

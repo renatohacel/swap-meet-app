@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Form from "../../../ui/components/form/Form";
 import SectionForm from "../../../ui/components/form/SectionForm";
 import Label from "../../../ui/components/form/Label";
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { Toaster } from "react-hot-toast";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
+import { CardMain } from "../../../ui/components/cards/CardMain";
 
 const initialForm = {
   ...CONSTANTS.USERS.USER_FORM.reduce(
@@ -65,23 +66,7 @@ const UsersForm = () => {
   };
 
   return (
-    <section>
-      <Toaster />
-      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-        <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-          {location.pathname.includes("/add") ? "NUEVO" : "ACTUALIZACIÓN DE"}{" "}
-          USUARIO
-        </h1>
-        <NavLink
-          className="bg-secondary items-center p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 mb-10 sm:mb-0"
-          to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}
-        >
-          CANCELAR
-        </NavLink>
-      </div>
-
-      <hr className="mb-12 text-primary/30 border-1" />
-
+    <CardMain formTitle="USUARIO" cancelButton={true} cancelLink={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
       <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
         {CONSTANTS.USERS.USER_FORM.map(({ name, label, type }, index) => (
           <SectionForm key={index}>
@@ -155,7 +140,7 @@ const UsersForm = () => {
 
 
       </Form>
-    </section>
+    </CardMain>
   );
 };
 

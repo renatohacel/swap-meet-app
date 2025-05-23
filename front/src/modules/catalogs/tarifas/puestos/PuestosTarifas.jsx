@@ -1,4 +1,4 @@
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import Form from '../../../ui/components/form/Form'
 import { CONSTANTS } from '../../../../utils/constans'
 import { useForm } from '../../../ui/hooks/useForm';
@@ -7,6 +7,7 @@ import SectionForm from '../../../ui/components/form/SectionForm';
 import Input from '../../../ui/components/form/Input';
 import { useEffect } from 'react';
 import { useTarifaPuestos } from './hooks/useTarifaPuestos';
+import { CardMain } from '../../../ui/components/cards/CardMain';
 
 
 const PuestosTarifas = () => {
@@ -49,15 +50,7 @@ const PuestosTarifas = () => {
     }
 
     return (
-        <section>
-            <Toaster />
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-                <h1 className="text-primary text-3xl sm:text-5xl font-bold mb-5">
-                    TARIFAS DE PUESTOS
-                </h1>
-            </div>
-            <hr className="mb-12 text-primary/30 border-1" />
-
+        <CardMain title='TARIFAS DE PUESTOS'>
             <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
                 <section>
                     <SectionForm>
@@ -148,8 +141,7 @@ const PuestosTarifas = () => {
                     ACTUALIZAR
                 </button>
             </Form>
-            s
-        </section>
+        </CardMain>
     )
 }
 
