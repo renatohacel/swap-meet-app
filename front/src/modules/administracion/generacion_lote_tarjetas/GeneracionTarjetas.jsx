@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useGenLoteTarjetas } from "./hooks/useGenLoteTarjetas"
 import Loader from "../../ui/components/Loader"
 import { CardMain } from "../../ui/components/cards/CardMain"
+import GeneracionTarjetasForm from "./components/GeneracionTarjetasForm"
 
 const COLUMNS = ['ID', 'FECHA DE CREACIÓN', 'USUARIO RESPONSABLE', 'COMENTARIO', 'TARJETAS GENERADAS']
 const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
@@ -58,7 +59,7 @@ const GeneracionTarjetas = () => {
           columns={COLUMNS}
           data={lotesCleaned}
           filterFields={FIELDS}
-          addLink={""}
+          addLink={"add"}
           editFunction={editNavigate}
           details={true}
           viewFunction={viewNavigate}

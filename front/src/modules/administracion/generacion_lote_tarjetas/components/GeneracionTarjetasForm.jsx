@@ -12,6 +12,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../auth/context/AuthContext"
 import { useGenLoteTarjetas } from "../hooks/useGenLoteTarjetas"
 import { CardMain } from "../../../ui/components/cards/CardMain"
+import { ViewButton } from "../../../ui/components/buttons/ViewButton"
 
 
 const GeneracionTarjetasForm = () => {
@@ -19,7 +20,7 @@ const GeneracionTarjetasForm = () => {
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
     const { getTarifasTarjetas, tarjetas } = useTarifasTarjetas();
-    const { handleInsertLote, getTarjetasG, tarjetasGen, handleUpdateLote } = useGenLoteTarjetas();
+    const { handleInsertLote, getTarjetasG, tarjetasGen, handleUpdateLote, viewNavigate } = useGenLoteTarjetas();
     const [tarifas, setTarifas] = useState([])
 
     const loteToEdit = location.state?.lote;
@@ -133,12 +134,15 @@ const GeneracionTarjetasForm = () => {
                     <Label htmlFor='comentarios' className={'text-center'}>COMENTARIOS</Label>
                     <textarea name="comentarios" id="comentarios" className="px-4 py-2 bg-secondary-complement text-dark-primary rounded-lg outline-2 outline-primary uppercase font-semibold focus:outline-dark-primary" rows={'3'} value={formState['comentarios'] ?? ''} onChange={onInputChange} />
                 </SectionForm>
-                <button
-                    type="submit"
-                    className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base md:row-end-6 mt-10 focus:outline-dark-primary 2xl:col-start-2 2xl:col-span-2`}
-                >
-                    GUARDAR
-                </button>
+                <div className="md:text-base md:row-end-6 mt-10 2xl:col-start-2 2xl:col-span-2 flex gap-4">
+                    <button
+                        type="submit"
+                        className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary w-full`}
+                    >
+                        GUARDAR
+                    </button>
+                    {loteToEdit && <ViewButton type='button' onClick={() => viewNavigate(loteToEdit)} />}
+                </div>
             </Form>
         </CardMain>
     )
