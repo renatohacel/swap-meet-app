@@ -39,4 +39,18 @@ export class UserController {
       throw error;
     }
   }
+
+  static async updatePassword(req, res) {
+    const passwords = req.body
+    console.log(passwords)
+    try {
+      const updatedPassword = await UserModel.updatePassword(passwords)
+      if (updatedPassword?.Error) return res.status(409).send({ message: updatedPassword.Error });
+
+      res.status(201).send(updatedPassword);
+    } catch (error) {
+      console.error("Error in UserController.updatePassword:", error);
+      throw error;
+    }
+  }
 }

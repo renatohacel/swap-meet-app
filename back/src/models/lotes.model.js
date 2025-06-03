@@ -37,7 +37,7 @@ export class LotesTarjetasModel {
             }
         }
 
-        lote.comentarios = lote.comentarios.toUpperCase();
+        lote.comentarios = lote?.comentarios?.toUpperCase();
         //monto_sumado
         lote.total_tarjetas = parseInt(total_tarjetas);
 

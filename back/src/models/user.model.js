@@ -70,4 +70,16 @@ export class UserModel {
     return result[0][0]
 
   }
+
+  static async updatePassword({ id, old_password, new_password }) {
+    const data = {
+      id,
+      old_password,
+      new_password,
+    }
+
+    //LLAMAR AL SP
+
+    return data;
+  }
 }

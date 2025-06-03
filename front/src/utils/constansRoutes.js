@@ -21,5 +21,7 @@ export const CONSTANTS_ROUTES = {
             PUESTOS: 'puestos',
             TARJETAS: 'tarjetas',
         },
-    }
+    },
+
+    HISTORIAL: '/historial'
 }

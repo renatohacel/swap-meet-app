@@ -11,6 +11,12 @@ export const insertUserService = async (newUser) => {
 };
 
 export const updateUserService = async (user) => {
+  console.log('ejecutando updateUserService', user);
   const response = await axiosInstance.patch(`/users/${user.id}`, user);
+  return response.data;
+};
+
+export const updatePasswordService = async (passwords) => {
+  const response = await axiosInstance.put("/users/change_password", passwords);
   return response.data;
 };

@@ -9,9 +9,13 @@ import { createUserSchema, updateUserSchema } from "../schemas/user.zod";
 import { validateForm } from "../../../../utils/validateForm";
 import { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
-import { Toaster } from "react-hot-toast";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 import { CardMain } from "../../../ui/components/cards/CardMain";
+import { Tree } from 'antd';
+import { treeData } from "../../../../utils/treePermissions";
+import SaveButton from "../../../ui/components/buttons/SaveButton";
+
+
 
 const initialForm = {
   ...CONSTANTS.USERS.USER_FORM.reduce(
@@ -27,6 +31,26 @@ const UsersForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const [checkedKeys, setCheckedKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const [autoExpandParent, setAutoExpandParent] = useState(true);
+
+  const onExpand = expandedKeysValue => {
+    console.log('onExpand', expandedKeysValue);
+    setExpandedKeys(expandedKeysValue);
+    setAutoExpandParent(false);
+  };
+  const onCheck = checkedKeysValue => {
+    console.log('onCheck', checkedKeysValue);
+    setCheckedKeys(checkedKeysValue);
+  };
+  const onSelect = (selectedKeysValue, info) => {
+    console.log('onSelect', info);
+    setSelectedKeys(selectedKeysValue);
+  };
+
 
   const userToEdit = location.state?.user;
 
@@ -66,7 +90,7 @@ const UsersForm = () => {
   };
 
   return (
-    <CardMain formTitle="USUARIO" cancelButton={true} cancelLink={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
+    <CardMain formTitle="USUARIO" cancelButton={true}>
       <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
         {CONSTANTS.USERS.USER_FORM.map(({ name, label, type }, index) => (
           <SectionForm key={index}>
@@ -123,20 +147,35 @@ const UsersForm = () => {
           </select>
         </SectionForm>)}
 
-        {/* <SectionForm className="md:col-span-3">
-          <Label htmlFor="permissions" className={"text-center"}>
+        <SectionForm className="md:row-end-5">
+          <span className="mb-2 font-semibold" htmlFor="permissions">
             ADMINISTRAR PERMISOS
-          </Label>
-          <hr className="mb-12 text-primary/60 border-1" />
-        </SectionForm> */}
+          </span>
 
+          <Tree
+            id='permissions'
+            checkable
+            style={{
+              padding: '2px',
+              color: 'var(--color-dark-primary)',
+              backgroundColor: 'var(--color-secondary-complement)',
+              borderRadius: '8px',
+            }}
+            className="rounded-lg outline-2 outline-primary font-semibold md:w-96 w-full"
+            onExpand={onExpand}
+            expandedKeys={expandedKeys}
+            autoExpandParent={autoExpandParent}
+            onCheck={onCheck}
+            checkedKeys={checkedKeys}
+            onSelect={onSelect}
+            selectedKeys={selectedKeys}
+            treeData={treeData}
+          />
 
-        <button
-          type="submit"
-          className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10  md:row-end-5 focus:outline-dark-primary md:col-start-2`}
-        >
-          GUARDAR
-        </button>
+        </SectionForm>
+        <div className='md:row-end-6 md:col-start-2 mt-8 flex justify-center'>
+          <SaveButton />
+        </div>
 
 
       </Form>

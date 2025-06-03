@@ -1,6 +1,6 @@
 import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
-import { getUsersService, insertUserService, updateUserService } from "../services/userService";
+import { getUsersService, insertUserService, updatePasswordService, updateUserService } from "../services/userService";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 
 export const useUser = () => {
   const navigate = useNavigate();
-  const { validateSession } = useAuth();
+  const { validateSession, handleLogout } = useAuth();
   const [users, dispatch] = useReducer(userReducer, []);
   const [loading, setLoading] = useState(false);
 
@@ -81,6 +81,46 @@ export const useUser = () => {
     }
   }
 
+  const handleUpdatePassword = async (passwords) => {
+    try {
+      const result = await updatePasswordService(passwords);
+      if (result?.Error) {
+        return toast.error(result.Error, {
+          position: "top-right",
+          duration: 1500,
+        });
+      }
+
+      toast.success('CONTRASEÑA ACTUALIZADA CON ÉXITO', {
+        position: "top-center",
+        duration: 1000,
+      });
+
+      setTimeout(() => {
+        const logoutPromise = new Promise((resolve) => {
+          setTimeout(() => {
+            handleLogout();
+            window.location.reload();
+            resolve();
+          }, 1500);
+        });
+
+        toast.promise(logoutPromise, {
+          loading: 'CERRANDO SESIÓN...',
+          error: 'Error al cerrar sesión',
+        });
+      }, 1000);
+
+
+    } catch (error) {
+      validateSession(error);
+      return toast.error(error.response?.data?.message, {
+        position: "top-right",
+        duration: 1500,
+      });
+    }
+  }
+
   const editNavigate = (row) => {
     navigate(`${CONSTANTS_ROUTES.CATALOGO.USUARIOS}/update`, { state: { user: row } })
   }
@@ -93,6 +133,7 @@ export const useUser = () => {
     getUsers,
     handleInsertUser,
     handleUpdateUser,
+    handleUpdatePassword,
     editNavigate,
   };
 };

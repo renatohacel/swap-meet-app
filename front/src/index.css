@@ -3,7 +3,9 @@
 @theme {
     --color-primary:
         /* #6f49bd; */
-        #805ec4;
+        /* #805ec4; */
+        /* #663e82; */
+        #715981;
     --color-secondary:
         #ADA9BA;
     --color-dark-secondary:
@@ -19,4 +21,18 @@
 #root {
     padding: 0;
     margin: 0;
+}
+
+/* .ant-tree .ant-tree-checkbox-inner {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-dark-primary) !important;
+} */
+
+.ant-tree .ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-dark-primary) !important;
+}
+
+.ant-tree .ant-tree-checkbox:hover .ant-tree-checkbox-inner {
+    border-color: var(--color-primary) !important;
 }

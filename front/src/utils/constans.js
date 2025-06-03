@@ -32,12 +32,12 @@ export const CONSTANTS = {
         type: "password",
       },
       {
-        label: "APELLIDO PATERNO",
+        label: "PRIMER APELLIDO",
         name: "first_lastname",
         type: "text",
       },
       {
-        label: "APELLIDO MATERNO",
+        label: "SEGUNDO APELLIDO",
         name: "second_lastname",
         type: "text",
       },

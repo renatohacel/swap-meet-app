@@ -1,17 +1,57 @@
-import { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../auth/context/AuthContext";
 import { NavLink } from "react-router-dom";
 import CatalogosMenu from "./CatalogosMenu";
 import Logo from "../../../ui/components/Logo";
 import AdministracionMenu from "./AdministracionMenu";
+import HistorialMenu from "./HistorialMenu";
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css';
+
+import { Modal } from 'antd';
+import PasswordForm from "../../../catalogs/users/components/PasswordForm";
+import { Toaster } from "react-hot-toast";
+
+
 
 const Sidebar = () => {
   const { handleLogout, login } = useContext(AuthContext);
   const { user } = login;
   const [isOpen, setIsOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState({});
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setUserToEdit({
+        id: user.IdUsuario,
+        username: user.Usuario,
+        first_lastname: user.ApellidoPaterno,
+        second_lastname: user.ApellidoMaterno,
+        full_name: user.Nombre,
+        status: user.Estatus,
+        type: user.Tipo,
+      })
+    }
+  }, [user])
 
   return (
     <>
+      <Toaster />
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -67,17 +107,7 @@ const Sidebar = () => {
                 <CatalogosMenu />
               </li>
               <li>
-                <button className="flex items-center font-semibold p-3 text-secondary-complement rounded-lg hover:bg-secondary/70 transition-all duration-200 gap-2 w-full cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    className="h-5 w-5 text-secondary-complement"
-                    fill="currentColor"
-                  >
-                    <path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9L0 168c0 13.3 10.7 24 24 24l110.1 0c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24l0 104c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65 0-94.1c0-13.3-10.7-24-24-24z" />
-                  </svg>
-                  <span>HISTORIAL</span>
-                </button>
+                <HistorialMenu />
               </li>
             </ul>
           </div>
@@ -86,37 +116,52 @@ const Sidebar = () => {
           <div className="mt-auto">
             <hr className="mb-7 text-secondary-complement/50 border-1" />
             <div className="flex items-center justify-between p-3 bg-secondary/40 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-dark-primary uppercase">
-                  {user.Nombre.split(" ")[0][0]}
-                </div>
-                <span className="text-secondary-complement font-medium uppercase">
-                  {`${user.Nombre.split(' ')[0]} ${user.ApellidoPaterno}`}
-                </span>
-              </div>
-              <button
-                className="p-2 rounded-lg hover:bg-secondary/70 text-secondary-complement cursor-pointer transition-all duration-200"
-                onClick={() => {
-                  handleLogout();
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+              <Tippy content={`✏ Actualizar contraseña`}>
+                <button onClick={showModal} className="flex items-center gap-2 justify-start hover:bg-secondary/70 rounded-lg transition-all cursor-pointer px-2 py-1">
+                  <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-dark-primary uppercase">
+                    {user.Nombre.split(" ")[0][0]}
+                  </div>
+                  <span className="text-secondary-complement font-medium uppercase">
+                    {`${user.Nombre.split(' ')[0]}`}
+                  </span>
+                </button>
+              </Tippy>
+              <Tippy content="Cerrar sesión">
+                <button
+                  className="p-2 rounded-lg hover:bg-secondary/70 text-secondary-complement cursor-pointer transition-all duration-200"
+                  onClick={() => {
+                    handleLogout();
+                  }}
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 3a1 1 0 0 0-1 1v12a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1zm10.293 9.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0 0-1.414l-3-3a1 1 0 1 0-1.414 1.414L14.586 9H7a1 1 0 1 0 0 2h7.586l-1.293 1.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M3 3a1 1 0 0 0-1 1v12a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1zm10.293 9.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0 0-1.414l-3-3a1 1 0 1 0-1.414 1.414L14.586 9H7a1 1 0 1 0 0 2h7.586l-1.293 1.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </Tippy>
             </div>
           </div>
         </div>
       </aside>
+
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[]}
+      // width={1000}
+      >
+        <PasswordForm id={userToEdit.id} handleOk={handleOk} handleCancel={handleCancel} />
+        {/* <GeneracionTarjetasForm /> */}
+      </Modal>
+
     </>
   );
 };

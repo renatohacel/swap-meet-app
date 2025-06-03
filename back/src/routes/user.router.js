@@ -7,3 +7,4 @@ export const userRouter = Router();
 userRouter.get("/", authenticate, UserController.getUsers);
 userRouter.post("/", authenticate, UserController.insertUser);
 userRouter.patch('/:id', authenticate, UserController.updateUser);
+userRouter.put('/change_password', authenticate, UserController.updatePassword);

@@ -38,7 +38,7 @@ export const ListaTarjetasDetalle = () => {
     }, [tarjetas]);
 
     return (
-        <CardMain formTitle="DETALLE DE TARJETAS" cancelButton={true} cancelLink={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}>
+        <CardMain formTitle="DETALLE DE TARJETAS" cancelButton={true}>
             {loading ? (
                 <div className="flex justify-center items-center">
                     <Loader className="w-32 opacity-60 text-primary" />

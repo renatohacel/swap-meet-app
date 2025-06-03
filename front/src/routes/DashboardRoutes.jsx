@@ -8,14 +8,15 @@ import UsersRoutes from "./UsersRoutes";
 import TarifasRoutes from "./TarifasRoutes";
 import LotesRoutes from "./LotesRoutes";
 import { CONSTANTS_ROUTES } from "../utils/constansRoutes";
+import Historial from "../modules/historial/Historial";
 
 const DashboardRoutes = () => {
   const location = useLocation();
   return (
-    <main className="min-h-screen bg-secondary/20">
+    <main className="min-h-screen bg-secondary-complement">
       <Sidebar />
       <div className="py-24 px-12 lg:ml-64">
-        <div className="bg-secondary-complement rounded-lg py-8 px-4 md:px-16">
+        <div className="bg-secondary/10 rounded-lg py-8 px-4 md:px-16">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
 
@@ -57,6 +58,15 @@ const DashboardRoutes = () => {
                     <LotesRoutes />
                   </AnimatedPage>
 
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.HISTORIAL}/`}
+                element={
+                  <AnimatedPage>
+                    <Historial />
+                  </AnimatedPage>
                 }
               />
 

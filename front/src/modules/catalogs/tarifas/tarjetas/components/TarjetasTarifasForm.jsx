@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { motion } from 'framer-motion'; // Importa motion y AnimatePresence
 import Form from '../../../../ui/components/form/Form';
 import { useForm } from '../../../../ui/hooks/useForm';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Label from '../../../../ui/components/form/Label';
 import SectionForm from '../../../../ui/components/form/SectionForm';
 import Input from '../../../../ui/components/form/Input';
@@ -12,6 +12,7 @@ import { useTarifasTarjetas } from '../hooks/useTarifasTarjetas';
 import DeleteButton from '../../../../ui/components/buttons/DeleteButton';
 import { CONSTANTS_ROUTES } from '../../../../../utils/constansRoutes';
 import { CardMain } from '../../../../ui/components/cards/CardMain';
+import SaveButton from '../../../../ui/components/buttons/SaveButton';
 
 const initialForm = {
     id: undefined,
@@ -74,7 +75,7 @@ const TarjetasTarifasForm = () => {
     }
 
     return (
-        <CardMain aTerminacion={true} formTitle='TARIFA' cancelButton={true} cancelLink={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`}>
+        <CardMain aTerminacion={true} formTitle='TARIFA' cancelButton={true}>
             <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
                 <SectionForm>
                     <Label htmlFor="anio">AÑO</Label>
@@ -111,12 +112,7 @@ const TarjetasTarifasForm = () => {
                 </SectionForm>
 
                 <div className='md:col-start-2 mt-10 flex gap-3 items-center justify-center'>
-                    {!isDelete && <button
-                        type="submit"
-                        className={`bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base  md:row-end-5 focus:outline-dark-primary w-full`}
-                    >
-                        GUARDAR
-                    </button>}
+                    {!isDelete && <SaveButton />}
 
                     {(tarifaToEdit && !isDelete) && (
                         <DeleteButton
@@ -137,18 +133,18 @@ const TarjetasTarifasForm = () => {
                             <span className='mb-2 font-semibold text-primary'>
                                 ¿ESTÁS SEGURO DE ELIMINAR ESTA TARIFA?
                             </span>
-                            <div className='flex justify-center gap-2'>
+                            <div className='flex justify-center gap-10'>
                                 <button
                                     type='button'
                                     onClick={() => { onDelete(formState.id) }}
-                                    className='bg-secondary p-2 rounded-md text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm md:text-base opacity-50 hover:opacity-100 sm:mb-0 w-full text-center'
+                                    className={`outline-2 outline-primary text-primary items-center text-center rounded-lg hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
                                 >
                                     SI
                                 </button>
                                 <button
-                                    onClick={() => { setIsDelete(!isDelete) }}
                                     type='button'
-                                    className='bg-primary items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base  md:row-end-5 focus:outline-dark-primary w-full'
+                                    onClick={() => { setIsDelete(!isDelete) }}
+                                    className={`outline-2 outline-primary text-primary items-center text-center rounded-lg hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
                                 >
                                     NO
                                 </button>
