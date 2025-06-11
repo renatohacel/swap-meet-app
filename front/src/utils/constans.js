@@ -18,6 +18,7 @@ export const CONSTANTS = {
       { value: "ADMON", label: "ADMON" },
       { value: "CAJERO", label: "CAJERO" },
       { value: "ACTIVACION", label: "ACTIVACIÓN" },
+      { value: "PERSONALIZADO", label: "PERSONALIZADO" },
     ],
     USERS_STATUS: [
       { value: "INACTIVO", label: "INACTIVO" },

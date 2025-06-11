@@ -31,6 +31,7 @@ const UsersForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [personalized, setPersonalized] = useState(false);
 
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
@@ -89,6 +90,15 @@ const UsersForm = () => {
     setErrors({})
   };
 
+  const handleType = () => {
+    if (formState['type'] === CONSTANTS.USERS.USERS_TYPES.at(-2).value) {
+      setPersonalized(true);
+      return
+    }
+    setPersonalized(false);
+    return
+  }
+
   return (
     <CardMain formTitle="USUARIO" cancelButton={true}>
       <Form className="grid-cols-1 md:grid-cols-3" onSubmit={handleSubmit}>
@@ -114,7 +124,10 @@ const UsersForm = () => {
         <SectionForm>
           <Label htmlFor="type">TIPO</Label>
           <select
-            onChange={onInputChange}
+            onChange={(e) => {
+              onInputChange(e)
+              handleType();
+            }}
             value={formState['type'] || ''}
             id="type"
             name="type"
@@ -147,32 +160,35 @@ const UsersForm = () => {
           </select>
         </SectionForm>)}
 
-        <SectionForm className="md:row-end-5">
-          <span className="mb-2 font-semibold" htmlFor="permissions">
-            ADMINISTRAR PERMISOS
-          </span>
+        {personalized && <>
+          <SectionForm className="md:row-end-5">
+            <span className="mb-2 font-semibold" htmlFor="permissions">
+              ADMINISTRAR PERMISOS
+            </span>
 
-          <Tree
-            id='permissions'
-            checkable
-            style={{
-              padding: '2px',
-              color: 'var(--color-dark-primary)',
-              backgroundColor: 'var(--color-secondary-complement)',
-              borderRadius: '8px',
-            }}
-            className="rounded-lg outline-2 outline-primary font-semibold md:w-96 w-full"
-            onExpand={onExpand}
-            expandedKeys={expandedKeys}
-            autoExpandParent={autoExpandParent}
-            onCheck={onCheck}
-            checkedKeys={checkedKeys}
-            onSelect={onSelect}
-            selectedKeys={selectedKeys}
-            treeData={treeData}
-          />
+            <Tree
+              id='permissions'
+              checkable
+              style={{
+                padding: '2px',
+                color: 'var(--color-dark-primary)',
+                backgroundColor: 'var(--color-secondary-complement)',
+                borderRadius: '8px',
+              }}
+              className="rounded-lg outline-2 outline-primary font-semibold md:w-96 w-full"
+              onExpand={onExpand}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onCheck={onCheck}
+              checkedKeys={checkedKeys}
+              onSelect={onSelect}
+              selectedKeys={selectedKeys}
+              treeData={treeData}
+            />
 
-        </SectionForm>
+          </SectionForm>
+        </>}
+
         <div className='md:row-end-6 md:col-start-2 mt-8 flex justify-center'>
           <SaveButton />
         </div>
