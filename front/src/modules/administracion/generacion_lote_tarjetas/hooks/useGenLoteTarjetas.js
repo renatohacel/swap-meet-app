@@ -1,0 +1,104 @@
+import { useReducer, useState } from "react";
+import { lotesReducer, tarjetasGenReducer } from "../reducers/lotesReducer";
+import { useAuth } from "../../../auth/hooks/useAuth";
+import { CONSTANTS } from "../../../../utils/constans";
+import { useNavigate } from "react-router-dom";
+import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
+import { getLotesService, getTarjetasGService, insertLoteService, updateLoteService } from "../services/genLoteService";
+import toast from "react-hot-toast";
+
+export const useGenLoteTarjetas = () => {
+    const navigate = useNavigate();
+    const { validateSession } = useAuth();
+    const [lotes, dispatch] = useReducer(lotesReducer, [])
+    const [tarjetasGen, dispatchTG] = useReducer(tarjetasGenReducer, [])
+    const [loading, setLoading] = useState(false);
+
+    const getLotes = async () => {
+        try {
+            setLoading(true);
+            const result = await getLotesService();
+            dispatch({
+                type: CONSTANTS.LOTES.GET_LOTES,
+                payload: result,
+            });
+        } catch (error) {
+            validateSession(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const getTarjetasG = async (id) => {
+        try {
+            const result = await getTarjetasGService(id)
+            dispatchTG({
+                type: CONSTANTS.LOTES.GET_TARJETAS_G,
+                payload: result
+            })
+        } catch (error) {
+            validateSession(error);
+        }
+    }
+
+    const handleInsertLote = async (newLote) => {
+        try {
+            await insertLoteService(newLote);
+            navigate(CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS, {
+                state: {
+                    toast: {
+                        type: 'success',
+                        message: 'LOTE CREADO CON ÉXITO'
+                    }
+                }
+            })
+        } catch (error) {
+            validateSession(error);
+            return toast.error(error.response?.data?.message, {
+                position: "top-right",
+                duration: 1500,
+            });
+        }
+    }
+
+    const handleUpdateLote = async (updatedLote) => {
+        try {
+            await updateLoteService(updatedLote)
+            navigate(CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS, {
+                state: {
+                    toast: {
+                        type: 'success',
+                        message: 'LOTE ACTUALIZADO CON ÉXITO'
+                    }
+                }
+            })
+        } catch (error) {
+            validateSession(error);
+            return toast.error(error.response?.data?.message, {
+                position: "top-right",
+                duration: 1500,
+            });
+        }
+    }
+
+    const editNavigate = (row) => {
+        navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/update`, { state: { lote: row } })
+    }
+
+    const viewNavigate = (row) => {
+        navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/view`, { state: { lote: row } })
+    }
+
+
+    return {
+        lotes,
+        loading,
+        getLotes,
+        getTarjetasG,
+        editNavigate,
+        handleInsertLote,
+        handleUpdateLote,
+        tarjetasGen,
+        viewNavigate,
+    }
+}

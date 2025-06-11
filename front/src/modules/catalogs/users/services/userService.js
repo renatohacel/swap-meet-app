@@ -1,0 +1,22 @@
+import { axiosInstance } from "../../../../utils/axiosInstance";
+
+export const getUsersService = async () => {
+  const response = await axiosInstance.get("/users");
+  return response.data;
+};
+
+export const insertUserService = async (newUser) => {
+  const response = await axiosInstance.post("/users", newUser);
+  return response.data;
+};
+
+export const updateUserService = async (user) => {
+  console.log('ejecutando updateUserService', user);
+  const response = await axiosInstance.patch(`/users/${user.id}`, user);
+  return response.data;
+};
+
+export const updatePasswordService = async (passwords) => {
+  const response = await axiosInstance.put("/users/change_password", passwords);
+  return response.data;
+};
