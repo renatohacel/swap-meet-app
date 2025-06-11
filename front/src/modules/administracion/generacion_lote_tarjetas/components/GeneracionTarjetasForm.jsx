@@ -8,11 +8,10 @@ import SectionForm from "../../../ui/components/form/SectionForm"
 import Label from "../../../ui/components/form/Label"
 import Input from "../../../ui/components/form/Input"
 import { useForm } from "../../../ui/hooks/useForm"
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../auth/context/AuthContext"
 import { useGenLoteTarjetas } from "../hooks/useGenLoteTarjetas"
 import { CardMain } from "../../../ui/components/cards/CardMain"
-import { ViewButton } from "../../../ui/components/buttons/ViewButton"
 import SaveButton from "../../../ui/components/buttons/SaveButton"
 
 
@@ -40,14 +39,18 @@ const GeneracionTarjetasForm = () => {
 
 
     useEffect(() => {
-        // Set initial min values when tarifas are loaded
-        if (tarifas.length > 0 && Object.keys(initialMinValues).length === 0) {
+        // Verifica que tarifas y tarjetasGen estén disponibles antes de calcular los valores iniciales
+        if (tarifas.length > 0 && tarjetasGen.length > 0 && Object.keys(initialMinValues).length === 0) {
             const initialValues = tarifas.reduce((acc, { id }) => {
-                return { ...acc, [id]: formState[id] ?? 0 };
+                const tarjetaGen = tarjetasGen.find(tarjeta => tarjeta.IdTarifaTarjeta === id);
+                const valueFromTarjetasGen = tarjetaGen ? parseInt(tarjetaGen.TotalTarjetas.trim()) : undefined;
+
+                // Usa el valor de tarjetasGen si está disponible, de lo contrario usa formState o un valor predeterminado
+                return { ...acc, [id]: valueFromTarjetasGen ?? formState[id] ?? 0 };
             }, {});
             setInitialMinValues(initialValues);
         }
-    }, [tarifas, formState]);
+    }, [tarifas, tarjetasGen, formState]);
 
     useEffect(() => {
         if (location.pathname.includes('/update')) {
