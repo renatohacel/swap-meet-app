@@ -12,7 +12,7 @@ export class TarifasTarjetasModel {
         }
     }
 
-    static async insert(newTarifa) {
+    static async insert(newTarifa, executeBy) {
 
         newTarifa.color = newTarifa.color.toUpperCase()
 
@@ -22,8 +22,11 @@ export class TarifasTarjetasModel {
             @Año = :anio, 
             @Importe = :importe,
             @Color = :color, 
-            @Movimiento = 'I'
+            @Movimiento = 'I',
+            @ExecuteBy = :executeBy
         `;
+
+        newTarifa.executeBy = executeBy;
 
         const result = await sequelize.query(sql, {
             replacements: newTarifa,
@@ -32,7 +35,7 @@ export class TarifasTarjetasModel {
         return result[0][0];
     }
 
-    static async update(updatedTarifa) {
+    static async update(updatedTarifa, executeBy) {
 
         updatedTarifa.color = updatedTarifa.color.toUpperCase()
 
@@ -42,8 +45,11 @@ export class TarifasTarjetasModel {
             @Año = :anio, 
             @Importe = :importe,
             @Color = :color, 
-            @Movimiento = 'M'
+            @Movimiento = 'M',
+            @ExecuteBy = :executeBy
         `;
+
+        updatedTarifa.executeBy = executeBy;
 
         const result = await sequelize.query(sql, {
             replacements: updatedTarifa,
@@ -52,7 +58,7 @@ export class TarifasTarjetasModel {
         return result[0][0];
     }
 
-    static async delete(id) {
+    static async delete(id, executeBy) {
 
         const sql = `
             EXEC usp_MtoTarifasTarjetas 
@@ -60,11 +66,12 @@ export class TarifasTarjetasModel {
             @Año = NULL, 
             @Importe = NULL,
             @Color = NULL, 
-            @Movimiento = 'E'
+            @Movimiento = 'E',
+            @ExecuteBy = :executeBy
         `;
 
         const result = await sequelize.query(sql, {
-            replacements: { id: parseInt(id) },
+            replacements: { id: parseInt(id), executeBy },
         });
 
         return result[0][0];

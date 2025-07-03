@@ -90,14 +90,15 @@ const UsersForm = () => {
     setErrors({})
   };
 
-  const handleType = () => {
-    if (formState['type'] === CONSTANTS.USERS.USERS_TYPES.at(-2).value) {
+  const PERSONALIZADO = CONSTANTS.USERS.USERS_TYPES.find(t => t.label === 'PERSONALIZADO')?.value;
+
+  useEffect(() => {
+    if (formState['type'] === PERSONALIZADO) {
       setPersonalized(true);
-      return
+    } else {
+      setPersonalized(false);
     }
-    setPersonalized(false);
-    return
-  }
+  }, [formState['type'], PERSONALIZADO]);
 
   return (
     <CardMain formTitle="USUARIO" cancelButton={true}>
@@ -124,19 +125,16 @@ const UsersForm = () => {
         <SectionForm>
           <Label htmlFor="type">TIPO</Label>
           <select
-            onChange={(e) => {
-              onInputChange(e)
-              handleType();
-            }}
+            onChange={onInputChange}
             value={formState['type'] || ''}
             id="type"
             name="type"
-            className="px-4 py-2 bg-secondary-complement focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
+            className="px-4 py-2 bg-white focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
             required
           >
-            {CONSTANTS.USERS.USERS_TYPES.map((type, index) => (
-              <option key={index} value={type.value} className="font-semibold">
-                {type.label}
+            {CONSTANTS.USERS.USERS_TYPES.map(({ value, label }, index) => (
+              <option key={index} value={value} className="font-semibold">
+                {label}
               </option>
             ))}
           </select>
@@ -149,7 +147,7 @@ const UsersForm = () => {
             value={formState['status'] || ''}
             id="status"
             name="status"
-            className="px-4 py-2 bg-secondary-complement focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
+            className="px-4 py-2 bg-white focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
             required
           >
             {CONSTANTS.USERS.USERS_STATUS.map((type, index) => (
@@ -172,7 +170,7 @@ const UsersForm = () => {
               style={{
                 padding: '2px',
                 color: 'var(--color-dark-primary)',
-                backgroundColor: 'var(--color-secondary-complement)',
+                backgroundColor: 'var(--color-white)',
                 borderRadius: '8px',
               }}
               className="rounded-lg outline-2 outline-primary font-semibold md:w-96 w-full"
@@ -190,7 +188,7 @@ const UsersForm = () => {
         </>}
 
         <div className='md:row-end-6 md:col-start-2 mt-8 flex justify-center'>
-          <SaveButton />
+          <SaveButton/>
         </div>
 
 

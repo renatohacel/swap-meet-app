@@ -12,9 +12,7 @@ export class TarifasPuestosModel {
         }
     }
 
-    static async update(tarifa) {
-
-        console.log(tarifa)
+    static async update(tarifa, executeBy) {
 
         const sql = `
           EXEC usp_MtoTarifasPuestos
@@ -23,10 +21,13 @@ export class TarifasPuestosModel {
           @TarifaC = :tarifa_c, 
           @TarifaAInsen = :tarifa_a_insen, 
           @TarifaBInsen = :tarifa_b_insen, 
-          @TarifaCInsen = :tarifa_a_insen, 
+          @TarifaCInsen = :tarifa_c_insen, 
           @Basura = :basura,
-          @Movimiento = 'M'
+          @Movimiento = 'M',
+          @ExecuteBy = :executeBy
         `;
+
+        tarifa.executeBy = executeBy;
 
             const result = await sequelize.query(sql, {
                 replacements: tarifa,

@@ -46,12 +46,12 @@ const Table = ({
           type="text"
           name="search"
           placeholder="Buscar"
-          className="rounded-md p-2 outline-2 outline-secondary/100 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:outline-dark-primary focus:text-dark-primary transition-all"
+          className="rounded-md p-2 outline-2 outline-primary/50 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:outline-dark-primary focus:text-dark-primary transition-all"
           value={searchInput}
           onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
         />
         {showNuevo && <NavLink
-          className="outline-2 outline-primary items-center flex gap-1 px-4 py-2 rounded-md text-primary hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm"
+          className="items-center flex gap-1 px-4 py-2 rounded-md text-secondary-complement bg-primary hover:outline-none font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm border-2 border-primary hover:border-dark-primary"
           to={addLink}
         >
           <svg

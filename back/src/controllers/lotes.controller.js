@@ -24,8 +24,9 @@ export class LotesTarjetasController {
 
     static async insertLote(req, res) {
         const lote = req.body
+        const executeBy = req.user.Usuario
         try {
-            const newLote = await LotesTarjetasModel.insert(lote);
+            const newLote = await LotesTarjetasModel.insert(lote, executeBy);
 
             if (newLote?.Error) return res.status(409).send({ message: newLote.Error });
 
@@ -36,15 +37,17 @@ export class LotesTarjetasController {
         }
     }
 
-    static async updateLote(req, res) {
-        const lote = req.body
+    static async deleteLote(req, res) {
+        const { id } = req.params;
+        const executeBy = req.user.Usuario
         try {
-            const updatedLote = await LotesTarjetasModel.update(lote);
-            if (updatedLote?.Error) return res.status(409).send({ message: updatedLote.Error });
+            const result = await LotesTarjetasModel.delete(id, executeBy);
 
-            res.status(201).send(updatedLote);
+            if (result?.Error) return res.status(409).send({ message: result.Error });
+
+            res.status(200).send({ message: "Lote eliminado correctamente" });
         } catch (error) {
-            console.error("Error in LotesTarjetasController.updateLote:", error);
+            console.error("Error in LotesTarjetasController.deleteLote:", error);
             throw error;
         }
     }

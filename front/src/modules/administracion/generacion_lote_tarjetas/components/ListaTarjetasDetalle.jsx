@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom"
-import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes"
 import { CardMain } from "../../../ui/components/cards/CardMain"
 import { useEffect, useState } from "react";
 import { useTarjetas } from "../hooks/useTarjetas";
@@ -21,6 +20,7 @@ export const ListaTarjetasDetalle = () => {
     }, [])
 
     useEffect(() => {
+        console.log(tarjetas)
         if (tarjetas.length > 0) {
             const cleanedTarjetas = tarjetas.map((tarjeta) => ({
                 id: tarjeta.IdTarjetaGD,

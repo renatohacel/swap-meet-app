@@ -13,6 +13,7 @@ import { userRouter } from "./routes/user.router.js";
 import { tarifasRouter } from "./routes/tarifas.router.js";
 import { lotesRouter } from "./routes/lotes.router.js";
 import { tarjetasRouter } from "./routes/tarjetas.router.js";
+import { historyRouter } from "./routes/history.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -33,6 +34,7 @@ app.use("/users", userRouter);
 app.use('/tarifas', tarifasRouter)
 app.use('/generacion-lotes', lotesRouter)
 app.use('/tarjetas', tarjetasRouter)
+app.use('/historial', historyRouter)
 
 // RUN
 app.listen(PORT, HOST, () => {

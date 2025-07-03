@@ -16,7 +16,7 @@ export const insertLoteService = async (newLote) => {
   return response.data;
 }
 
-export const updateLoteService = async (updatedLote) => {
-  const response = await axiosInstance.patch("/generacion-lotes", updatedLote);
+export const deleteLoteService = async (id) => {
+  const response = await axiosInstance.delete(`/generacion-lotes/${id}`);
   return response.data;
 }

@@ -7,7 +7,7 @@ export class UserModel {
     return result[0];
   }
 
-  static async insert(newUser) {
+  static async insert(newUser, executeBy) {
 
     const data = {
       username: newUser.username.toUpperCase(),
@@ -15,7 +15,8 @@ export class UserModel {
       first_lastname: newUser.first_lastname.toUpperCase(),
       second_lastname: newUser.second_lastname.toUpperCase(),
       full_name: newUser.full_name.toUpperCase(),
-      type: newUser.type.toUpperCase()
+      type: newUser.type.toUpperCase(),
+      executeBy: executeBy || 'SYSTEM',
     };
 
     const sql = `
@@ -28,7 +29,8 @@ export class UserModel {
       @Nombre = :full_name, 
       @Movimiento = 'I', 
       @Aplicativo = :type,
-      @Estatus = ''
+      @Estatus = '',
+      @ExecuteBy = :executeBy
     `;
 
     const result = await sequelize.query(sql, {
@@ -38,7 +40,7 @@ export class UserModel {
     return result[0][0];
   }
 
-  static async update(id, user) {
+  static async update(id, user, executeBy) {
     const data = {
       id,
       username: user.username.toUpperCase(),
@@ -46,7 +48,8 @@ export class UserModel {
       second_lastname: user.second_lastname.toUpperCase(),
       full_name: user.full_name.toUpperCase(),
       type: user.type.toUpperCase(),
-      status: user.status
+      status: user.status,
+      executeBy: executeBy || 'SYSTEM',
     };
     if (user.password) data.password = user.password
 
@@ -60,7 +63,8 @@ export class UserModel {
       @Movimiento = 'M', 
       @Aplicativo = :type,
       @Estatus = :status,
-      @Pswd = ${data.password ? ':password' : 'NULL'}
+      @Pswd = ${data.password ? ':password' : 'NULL'},
+      @ExecuteBy = :executeBy
     `;
 
     const result = await sequelize.query(sql, {

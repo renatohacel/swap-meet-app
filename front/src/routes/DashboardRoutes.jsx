@@ -13,10 +13,10 @@ import Historial from "../modules/historial/Historial";
 const DashboardRoutes = () => {
   const location = useLocation();
   return (
-    <main className="min-h-screen bg-secondary-complement">
+    <main className="min-h-screen">
       <Sidebar />
       <div className="py-24 px-12 lg:ml-64">
-        <div className="bg-secondary/10 rounded-lg py-8 px-4 md:px-16">
+        <div className="bg-secondary-complement/40 rounded-lg py-8 px-4 md:px-16 shadow-md">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
 
