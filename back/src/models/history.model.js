@@ -3,7 +3,7 @@ import { sequelize } from "../config/db.config.js";
 export class HistoryModel {
     static async findAll() {
         const sql = `
-            SELECT * FROM BitacoraTianguis_WEB
+            SELECT * FROM BitacoraTianguis_WEB ORDER BY fecha DESC
         `;
 
         try {

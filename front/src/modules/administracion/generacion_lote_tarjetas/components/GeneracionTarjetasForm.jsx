@@ -124,7 +124,11 @@ const GeneracionTarjetasForm = () => {
     }
 
     const onDelete = (id) => {
+        setIsSubmit(true)
         handleDeleteLote(id)
+            .finally(() => {
+                setIsSubmit(false)
+            })
     }
 
     return (
@@ -212,16 +216,22 @@ const GeneracionTarjetasForm = () => {
                             </span>
                             <div className='flex justify-center gap-6'>
                                 <button
+                                    disabled={isSubmit}
                                     type='button'
                                     onClick={() => { onDelete(loteToEdit.id) }}
-                                    className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
+                                    className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold px-4 py-2  transition-all text-sm focus:outline-dark-primary opacity-50 md:w-24
+                                    ${isSubmit ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-dark-primary hover:opacity-100'}    
+                                    `}
                                 >
                                     SI
                                 </button>
                                 <button
+                                    disabled={isSubmit}
                                     type='button'
                                     onClick={() => { setIsDelete(!isDelete) }}
-                                    className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
+                                    className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold px-4 py-2  transition-all text-sm focus:outline-dark-primary md:w-24
+                                        ${isSubmit ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-dark-primary'}
+                                    `}
                                 >
                                     NO
                                 </button>
