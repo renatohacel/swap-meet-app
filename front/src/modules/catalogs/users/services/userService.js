@@ -5,6 +5,11 @@ export const getUsersService = async () => {
   return response.data;
 };
 
+export const getUserByIdService = async (id) => {
+  const response = await axiosInstance.get(`/users/${id}`);
+  return response.data;
+};
+
 export const insertUserService = async (newUser) => {
   const response = await axiosInstance.post("/users", newUser);
   return response.data;

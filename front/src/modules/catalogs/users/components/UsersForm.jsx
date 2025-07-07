@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useLocation, useNavigate } from "react-router-dom";
 import Form from "../../../ui/components/form/Form";
 import SectionForm from "../../../ui/components/form/SectionForm";
@@ -14,6 +15,7 @@ import { CardMain } from "../../../ui/components/cards/CardMain";
 import { Tree } from 'antd';
 import { treeData } from "../../../../utils/treePermissions";
 import SaveButton from "../../../ui/components/buttons/SaveButton";
+import { useHelper } from "../../../helper/hooks/useHelper";
 
 
 
@@ -23,6 +25,7 @@ const initialForm = {
     {}
   ),
   type: CONSTANTS.USERS.USERS_TYPES[0].value,
+  niveles: null,
   id: undefined,
 };
 
@@ -30,6 +33,16 @@ const initialForm = {
 const UsersForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+
+  const userToEdit = location.state?.user;
+
+  const { onInputChange, formState, setFormState } = useForm(userToEdit || initialForm);
+
+  const { handleInsertUser, handleUpdateUser, getUserById } = useUser();
+
+  const { groups, getGroups } = useHelper();
+
   const [errors, setErrors] = useState({});
   const [personalized, setPersonalized] = useState(false);
 
@@ -39,39 +52,31 @@ const UsersForm = () => {
   const [autoExpandParent, setAutoExpandParent] = useState(true);
 
   const onExpand = expandedKeysValue => {
-    console.log('onExpand', expandedKeysValue);
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
   const onCheck = checkedKeysValue => {
     console.log('onCheck', checkedKeysValue);
     setCheckedKeys(checkedKeysValue);
+    setFormState({
+      ...formState,
+      niveles: checkedKeysValue.length > 0 ? checkedKeysValue.join(',') : null
+    })
   };
   const onSelect = (selectedKeysValue, info) => {
     console.log('onSelect', info);
     setSelectedKeys(selectedKeysValue);
   };
 
-
-  const userToEdit = location.state?.user;
-
-  const { onInputChange, formState, setFormState } = useForm(userToEdit || initialForm);
-
-  const { handleInsertUser, handleUpdateUser } = useUser();
-
-  useEffect(() => {
-    if (location.pathname.includes('/update')) {
-      if (!userToEdit) {
-        navigate(CONSTANTS_ROUTES.CATALOGO.USUARIOS)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (userToEdit) {
-      setFormState(userToEdit);
-    }
-  }, [userToEdit]);
+  const handleTypeChange = (e) => {
+    const { value } = e.target;
+    const selectedGroup = groups.find(g => String(g.id) === value);
+    setFormState({
+      ...formState,
+      type: value,
+      niveles: selectedGroup?.niveles ?? null,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -90,15 +95,86 @@ const UsersForm = () => {
     setErrors({})
   };
 
-  const PERSONALIZADO = CONSTANTS.USERS.USERS_TYPES.find(t => t.label === 'PERSONALIZADO')?.value;
+  useEffect(() => {
+    if (location.pathname.includes('/update')) {
+      if (!userToEdit) {
+        navigate(CONSTANTS_ROUTES.CATALOGO.USUARIOS)
+      }
+    }
+  }, [])
 
   useEffect(() => {
-    if (formState['type'] === PERSONALIZADO) {
+    if (userToEdit) {
+      setFormState(userToEdit);
+    }
+  }, [userToEdit]);
+
+
+  useEffect(() => {
+    getGroups();
+  }, [])
+
+  const PERSONALIZADO = groups.find(group => group.nombre === 'PERSONALIZADO')?.id
+
+  // Combinar la lógica de inicialización en un solo useEffect
+  useEffect(() => {
+    if (groups.length > 0) {
+      let defaultType, defaultGroup;
+
+      if (userToEdit) {
+        // Si estamos editando, buscar el grupo por nombre y usar su id
+        defaultGroup = groups.find(group => group.nombre === userToEdit.type);
+        defaultType = defaultGroup?.id || CONSTANTS.USERS.USERS_TYPES[0].value;
+      } else {
+        // Si estamos creando, usar el valor por defecto
+        defaultType = CONSTANTS.USERS.USERS_TYPES[0].value;
+        defaultGroup = groups.find(group => String(group.id) === String(defaultType));
+      }
+
+      setFormState(prev => ({
+        ...prev,
+        type: defaultType,
+        niveles: defaultGroup?.niveles ?? null,
+      }));
+
+      // Manejar el caso PERSONALIZADO después de establecer el tipo
+      if (defaultType === PERSONALIZADO) {
+        setPersonalized(true);
+        
+        // Si estamos editando un usuario y es de tipo PERSONALIZADO
+        if (userToEdit && userToEdit.id) {
+          getUserById(userToEdit.id)
+            .then(user => {
+              console.log(user)
+              if (user && user.niveles) {
+                setFormState(prev => ({
+                  ...prev,
+                  niveles: user.niveles
+                }));
+                setCheckedKeys(user.niveles.split(','));
+              }
+            })
+            .catch(error => {
+              console.error('Error al obtener usuario:', error);
+            });
+        }
+      } else {
+        setPersonalized(false);
+      }
+    }
+  }, [groups, userToEdit]); // Solo depende de groups y userToEdit
+
+  // Separar la lógica de cambio de tipo en tiempo real
+  useEffect(() => {
+    if (formState['type'] === PERSONALIZADO && groups.length > 0) {
       setPersonalized(true);
     } else {
       setPersonalized(false);
+      setCheckedKeys([]); // Limpiar checkedKeys cuando no es personalizado
     }
   }, [formState['type'], PERSONALIZADO]);
+
+  useEffect(() => { console.log(checkedKeys) }, [checkedKeys])
 
   return (
     <CardMain formTitle="USUARIO" cancelButton={true}>
@@ -125,16 +201,17 @@ const UsersForm = () => {
         <SectionForm>
           <Label htmlFor="type">TIPO</Label>
           <select
-            onChange={onInputChange}
+            onChange={handleTypeChange}
             value={formState['type'] || ''}
             id="type"
             name="type"
             className="px-4 py-2 bg-white focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
             required
           >
-            {CONSTANTS.USERS.USERS_TYPES.map(({ value, label }, index) => (
-              <option key={index} value={value} className="font-semibold">
-                {label}
+
+            {groups.map(({ id, nombre, niveles }) => (
+              <option key={id} value={id} className="font-semibold">
+                {nombre}
               </option>
             ))}
           </select>
@@ -188,7 +265,7 @@ const UsersForm = () => {
         </>}
 
         <div className='md:row-end-6 md:col-start-2 mt-8 flex justify-center'>
-          <SaveButton/>
+          <SaveButton />
         </div>
 
 

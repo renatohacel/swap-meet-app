@@ -7,6 +7,14 @@ export class UserModel {
     return result[0];
   }
 
+  static async findById(id) {
+    const sql = `SELECT * FROM UsuariosApp WHERE IdUsuario = :id`;
+    const result = await sequelize.query(sql, {
+      replacements: { id },
+    });
+    return result[0][0];
+  }
+
   static async insert(newUser, executeBy) {
 
     const data = {
@@ -15,9 +23,12 @@ export class UserModel {
       first_lastname: newUser.first_lastname.toUpperCase(),
       second_lastname: newUser.second_lastname.toUpperCase(),
       full_name: newUser.full_name.toUpperCase(),
-      type: newUser.type.toUpperCase(),
+      type: newUser.type,
       executeBy: executeBy || 'SYSTEM',
+      niveles: newUser.niveles,
     };
+
+    console.log(data)
 
     const sql = `
       EXEC usp_CrearUsuarios 
@@ -30,7 +41,8 @@ export class UserModel {
       @Movimiento = 'I', 
       @Aplicativo = :type,
       @Estatus = '',
-      @ExecuteBy = :executeBy
+      @ExecuteBy = :executeBy,
+      @Niveles = :niveles
     `;
 
     const result = await sequelize.query(sql, {
@@ -47,10 +59,13 @@ export class UserModel {
       first_lastname: user.first_lastname.toUpperCase(),
       second_lastname: user.second_lastname.toUpperCase(),
       full_name: user.full_name.toUpperCase(),
-      type: user.type.toUpperCase(),
+      type: user.type,
       status: user.status,
       executeBy: executeBy || 'SYSTEM',
+      niveles: user.niveles,
     };
+
+    console.log(data)
     if (user.password) data.password = user.password
 
     const sql = `
@@ -64,7 +79,8 @@ export class UserModel {
       @Aplicativo = :type,
       @Estatus = :status,
       @Pswd = ${data.password ? ':password' : 'NULL'},
-      @ExecuteBy = :executeBy
+      @ExecuteBy = :executeBy,
+      @Niveles = :niveles
     `;
 
     const result = await sequelize.query(sql, {

@@ -11,6 +11,18 @@ export class UserController {
     }
   }
 
+  static async getUserById(req, res) {
+    const { id } = req.params;
+    try {
+      const user = await UserModel.findById(id);
+      if (!user) return res.status(404).send({ message: "User not found" });
+      res.status(200).send(user);
+    } catch (error) {
+      console.error("Error in UserController.getUserById:", error);
+      throw error;
+    }
+  }
+
   static async insertUser(req, res) {
     const formData = req.body;
     const executeBy = req.user.Usuario

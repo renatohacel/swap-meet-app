@@ -14,6 +14,7 @@ import { tarifasRouter } from "./routes/tarifas.router.js";
 import { lotesRouter } from "./routes/lotes.router.js";
 import { tarjetasRouter } from "./routes/tarjetas.router.js";
 import { historyRouter } from "./routes/history.router.js";
+import { helperRouter } from "./routes/helper.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -31,10 +32,11 @@ app.use(cookieParser());
 // Rutas
 app.use("/", authRouter);
 app.use("/users", userRouter);
-app.use('/tarifas', tarifasRouter)
-app.use('/generacion-lotes', lotesRouter)
-app.use('/tarjetas', tarjetasRouter)
-app.use('/historial', historyRouter)
+app.use('/tarifas', tarifasRouter);
+app.use('/generacion-lotes', lotesRouter);
+app.use('/tarjetas', tarjetasRouter);
+app.use('/historial', historyRouter);
+app.use('/helper', helperRouter);
 
 // RUN
 app.listen(PORT, HOST, () => {

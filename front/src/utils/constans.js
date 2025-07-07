@@ -15,10 +15,10 @@ export const CONSTANTS = {
     DELETE_USER: "DELETE_USER",
     //---------------------------- TIPOS USERS ----------------------------//
     USERS_TYPES: [
-      { value: "ADMON", label: "ADMON" },
-      { value: "CAJERO", label: "CAJERO" },
-      { value: "ACTIVACION", label: "ACTIVACIÓN" },
-      { value: "PERSONALIZADO", label: "PERSONALIZADO" },
+      { value: 1, label: "ADMON" },
+      { value: 2, label: "CAJERO" },
+      { value: 3, label: "ACTIVACIÓN" },
+      { value: 4, label: "PERSONALIZADO" },
     ],
     USERS_STATUS: [
       { value: "INACTIVO", label: "INACTIVO" },

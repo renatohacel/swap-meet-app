@@ -1,7 +1,7 @@
 export const treeData = [
     {
         title: 'APLICACIÓN WEB',
-        key: 'WEB',
+        key: '0',
         children: [
             {
                 title: 'ADMINISTRACIÓN',
@@ -54,11 +54,11 @@ export const treeData = [
     },
     {
         title: 'APLACIÓN MÓVIL',
-        key: 'MOVIL',
+        key: '1',
         children: [
             {
                 title: 'ACTIVACIÓN',
-                key: '0-3',
+                key: '1-0',
                 children: [
                     {
                         title: 'GENERACIÓN DE TARJETAS', key: '0-3-0', children: [

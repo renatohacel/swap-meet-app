@@ -9,13 +9,13 @@ const baseSchema = {
       .max(15, "El usuario debe tener máximo 15 carácteres")),
   first_lastname: z.string({
     required_error: "El apellido paterno es obligatorio",
-  }),
+  }).min(1, "El primer apellido es obligatorio"),
   second_lastname: z.string({
     required_error: "El apellido materno es obligatorio",
-  }),
+  }).min(1, "El segundo apellido es obligatorio"),
   full_name: z.string({
     required_error: "El nombre es obligatorio",
-  }),
+  }).min(1, "El nombre es obligatorio"),
 };
 
 export const createUserSchema = z.object({
