@@ -93,7 +93,7 @@ const Sidebar = () => {
           <div>
             {/* TITLE */}
             <NavLink
-              className="flex justify-center items-center font-extrabold mb-5 mt-10 hover:bg-secondary/70 p-1 rounded-lg transition-all duration-200 hover:scale-103 hover:-translate-y-1 text-3xl text-center text-secondary-complement"
+              className="flex justify-center items-center font-extrabold mb-5 mt-10 hover:bg-dark-primary/50 p-1 rounded-lg transition-all duration-200 hover:scale-103 hover:-translate-y-1 text-3xl text-center text-secondary-complement"
               to={"/home"}
             >
               <Logo />
@@ -115,10 +115,10 @@ const Sidebar = () => {
           {/* Footer */}
           <div className="mt-auto">
             <hr className="mb-7 text-secondary-complement/50 border-1" />
-            <div className="flex items-center justify-between p-3 bg-secondary/40 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-dark-primary/50 rounded-lg">
               <Tippy content={`✏ Actualizar contraseña`}>
-                <button onClick={showModal} className="flex items-center gap-2 justify-start hover:bg-secondary/70 rounded-lg transition-all cursor-pointer px-2 py-1">
-                  <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-dark-primary uppercase">
+                <button onClick={showModal} className="flex items-center gap-2 justify-start hover:bg-secondary/20 rounded-lg transition-all cursor-pointer px-2 py-1">
+                  <div className="w-8 h-8 rounded-full bg-secondary-complement/90 flex items-center justify-center font-bold text-dark-primary uppercase">
                     {user.Nombre.split(" ")[0][0]}
                   </div>
                   <span className="text-secondary-complement font-medium uppercase">
@@ -128,7 +128,7 @@ const Sidebar = () => {
               </Tippy>
               <Tippy content="Cerrar sesión">
                 <button
-                  className="p-2 rounded-lg hover:bg-secondary/70 text-secondary-complement cursor-pointer transition-all duration-200"
+                  className="p-2 rounded-lg hover:bg-secondary/20 text-secondary-complement cursor-pointer transition-all duration-200"
                   onClick={() => {
                     handleLogout();
                   }}
@@ -159,7 +159,6 @@ const Sidebar = () => {
       // width={1000}
       >
         <PasswordForm id={userToEdit.id} handleOk={handleOk} handleCancel={handleCancel} />
-        {/* <GeneracionTarjetasForm /> */}
       </Modal>
 
     </>

@@ -11,10 +11,23 @@ export class UserController {
     }
   }
 
+  static async getUserById(req, res) {
+    const { id } = req.params;
+    try {
+      const user = await UserModel.findById(id);
+      if (!user) return res.status(404).send({ message: "User not found" });
+      res.status(200).send(user);
+    } catch (error) {
+      console.error("Error in UserController.getUserById:", error);
+      throw error;
+    }
+  }
+
   static async insertUser(req, res) {
     const formData = req.body;
+    const executeBy = req.user.Usuario
     try {
-      const newUser = await UserModel.insert(formData);
+      const newUser = await UserModel.insert(formData, executeBy);
 
       if (newUser?.Error) return res.status(409).send({ message: newUser.Error });
 
@@ -29,8 +42,10 @@ export class UserController {
   static async updateUser(req, res) {
     const { id } = req.params
     const user = req.body
+    const executeBy = req.user.Usuario
+
     try {
-      const updatedUser = await UserModel.update(id, user)
+      const updatedUser = await UserModel.update(id, user, executeBy)
       if (updatedUser?.Error) return res.status(409).send({ message: updatedUser.Error });
 
       res.status(201).send(updatedUser);

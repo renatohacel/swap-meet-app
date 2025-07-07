@@ -46,12 +46,12 @@ const Table = ({
           type="text"
           name="search"
           placeholder="Buscar"
-          className="rounded-md p-2 outline-2 outline-secondary/100 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:outline-dark-primary focus:text-dark-primary transition-all"
+          className="rounded-md p-2 outline-2 outline-primary/50 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:outline-dark-primary focus:text-dark-primary transition-all"
           value={searchInput}
           onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
         />
         {showNuevo && <NavLink
-          className="outline-2 outline-primary items-center flex gap-1 px-4 py-2 rounded-md text-primary hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm"
+          className="items-center flex gap-1 px-4 py-2 rounded-md text-secondary-complement bg-primary hover:outline-none font-semibold cursor-pointer h-full hover:bg-dark-primary transition-all text-sm border-2 border-primary hover:border-dark-primary"
           to={addLink}
         >
           <svg
@@ -122,18 +122,64 @@ const Table = ({
             <path d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM116.7 244.7l112-112c4.6-4.6 11.5-5.9 17.4-3.5s9.9 8.3 9.9 14.8l0 64 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 64c0 6.5-3.9 12.3-9.9 14.8s-12.9 1.1-17.4-3.5l-112-112c-6.2-6.2-6.2-16.4 0-22.6z" />
           </svg>
         </button>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => handlePageChange(i + 1)}
-            className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === i + 1
-              ? "bg-dark-primary text-secondary-complement"
-              : "bg-primary text-secondary-complement hover:bg-dark-primary"
-              }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {totalPages <= 5 ? (
+          Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => handlePageChange(i + 1)}
+              className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === i + 1
+                ? "bg-dark-primary text-secondary-complement"
+                : "bg-primary text-secondary-complement hover:bg-dark-primary"
+                }`}
+            >
+              {i + 1}
+            </button>
+          ))
+        ) : (
+          <>
+            <button
+              onClick={() => handlePageChange(1)}
+              className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === 1
+                ? "bg-dark-primary text-secondary-complement"
+                : "bg-primary text-secondary-complement hover:bg-dark-primary"
+                }`}
+            >
+              1
+            </button>
+            {/* Siempre muestra ... después de la primera si no está cerca */}
+            {currentPage > 1 && <span className="px-2 text-primary font-extrabold">...</span>}
+            {/* Siempre muestra dos páginas antes y después del currentPage si es posible */}
+            {Array.from({ length: 3 }, (_, idx) => {
+              const page = currentPage - 1 + idx;
+              if (page > 1 && page < totalPages) {
+                return (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === page
+                        ? "bg-dark-primary text-secondary-complement"
+                        : "bg-primary text-secondary-complement hover:bg-dark-primary"
+                      }`}
+                  >
+                    {page}
+                  </button>
+                );
+              }
+              return null;
+            })}
+            {/* Siempre muestra ... antes de la última si no está cerca */}
+            {currentPage < totalPages && <span className="px-2 text-primary font-extrabold">...</span>}
+            <button
+              onClick={() => handlePageChange(totalPages)}
+              className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === totalPages
+                ? "bg-dark-primary text-secondary-complement"
+                : "bg-primary text-secondary-complement hover:bg-dark-primary"
+                }`}
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}

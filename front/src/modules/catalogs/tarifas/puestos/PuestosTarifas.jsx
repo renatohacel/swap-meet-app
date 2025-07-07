@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast'
-import Form from '../../../ui/components/form/Form'
-import { CONSTANTS } from '../../../../utils/constans'
+import Form from '@/modules/ui/components/form/Form'
+import { CONSTANTS } from '@/utils/constans.js'
 import { useForm } from '../../../ui/hooks/useForm';
 import Label from '../../../ui/components/form/Label';
 import SectionForm from '../../../ui/components/form/SectionForm';
@@ -135,12 +135,6 @@ const PuestosTarifas = () => {
                         </SectionForm>
                     ))}
                 </section>
-                {/* <button
-                    type="submit"
-                    className={`bg-primary md:col-start-2 items-center text-center rounded-lg text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm md:text-base mt-10 md:row-end-5 focus:outline-dark-primary w-full`}
-                >
-                    ACTUALIZAR
-                </button> */}
                 <div className='md:row-end-5 md:col-start-2 flex justify-center'>
                     <SaveButton />
                 </div>

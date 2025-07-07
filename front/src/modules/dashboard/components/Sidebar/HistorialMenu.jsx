@@ -6,8 +6,7 @@ const HistorialMenu = () => {
     return (
         <NavLink
             className={`
-                flex items-center font-semibold p-3 rounded-lg hover:bg-secondary/70 transition-all duration-200 gap-2 w-full cursor-pointer
-                ${location.pathname.includes(CONSTANTS_ROUTES.HISTORIAL) ? "bg-secondary/70 text-dark-primary" : "text-secondary-complement"}
+                flex items-center font-semibold p-3 rounded-lg hover:bg-secondary-complement/80 transition-all duration-200 gap-2 w-full cursor-pointer hover:text-dark-primary ${location.pathname.includes(CONSTANTS_ROUTES.HISTORIAL) ? "bg-secondary-complement/50 text-dark-primary" : "text-secondary-complement"}
             `}
             to={CONSTANTS_ROUTES.HISTORIAL}
         >

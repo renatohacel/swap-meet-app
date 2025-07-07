@@ -5,15 +5,26 @@
         /* #6f49bd; */
         /* #805ec4; */
         /* #663e82; */
-        #715981;
+        /* #715981; */
+        #6F49BD;
     --color-secondary:
         #ADA9BA;
+        /* #e4c3ff; */
+        /* #cc8eff; */
+        /* #e5c6ff; */
+        /* #a949bd; */
+        /* #8c49bd; */
+        /* #F6F3FC; */
     --color-dark-secondary:
-        #706F8E;
+        /* #706F8E; */
+        #ADA2B5;
     --color-dark-primary:
-        #393A5A;
+        /* #393A5A; */
+        #400080;
     --color-secondary-complement:
-        #E9E9E9;
+        /* #E9E9E9; */
+        #F6F3FC;
+    /* #EBE4F9; */
     --color-primary-text:
         #22222E;
 }

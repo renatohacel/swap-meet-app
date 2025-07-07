@@ -14,8 +14,9 @@ export class TarifasPuestosController {
 
     static async updateTarifas(req, res) {
         const tarifas = req.body
+        const executeBy = req.user.Usuario
         try {
-            const updatedTarifas = await TarifasPuestosModel.update(tarifas)
+            const updatedTarifas = await TarifasPuestosModel.update(tarifas, executeBy)
             if (updatedTarifas?.Error) return res.status(409).send({ message: updatedTarifas.Error });
 
             res.status(201).send(updatedTarifas);

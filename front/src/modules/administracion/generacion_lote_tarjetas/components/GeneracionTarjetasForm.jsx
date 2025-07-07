@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-constant-binary-expression */
+/* eslint-disable no-unused-vars */
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes"
 import { useTarifasTarjetas } from "../../../catalogs/tarifas/tarjetas/hooks/useTarifasTarjetas"
 import { useContext, useEffect, useState } from "react"
@@ -8,12 +9,14 @@ import SectionForm from "../../../ui/components/form/SectionForm"
 import Label from "../../../ui/components/form/Label"
 import Input from "../../../ui/components/form/Input"
 import { useForm } from "../../../ui/hooks/useForm"
-import { NavLink, useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../auth/context/AuthContext"
 import { useGenLoteTarjetas } from "../hooks/useGenLoteTarjetas"
 import { CardMain } from "../../../ui/components/cards/CardMain"
-import { ViewButton } from "../../../ui/components/buttons/ViewButton"
 import SaveButton from "../../../ui/components/buttons/SaveButton"
+import DeleteButton from "../../../ui/components/buttons/DeleteButton"
+import { motion } from 'framer-motion'; // Importa motion y AnimatePresence
+
 
 
 const GeneracionTarjetasForm = () => {
@@ -21,7 +24,7 @@ const GeneracionTarjetasForm = () => {
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
     const { getTarifasTarjetas, tarjetas } = useTarifasTarjetas();
-    const { handleInsertLote, getTarjetasG, tarjetasGen, handleUpdateLote, viewNavigate } = useGenLoteTarjetas();
+    const { handleInsertLote, getTarjetasG, tarjetasGen, viewNavigate, handleDeleteLote } = useGenLoteTarjetas();
     const [tarifas, setTarifas] = useState([])
 
     const loteToEdit = location.state?.lote;
@@ -29,6 +32,8 @@ const GeneracionTarjetasForm = () => {
 
     const [initialMinValues, setInitialMinValues] = useState({});
 
+    const [isDelete, setIsDelete] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
 
     useEffect(() => {
         getTarifasTarjetas()
@@ -38,16 +43,19 @@ const GeneracionTarjetasForm = () => {
         }
     }, [])
 
-
     useEffect(() => {
-        // Set initial min values when tarifas are loaded
-        if (tarifas.length > 0 && Object.keys(initialMinValues).length === 0) {
+        // Verifica que tarifas y tarjetasGen estén disponibles antes de calcular los valores iniciales
+        if (tarifas.length > 0 && tarjetasGen.length > 0 && Object.keys(initialMinValues).length === 0) {
             const initialValues = tarifas.reduce((acc, { id }) => {
-                return { ...acc, [id]: formState[id] ?? 0 };
+                const tarjetaGen = tarjetasGen.find(tarjeta => tarjeta.IdTarifaTarjeta === id);
+                const valueFromTarjetasGen = tarjetaGen ? parseInt(tarjetaGen.TotalTarjetas.trim()) : undefined;
+
+                // Usa el valor de tarjetasGen si está disponible, de lo contrario usa formState o un valor predeterminado
+                return { ...acc, [id]: valueFromTarjetasGen ?? formState[id] ?? 0 };
             }, {});
             setInitialMinValues(initialValues);
         }
-    }, [tarifas, formState]);
+    }, [tarifas, tarjetasGen, formState]);
 
     useEffect(() => {
         if (location.pathname.includes('/update')) {
@@ -108,11 +116,19 @@ const GeneracionTarjetasForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!loteToEdit) {
-            handleInsertLote(formState)
-        } else {
-            handleUpdateLote(formState)
-        }
+        setIsSubmit(true)
+        handleInsertLote(formState)
+            .finally(() => {
+                setIsSubmit(false)
+            })
+    }
+
+    const onDelete = (id) => {
+        setIsSubmit(true)
+        handleDeleteLote(id)
+            .finally(() => {
+                setIsSubmit(false)
+            })
     }
 
     return (
@@ -124,7 +140,7 @@ const GeneracionTarjetasForm = () => {
                 <hr className="mb-12 self-center w-full md:w-96 text-primary/60 border-1" />
             </div>
 
-            <Form className={`grid-cols-1 md:grid-cols-2 2xl:grid-cols-4`} onSubmit={handleSubmit}>
+            <Form className={`grid-cols-1 md:grid-cols-2 2xl:grid-cols-3`} onSubmit={!loteToEdit ? handleSubmit : undefined}>
                 {tarifas.map(({ id, color, importe }, i) => (
                     <SectionForm key={`${i}-father`}>
                         <div className="flex gap-2 justify-center mb-4">
@@ -138,26 +154,30 @@ const GeneracionTarjetasForm = () => {
                             min={initialMinValues[id] ?? '0'}
                             onChange={onInputChange}
                             value={formState[id] ?? '0'}
+                            disabled={loteToEdit ? true : false}
+                            className={`${loteToEdit && 'cursor-not-allowed'}`}
                         />
                     </SectionForm>
                 ))}
-                <SectionForm className="2xl:row-end-5 2xl:col-start-2 2xl:col-span-2">
+                <SectionForm className="2xl:row-end-5 2xl:col-start-2">
                     <Label htmlFor='comentarios' className={'text-center'}>COMENTARIOS</Label>
-                    <textarea name="comentarios" id="comentarios" className="px-4 py-2 bg-secondary-complement text-dark-primary rounded-lg outline-2 outline-primary uppercase font-semibold focus:outline-dark-primary" rows={'3'} value={formState['comentarios'] ?? ''} onChange={(e) => {
-                        const value = e.target.value;
-                        if (value === '' || /^[^\d]/.test(value)) {
-                            onInputChange(e);
-                        }
-                    }} />
+                    <textarea name="comentarios" id="comentarios" className={`px-4 py-2 bg-white text-dark-primary rounded-lg outline-2 outline-primary uppercase font-semibold focus:outline-dark-primary ${loteToEdit && 'cursor-not-allowed'}`} rows={'3'} value={formState['comentarios'] ?? ''} disabled={loteToEdit ? true : false}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value === '' || /^[^\d]/.test(value)) {
+                                onInputChange(e);
+                            }
+                        }} />
                 </SectionForm>
 
-                <div className="md:text-base md:row-end-6 mt-10 2xl:col-start-2 flex justify-center md:col-span-2 gap-4">
-                    <SaveButton />
-                    {loteToEdit &&
-                        <button
-                            onClick={() => viewNavigate(loteToEdit)}
-                            type="button"
-                            className="
+                <div className="md:text-base md:row-end-6 mt-10 2xl:col-start-2 flex justify-center gap-3">
+                    {!loteToEdit && <SaveButton isSubmit={isSubmit} />}
+                    {loteToEdit && !isDelete &&
+                        <>
+                            <button
+                                onClick={() => viewNavigate(loteToEdit)}
+                                type="button"
+                                className="
                             flex 
                             gap-2 
                             items-center
@@ -168,18 +188,56 @@ const GeneracionTarjetasForm = () => {
                             font-semibold
                             rounded-md
                             transition-all
-                            outline-2
-                            outline-primary
+                            border-2
+                            border-primary
                             text-primary
                             hover:text-secondary-complement
                             hover:bg-dark-primary
-                            hover:outline-none
-
+                            hover:border-dark-primary
                         ">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" className="h-3 w-3 md:h-5 md:w-5"><path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" /></svg>
-                            VER TARJETAS
-                        </button>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" className="h-3 w-3 md:h-5 md:w-5"><path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" /></svg>
+                                VER TARJETAS
+                            </button>
+                            <DeleteButton type='button' className={'p-2'} onClick={(() => {
+                                setIsDelete(!isDelete)
+                            })} />
+                        </>
                     }
+                    {isDelete && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="flex flex-col justify-center text-center gap-2"
+                        >
+                            <span className='mb-2 font-semibold text-primary'>
+                                ¿ESTÁS SEGURO DE ELIMINAR ESTA LOTE?
+                            </span>
+                            <div className='flex justify-center gap-6'>
+                                <button
+                                    disabled={isSubmit}
+                                    type='button'
+                                    onClick={() => { onDelete(loteToEdit.id) }}
+                                    className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold px-4 py-2  transition-all text-sm focus:outline-dark-primary opacity-50 md:w-24
+                                    ${isSubmit ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-dark-primary hover:opacity-100'}    
+                                    `}
+                                >
+                                    SI
+                                </button>
+                                <button
+                                    disabled={isSubmit}
+                                    type='button'
+                                    onClick={() => { setIsDelete(!isDelete) }}
+                                    className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold px-4 py-2  transition-all text-sm focus:outline-dark-primary md:w-24
+                                        ${isSubmit ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-dark-primary'}
+                                    `}
+                                >
+                                    NO
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
                 </div>
             </Form>
         </CardMain>

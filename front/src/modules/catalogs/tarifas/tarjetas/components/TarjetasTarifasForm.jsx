@@ -84,7 +84,7 @@ const TarjetasTarifasForm = () => {
                         value={formState['anio'] || ''}
                         id="anio"
                         name="anio"
-                        className="px-4 py-2 bg-secondary-complement focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
+                        className="px-4 py-2 bg-white focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
                         required
                     >
                         {Array.from({ length: 11 }, (_, i) => {
@@ -133,18 +133,18 @@ const TarjetasTarifasForm = () => {
                             <span className='mb-2 font-semibold text-primary'>
                                 ¿ESTÁS SEGURO DE ELIMINAR ESTA TARIFA?
                             </span>
-                            <div className='flex justify-center gap-10'>
+                            <div className='flex justify-center gap-6'>
                                 <button
                                     type='button'
                                     onClick={() => { onDelete(formState.id) }}
-                                    className={`outline-2 outline-primary text-primary items-center text-center rounded-lg hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
+                                    className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
                                 >
                                     SI
                                 </button>
                                 <button
                                     type='button'
                                     onClick={() => { setIsDelete(!isDelete) }}
-                                    className={`outline-2 outline-primary text-primary items-center text-center rounded-lg hover:outline-none hover:text-secondary-complement font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
+                                    className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
                                 >
                                     NO
                                 </button>

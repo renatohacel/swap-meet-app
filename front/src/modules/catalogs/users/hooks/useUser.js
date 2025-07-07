@@ -1,6 +1,6 @@
 import { useReducer, useState } from "react";
 import { userReducer } from "../reducers/userReducer";
-import { getUsersService, insertUserService, updatePasswordService, updateUserService } from "../services/userService";
+import { getUserByIdService, getUsersService, insertUserService, updatePasswordService, updateUserService } from "../services/userService";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import toast from "react-hot-toast";
@@ -27,6 +27,15 @@ export const useUser = () => {
       setLoading(false);
     }
   };
+
+  const getUserById = async (id) => {
+    try {
+      const result = await getUserByIdService(id);
+      return result;
+    } catch (error) {
+      validateSession(error);
+    }
+  }
 
   const handleInsertUser = async (newUser) => {
     try {
@@ -135,5 +144,6 @@ export const useUser = () => {
     handleUpdateUser,
     handleUpdatePassword,
     editNavigate,
+    getUserById,
   };
 };

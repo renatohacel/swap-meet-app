@@ -6,7 +6,7 @@ const ShowPasswordButton = ({ setShowPassword, showPassword }) => {
         <Tippy content={!showPassword ? 'Mostrar contraseña' : 'Ocultar contraseña'}>
             <button
                 type="button"
-                className="p-2 bg-secondary/20 rounded-lg cursor-pointer hover:bg-dark-primary hover:outline-none transition-all outline-2 outline-primary hover:text-secondary-complement"
+                className="p-2 border-2 border-primary hover:border-dark-primary bg-primary rounded-lg cursor-pointer hover:bg-dark-primary hover:outline-none transition-all duration-200 text-secondary-complement"
                 onClick={() => setShowPassword(!showPassword)}
             >
                 {!showPassword
