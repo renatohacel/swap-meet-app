@@ -8,7 +8,7 @@ import { useForm } from "../../../ui/hooks/useForm";
 import { CONSTANTS } from "../../../../utils/constans";
 import { createUserSchema, updateUserSchema } from "../schemas/user.zod";
 import { validateForm } from "../../../../utils/validateForm";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
 import { CardMain } from "../../../ui/components/cards/CardMain";
@@ -16,6 +16,9 @@ import { Tree } from 'antd';
 import { treeData } from "../../../../utils/treePermissions";
 import SaveButton from "../../../ui/components/buttons/SaveButton";
 import { useHelper } from "../../../helper/hooks/useHelper";
+import { AuthContext } from "../../../auth/context/AuthContext";
+import { useAuth } from "../../../auth/hooks/useAuth";
+import toast from "react-hot-toast";
 
 
 
@@ -33,7 +36,9 @@ const initialForm = {
 const UsersForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { login, handleLogout } = useContext(AuthContext);
 
+  console.log(login)
 
   const userToEdit = location.state?.user;
 
@@ -88,7 +93,24 @@ const UsersForm = () => {
     }
 
     if (userToEdit) {
-      handleUpdateUser(formState)
+      handleUpdateUser(formState).then(() => {
+        if (formState.id === login.user.IdUsuario) {
+          setTimeout(() => {
+            const logoutPromise = new Promise((resolve) => {
+              setTimeout(() => {
+                handleLogout();
+                window.location.reload();
+                resolve();
+              }, 1500);
+            });
+
+            toast.promise(logoutPromise, {
+              loading: 'CERRANDO SESIÓN...',
+              error: 'Error al cerrar sesión',
+            });
+          }, 1000);
+        }
+      })
     } else {
       handleInsertUser(formState)
     }
@@ -140,7 +162,7 @@ const UsersForm = () => {
       // Manejar el caso PERSONALIZADO después de establecer el tipo
       if (defaultType === PERSONALIZADO) {
         setPersonalized(true);
-        
+
         // Si estamos editando un usuario y es de tipo PERSONALIZADO
         if (userToEdit && userToEdit.id) {
           getUserById(userToEdit.id)

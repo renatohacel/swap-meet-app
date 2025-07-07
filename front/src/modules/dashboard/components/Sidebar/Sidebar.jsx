@@ -131,10 +131,10 @@ const Sidebar = () => {
               <Tippy content={`✏ Actualizar contraseña`}>
                 <button onClick={showModal} className="flex items-center gap-2 justify-start hover:bg-secondary/20 rounded-lg transition-all cursor-pointer px-2 py-1">
                   <div className="w-8 h-8 rounded-full bg-secondary-complement/90 flex items-center justify-center font-bold text-dark-primary uppercase">
-                    {user.Nombre.split(" ")[0][0]}
+                    {user.Usuario.split(" ")[0][0]}
                   </div>
                   <span className="text-secondary-complement font-medium uppercase">
-                    {`${user.Nombre.split(' ')[0]}`}
+                    {`${user.Usuario}`}
                   </span>
                 </button>
               </Tippy>

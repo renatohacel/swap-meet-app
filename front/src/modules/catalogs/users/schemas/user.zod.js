@@ -5,8 +5,8 @@ const baseSchema = {
     (val) => (typeof val === 'number' ? String(val) : val),
     z
       .string({ required_error: "El usuario es obligatorio" })
-      .min(5, "El usuario debe tener mínimo 5 carácteres")
-      .max(15, "El usuario debe tener máximo 15 carácteres")),
+      .min(4, "El usuario debe tener mínimo 4 carácteres")
+      .max(10, "El usuario debe tener máximo 8 carácteres")),
   first_lastname: z.string({
     required_error: "El apellido paterno es obligatorio",
   }).min(1, "El primer apellido es obligatorio"),
