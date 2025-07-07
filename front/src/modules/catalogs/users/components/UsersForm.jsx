@@ -174,7 +174,7 @@ const UsersForm = () => {
     }
   }, [formState['type'], PERSONALIZADO]);
 
-  useEffect(() => { console.log(checkedKeys) }, [checkedKeys])
+  useEffect(() => { console.log(formState) }, [formState])
 
   return (
     <CardMain formTitle="USUARIO" cancelButton={true}>

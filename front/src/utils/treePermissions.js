@@ -11,6 +11,7 @@ export const treeData = [
                         title: 'GENERACIÓN DE TARJETAS', key: '0-0-0', children: [
                             { title: 'VISUALIZAR', key: '0-0-0-0' },
                             { title: 'CREAR', key: '0-0-0-1' },
+                            { title: 'ELIMINAR', key: '0-0-0-2' },
                         ],
                     },
                 ],
@@ -29,8 +30,7 @@ export const treeData = [
                     {
                         title: 'TARIFAS DE PUESTOS', key: '0-1-1', children: [
                             { title: 'VISUALIZAR', key: '0-1-1-0' },
-                            { title: 'CREAR', key: '0-1-1-1' },
-                            { title: 'ACTUALIZAR', key: '0-1-1-2' },
+                            { title: 'ACTUALIZAR', key: '0-1-1-1' },
                         ],
                     },
                     {
@@ -53,7 +53,7 @@ export const treeData = [
         ]
     },
     {
-        title: 'APLACIÓN MÓVIL',
+        title: 'APLICACIÓN MÓVIL',
         key: '1',
         children: [
             {

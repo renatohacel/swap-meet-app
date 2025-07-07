@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useGenLoteTarjetas } from "./hooks/useGenLoteTarjetas"
 import Loader from "../../ui/components/Loader"
 import { CardMain } from "../../ui/components/cards/CardMain"
+import { usePermissions } from "../../auth/hooks/usePermissions"
 
 const COLUMNS = ['ID', 'FECHA DE CREACIÓN', 'USUARIO RESPONSABLE', 'COMENTARIO', 'TARJETAS GENERADAS']
 const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
@@ -12,6 +13,10 @@ const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
 
 const GeneracionTarjetas = () => {
   const location = useLocation()
+  const { can } = usePermissions();
+
+  const canCreateLotes = can('admin', 'create', 'generacion_tarjetas');
+
   const { lotes, getLotes, loading, editNavigate, viewNavigate } = useGenLoteTarjetas();
   const [lotesCleaned, setLotesCleaned] = useState([])
 
@@ -61,6 +66,7 @@ const GeneracionTarjetas = () => {
           addLink={"add"}
           editFunction={editNavigate}
           details={true}
+          showNuevo={canCreateLotes}
           viewFunction={viewNavigate}
         />
       )}

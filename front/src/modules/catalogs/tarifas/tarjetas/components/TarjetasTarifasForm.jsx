@@ -13,6 +13,7 @@ import DeleteButton from '../../../../ui/components/buttons/DeleteButton';
 import { CONSTANTS_ROUTES } from '../../../../../utils/constansRoutes';
 import { CardMain } from '../../../../ui/components/cards/CardMain';
 import SaveButton from '../../../../ui/components/buttons/SaveButton';
+import { usePermissions } from '../../../../auth/hooks/usePermissions';
 
 const initialForm = {
     id: undefined,
@@ -24,6 +25,10 @@ const initialForm = {
 const TarjetasTarifasForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const { can } = usePermissions();
+
+    const canDeleteTarifas = can('catalogs', 'delete', 'tarifas_tarjetas');
 
     const [isDelete, setIsDelete] = useState(false)
 
@@ -114,43 +119,48 @@ const TarjetasTarifasForm = () => {
                 <div className='md:col-start-2 mt-10 flex gap-3 items-center justify-center'>
                     {!isDelete && <SaveButton />}
 
-                    {(tarifaToEdit && !isDelete) && (
-                        <DeleteButton
-                            onClick={() => setIsDelete(!isDelete)}
-                            type="button"
-                            className={'h-9 w-9 flex items-center justify-center'}
-                        />
+                    {canDeleteTarifas && (
+                        <>
+                            {(tarifaToEdit && !isDelete) && (
+                                <DeleteButton
+                                    onClick={() => setIsDelete(!isDelete)}
+                                    type="button"
+                                    className={'h-9 w-9 flex items-center justify-center'}
+                                />
+                            )}
+
+                            {isDelete && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="flex flex-col justify-center text-center gap-2"
+                                >
+                                    <span className='mb-2 font-semibold text-primary'>
+                                        ¿ESTÁS SEGURO DE ELIMINAR ESTA TARIFA?
+                                    </span>
+                                    <div className='flex justify-center gap-6'>
+                                        <button
+                                            type='button'
+                                            onClick={() => { onDelete(formState.id) }}
+                                            className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
+                                        >
+                                            SI
+                                        </button>
+                                        <button
+                                            type='button'
+                                            onClick={() => { setIsDelete(!isDelete) }}
+                                            className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
+                                        >
+                                            NO
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </>
                     )}
 
-                    {isDelete && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex flex-col justify-center text-center gap-2"
-                        >
-                            <span className='mb-2 font-semibold text-primary'>
-                                ¿ESTÁS SEGURO DE ELIMINAR ESTA TARIFA?
-                            </span>
-                            <div className='flex justify-center gap-6'>
-                                <button
-                                    type='button'
-                                    onClick={() => { onDelete(formState.id) }}
-                                    className={`bg-primary/60 text-secondary-complement items-center text-center rounded-lg hover:outline-none font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary opacity-50 hover:opacity-100 md:w-24`}
-                                >
-                                    SI
-                                </button>
-                                <button
-                                    type='button'
-                                    onClick={() => { setIsDelete(!isDelete) }}
-                                    className={`text-secondary-complement items-center text-center rounded-lg hover:outline-none bg-primary font-semibold cursor-pointer px-4 py-2 hover:bg-dark-primary transition-all text-sm focus:outline-dark-primary md:w-24`}
-                                >
-                                    NO
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
                 </div>
             </Form>
 

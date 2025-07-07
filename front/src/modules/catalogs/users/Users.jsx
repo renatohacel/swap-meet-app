@@ -6,24 +6,30 @@ import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import { CardMain } from "../../ui/components/cards/CardMain";
 import { useHelper } from "../../helper/hooks/useHelper";
+import { usePermissions } from "../../auth/hooks/usePermissions";
 
 const COLUMNS = [
   "ID",
   "USUARIO",
-  "APELLIDO PATERNO", 
-  "APELLIDO MATERNO", 
-  "NOMBRE", 
-  "ESTATUS", 
-  "TIPO", 
+  "APELLIDO PATERNO",
+  "APELLIDO MATERNO",
+  "NOMBRE",
+  "ESTATUS",
+  "TIPO",
   // "NIVELES"
 ];
-const FIELDS = ["id", "usuario", "apellido", "nombre", "estatus", "tipo"];
+const FIELDS = ["id", "username", "first_lastname", "second_lastname", "full_name", "status", "type"];
 
 const Users = () => {
   const location = useLocation()
   const { users, getUsers, loading, editNavigate } = useUser();
   const { groups, getGroups } = useHelper();
   const [usersCleaned, setUsersCleaned] = useState([]);
+  const { can } = usePermissions();
+
+  // const canViewUsers = can('catalogs', 'view', 'users');
+  const canCreateUsers = can('catalogs', 'create', 'users');
+  const canUpdateUsers = can('catalogs', 'update', 'users');
 
   useEffect(() => {
     getUsers();
@@ -70,6 +76,8 @@ const Users = () => {
           filterFields={FIELDS}
           addLink={"add"}
           editFunction={editNavigate}
+          showNuevo={canCreateUsers}
+          showAcciones={canUpdateUsers}
         />
       )}
     </CardMain>

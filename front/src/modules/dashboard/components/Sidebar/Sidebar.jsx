@@ -12,12 +12,15 @@ import 'tippy.js/dist/tippy.css';
 import { Modal } from 'antd';
 import PasswordForm from "../../../catalogs/users/components/PasswordForm";
 import { Toaster } from "react-hot-toast";
+import { usePermissions } from "../../../auth/hooks/usePermissions";
 
 
 
 const Sidebar = () => {
   const { handleLogout, login } = useContext(AuthContext);
   const { user } = login;
+  const { can } = usePermissions();
+
   const [isOpen, setIsOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState({});
 
@@ -45,6 +48,7 @@ const Sidebar = () => {
         full_name: user.Nombre,
         status: user.Estatus,
         type: user.Tipo,
+        niveles: user.niveles
       })
     }
   }, [user])
@@ -100,15 +104,23 @@ const Sidebar = () => {
             </NavLink>
             <hr className="mb-10 text-secondary-complement/50 border-1" />
             <ul className="space-y-2">
-              <li>
-                <AdministracionMenu />
-              </li>
-              <li>
-                <CatalogosMenu />
-              </li>
-              <li>
-                <HistorialMenu />
-              </li>
+              {can('admin', 'view', 'generacion_tarjetas') && (
+                <li>
+                  <AdministracionMenu />
+                </li>
+              )}
+              {(can('catalogs', 'view', 'users') ||
+                can('catalogs', 'view', 'tarifas_puestos') ||
+                can('catalogs', 'view', 'tarifas_tarjetas')) && (
+                  <li>
+                    <CatalogosMenu />
+                  </li>
+                )}
+              {can('history', 'view', 'historial') && (
+                <li>
+                  <HistorialMenu />
+                </li>
+              )}
             </ul>
           </div>
 

@@ -11,7 +11,7 @@ export class AuthController {
 
       if (user.Error) return res.status(401).send({ message: user.Error });
 
-      const token = jwt.sign(user, JWT_SECRET, { expiresIn: "8h" });
+      const token = jwt.sign(user, JWT_SECRET, { expiresIn: "16h" });
 
       // Configuración específica para desarrollo
       const cookieOptions = {

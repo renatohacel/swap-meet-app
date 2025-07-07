@@ -5,12 +5,18 @@ import Loader from "../../../ui/components/Loader";
 import Table from "../../../ui/components/table/Table";
 import { useLocation } from "react-router-dom";
 import { CardMain } from "../../../ui/components/cards/CardMain";
+import { usePermissions } from "../../../auth/hooks/usePermissions";
 
 const COLUMNS = ["ID", "AÑO", "IMPORTE", "COLOR"];
 const FIELDS = ["id", "anio", "importe", "color"];
 
 const TarjetasTarifas = () => {
     const location = useLocation()
+
+    const { can } = usePermissions();
+
+    const canCreateTarifas = can('catalogs', 'create', 'tarifas_tarjetas');
+    const canUpdateTarifas = can('catalogs', 'update', 'tarifas_tarjetas');
 
     const { tarjetas, getTarifasTarjetas, loading, editNavigate } = useTarifasTarjetas();
     const [tarjetasCleaned, setTarjetasCleaned] = useState([]);
@@ -56,6 +62,8 @@ const TarjetasTarifas = () => {
                     filterFields={FIELDS}
                     addLink={"add"}
                     editFunction={editNavigate}
+                    showNuevo={canCreateTarifas}
+                    showAcciones={canUpdateTarifas}
                 />
             )}
         </CardMain>

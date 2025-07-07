@@ -18,17 +18,25 @@ export const useAuth = () => {
   const handleLogin = async ({ username, password }) => {
     try {
       const result = await loginUser({ username, password });
+
+      const userWithPermissions = {
+        ...result.user,
+        niveles: result.user.niveles || null
+      };
+
       dispatch({
         type: CONSTANTS.LOGIN,
-        payload: result.user,
+        payload: userWithPermissions,
       });
+
       sessionStorage.setItem(
         "login",
         JSON.stringify({
           isAuth: true,
-          user: result.user,
+          user: userWithPermissions,
         })
       );
+
       navigate(CONSTANTS_ROUTES.HOME);
     } catch (error) {
       return toast.error(error.response?.data?.message, {
@@ -60,6 +68,8 @@ export const useAuth = () => {
       window.location.reload();
     }
   };
+
+
 
   return {
     //constants
