@@ -98,8 +98,17 @@ export class UserModel {
       new_password,
     }
 
-    //LLAMAR AL SP
+    const sql = `
+    EXEC usp_ActualizarPasswordUsuario
+      @IdUsuario = :id,
+      @OldPassword = :old_password,
+      @NewPassword = :new_password
+    `;
 
-    return data;
+    const result = await sequelize.query(sql, {
+      replacements: data,
+    });
+
+    return result[0][0];
   }
 }

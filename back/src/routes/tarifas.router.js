@@ -2,17 +2,40 @@ import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
 import { TarifasPuestosController } from "../controllers/tarifas/tarifas.puestos.controller.js";
 import { TarifasTarjetasController } from "../controllers/tarifas/tarifas.tarjetas.controller.js";
+import { authorize } from "../middlewares/permissions.middleware.js";
 
 
 export const tarifasRouter = Router();
 
 //PUESTOS
-tarifasRouter.get("/puestos", authenticate, TarifasPuestosController.getTarifas);
-tarifasRouter.patch("/puestos", authenticate, TarifasPuestosController.updateTarifas);
+tarifasRouter.get("/puestos",
+    authenticate,
+    authorize('catalogs', 'view', 'tarifas_puestos'),
+    TarifasPuestosController.getTarifas);
+tarifasRouter.patch("/puestos",
+    authenticate,
+    authorize('catalogs', 'update', 'tarifas_puestos'),
+    TarifasPuestosController.updateTarifas);
 
 //TARJETAS
-tarifasRouter.get('/tarjetas', authenticate, TarifasTarjetasController.getTarifas)
-tarifasRouter.post('/tarjetas', authenticate, TarifasTarjetasController.insertTarifa)
-tarifasRouter.patch('/tarjetas', authenticate, TarifasTarjetasController.updateTarifa)
-tarifasRouter.delete('/tarjetas/:id', authenticate, TarifasTarjetasController.deleteTarifa)
+tarifasRouter.get('/tarjetas',
+    authenticate,
+    authorize('catalogs', 'view', 'tarifas_tarjetas'),
+    TarifasTarjetasController.getTarifas
+);
+tarifasRouter.post('/tarjetas',
+    authenticate,
+    authorize('catalogs', 'create', 'tarifas_tarjetas'),
+    TarifasTarjetasController.insertTarifa
+);
+tarifasRouter.patch('/tarjetas',
+    authenticate,
+    authorize('catalogs', 'update', 'tarifas_tarjetas'),
+    TarifasTarjetasController.updateTarifa
+);
+tarifasRouter.delete('/tarjetas/:id',
+    authenticate,
+    authorize('catalogs', 'delete', 'tarifas_tarjetas'),
+    TarifasTarjetasController.deleteTarifa
+);
 

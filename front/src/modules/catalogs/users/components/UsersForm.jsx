@@ -17,7 +17,6 @@ import { treeData } from "../../../../utils/treePermissions";
 import SaveButton from "../../../ui/components/buttons/SaveButton";
 import { useHelper } from "../../../helper/hooks/useHelper";
 import { AuthContext } from "../../../auth/context/AuthContext";
-import { useAuth } from "../../../auth/hooks/useAuth";
 import toast from "react-hot-toast";
 
 

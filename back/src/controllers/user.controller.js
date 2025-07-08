@@ -57,7 +57,12 @@ export class UserController {
 
   static async updatePassword(req, res) {
     const passwords = req.body
-    console.log(passwords)
+    const userId = req.user.IdUsuario
+
+    if (userId !== passwords.id) {
+      return res.status(403).send({ message: "You can only change your own password" });
+    }
+
     try {
       const updatedPassword = await UserModel.updatePassword(passwords)
       if (updatedPassword?.Error) return res.status(409).send({ message: updatedPassword.Error });
