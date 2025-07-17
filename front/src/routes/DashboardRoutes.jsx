@@ -9,6 +9,7 @@ import TarifasRoutes from "./TarifasRoutes";
 import LotesRoutes from "./LotesRoutes";
 import { CONSTANTS_ROUTES } from "../utils/constansRoutes";
 import Historial from "../modules/historial/Historial";
+import ProtectedRoute from "./ProtectedRoute";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -64,9 +65,11 @@ const DashboardRoutes = () => {
               <Route
                 path={`${CONSTANTS_ROUTES.HISTORIAL}/`}
                 element={
-                  <AnimatedPage>
-                    <Historial />
-                  </AnimatedPage>
+                  <ProtectedRoute module={'history'} action={'view'} resource={'historial'}>
+                    <AnimatedPage>
+                      <Historial />
+                    </AnimatedPage>
+                  </ProtectedRoute>
                 }
               />
 

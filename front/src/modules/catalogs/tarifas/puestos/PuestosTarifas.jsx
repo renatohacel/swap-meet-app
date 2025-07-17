@@ -9,11 +9,15 @@ import { useEffect } from 'react';
 import { useTarifaPuestos } from './hooks/useTarifaPuestos';
 import { CardMain } from '../../../ui/components/cards/CardMain';
 import SaveButton from '../../../ui/components/buttons/SaveButton';
+import { usePermissions } from '../../../auth/hooks/usePermissions';
 
 
 const PuestosTarifas = () => {
     const { onInputChange, formState, setFormState } = useForm([]);
     const { getTarifaPuestos, updateTarifaPuestos, puestos } = useTarifaPuestos()
+    const { can } = usePermissions();
+
+    const canUpdate = can('catalogs', 'update', 'tarifas_puestos');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { getTarifaPuestos() }, [])
@@ -71,10 +75,11 @@ const PuestosTarifas = () => {
                                     type={type}
                                     onChange={onInputChange}
                                     value={formState[name] || ''}
-                                    className={'uppercase w-full'}
+                                    className={`${!canUpdate && 'cursor-not-allowed'} uppercase w-full`}
                                     autoComplete={"off"}
                                     min={min}
                                     step="any"
+                                    disabled={!canUpdate}
                                 />
                             </div>
                         </SectionForm>
@@ -98,10 +103,11 @@ const PuestosTarifas = () => {
                                     type={type}
                                     onChange={onInputChange}
                                     value={formState[name] || ''}
-                                    className={'uppercase w-full'}
                                     autoComplete={"off"}
                                     min={min}
                                     step="any"
+                                    disabled={!canUpdate}
+                                    className={`${!canUpdate && 'cursor-not-allowed'} uppercase w-full`}
                                 />
                             </div>
                         </SectionForm>
@@ -126,18 +132,21 @@ const PuestosTarifas = () => {
                                     type={type}
                                     onChange={onInputChange}
                                     value={formState[name] || ''}
-                                    className={'uppercase w-full'}
+                                    className={`${!canUpdate && 'cursor-not-allowed'} uppercase w-full`}
                                     autoComplete={"off"}
                                     min={min}
                                     step="any"
+                                    disabled={!canUpdate}
                                 />
                             </div>
                         </SectionForm>
                     ))}
                 </section>
-                <div className='md:row-end-5 md:col-start-2 flex justify-center'>
-                    <SaveButton />
-                </div>
+                {canUpdate && (
+                    <div className='md:row-end-5 md:col-start-2 flex justify-center'>
+                        <SaveButton />
+                    </div>
+                )}
             </Form>
         </CardMain>
     )

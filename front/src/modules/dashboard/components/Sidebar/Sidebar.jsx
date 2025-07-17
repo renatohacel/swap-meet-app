@@ -168,6 +168,7 @@ const Sidebar = () => {
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
+        style={{ fontFamily: 'var(--font-family-primary)' }}
       // width={1000}
       >
         <PasswordForm id={userToEdit.id} handleOk={handleOk} handleCancel={handleCancel} />

@@ -18,6 +18,12 @@ export const PERMISSIONS_MAP = {
         resource: 'generacion_tarjetas',
         description: 'Eliminar lote de tarjetas'
     },
+    '0-0-0-3': {
+        module: 'admin',
+        action: 'cancel',
+        resource: 'generacion_tarjetas',
+        description: 'Cancelar tarjeta'
+    },
 
     // Catálogos - Usuarios
     '0-1-0-0': {

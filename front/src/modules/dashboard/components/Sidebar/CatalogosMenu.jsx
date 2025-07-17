@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
+import { usePermissions } from "../../../auth/hooks/usePermissions";
 
 const CatalogosMenu = () => {
   const location = useLocation();
+  const { can } = usePermissions();
   const [catalogosOpen, setCatalogosOpen] = useState(
     location.pathname.includes(CONSTANTS_ROUTES.CATALOGO.BASE)
   );
@@ -32,21 +34,33 @@ const CatalogosMenu = () => {
               : "text-secondary-complement"
               }`}
           >
-            <NavLink className={`flex`} to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
-              USUARIOS
-            </NavLink>
+            {
+              can('catalogs', 'view', 'users') && (
+                <NavLink className={`flex`} to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
+                  USUARIOS
+                </NavLink>
+              )
+            }
           </li>
           <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`)
             ? "text-dark-primary"
             : "text-secondary-complement"
             }`}>
-            <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
+            {
+              can('catalogs', 'view', 'tarifas_puestos') && (
+                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
+              )
+            }
           </li>
           <li className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`)
             ? "text-dark-primary"
             : "text-secondary-complement"
             }`}>
-            <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
+            {
+              can('catalogs', 'view', 'tarifas_tarjetas') && (
+                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
+              )
+            }
           </li>
         </ul>
       )}

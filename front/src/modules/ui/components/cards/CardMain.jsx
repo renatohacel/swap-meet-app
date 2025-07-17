@@ -23,7 +23,7 @@ export const CardMain = ({ children, aTerminacion = false, title = '', formTitle
             !cancelButton &&
             <section>
                 <Toaster />
-                <h1 className="text-primary text-2xl sm:text-3xl font-bold mb-5">
+                <h1 className="text-primary text-2xl sm:text-3xl font-extrabold mb-5">
                     {title}
                 </h1>
                 <hr className="mb-12 text-primary/30 border-1" />

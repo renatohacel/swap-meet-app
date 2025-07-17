@@ -12,3 +12,8 @@ tarjetasRouter.get('/:id',
     authorize('admin', 'view', 'generacion_tarjetas'),
     TarjetasController.getTarjetasLote)
 
+//Cancelar Tarjeta
+tarjetasRouter.patch('/:id',
+    authenticate,
+    authorize('admin', 'cancel', 'generacion_tarjetas'),
+    TarjetasController.cancelTarjeta)

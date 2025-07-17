@@ -13,6 +13,9 @@ const Table = ({
   viewFunction = '',
   showNuevo = true,
   showAcciones = true,
+  cancel = false,
+  cancelFunction,
+  edit = true,
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -89,7 +92,7 @@ const Table = ({
           <tbody className="bg-secondary-complement">
             {filteredData.length > 0 ? (
               currentData.map((row, index) => (
-                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} />
+                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} cancel={cancel} edit={edit} cancelFunction={cancelFunction} />
               ))
             ) : (
               // Mostrar "NO HAY REGISTROS" si no hay datos filtrados
@@ -157,8 +160,8 @@ const Table = ({
                     key={page}
                     onClick={() => handlePageChange(page)}
                     className={`md:px-3 sm:px-2 px-[6px] py-1 rounded-md cursor-pointer text-xs md:text-base font-semibold ${currentPage === page
-                        ? "bg-dark-primary text-secondary-complement"
-                        : "bg-primary text-secondary-complement hover:bg-dark-primary"
+                      ? "bg-dark-primary text-secondary-complement"
+                      : "bg-primary text-secondary-complement hover:bg-dark-primary"
                       }`}
                   >
                     {page}

@@ -2,42 +2,26 @@
 
 @theme {
     --color-primary:
-        /* #6f49bd; */
-        /* #805ec4; */
-        /* #663e82; */
-        /* #715981; */
         #6F49BD;
     --color-secondary:
         #ADA9BA;
-        /* #e4c3ff; */
-        /* #cc8eff; */
-        /* #e5c6ff; */
-        /* #a949bd; */
-        /* #8c49bd; */
-        /* #F6F3FC; */
     --color-dark-secondary:
-        /* #706F8E; */
         #ADA2B5;
     --color-dark-primary:
-        /* #393A5A; */
         #400080;
     --color-secondary-complement:
-        /* #E9E9E9; */
         #F6F3FC;
-    /* #EBE4F9; */
     --color-primary-text:
         #22222E;
+    --font-family-primary:
+        'Lufga', sans-serif;
+
 }
 
 #root {
     padding: 0;
     margin: 0;
 }
-
-/* .ant-tree .ant-tree-checkbox-inner {
-    background-color: var(--color-primary) !important;
-    border-color: var(--color-dark-primary) !important;
-} */
 
 .ant-tree .ant-tree-checkbox-checked .ant-tree-checkbox-inner {
     background-color: var(--color-primary) !important;
@@ -46,4 +30,16 @@
 
 .ant-tree .ant-tree-checkbox:hover .ant-tree-checkbox-inner {
     border-color: var(--color-primary) !important;
+}
+
+@font-face {
+    font-family: 'Lufga';
+    src: url('./fonts/LufgaRegular.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Lufga', sans-serif;
 }

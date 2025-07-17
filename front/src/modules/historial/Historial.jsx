@@ -15,7 +15,18 @@ const Historial = () => {
     }, [])
 
     useEffect(() => {
-        console.log(historial)
+        if (historial.length > 0) {
+            historial.map(item => (
+                item.fecha = new Date(item.fecha).toLocaleString('es-MX', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                })
+            ))
+        }
     }, [historial])
 
     return (

@@ -124,6 +124,7 @@ export const CONSTANTS = {
 
   TARJETAS: {
     GET_TARJETAS: 'GET_TARJETAS',
+    CANCEL_TARJETA: 'CANCEL_TARJETA',
   },
 
   //---------------------------------------------------------------------//

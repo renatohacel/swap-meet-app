@@ -11,7 +11,8 @@ export const treeData = [
                         title: 'GENERACIÓN DE TARJETAS', key: '0-0-0', children: [
                             { title: 'VISUALIZAR', key: '0-0-0-0' },
                             { title: 'CREAR', key: '0-0-0-1' },
-                            { title: 'ELIMINAR', key: '0-0-0-2' },
+                            { title: 'ELIMINACIÓN DE LOTE', key: '0-0-0-2' },
+                            { title: 'CANCELACIÓN DE TARJETAS', key: '0-0-0-3' },
                         ],
                     },
                 ],

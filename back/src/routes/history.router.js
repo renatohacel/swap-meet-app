@@ -8,5 +8,5 @@ export const historyRouter = Router();
 
 historyRouter.get('/',
     authenticate,
-    authorize('history', 'view', 'history'),
+    authorize('history', 'view', 'historial'),
     HistoryController.getHistory);

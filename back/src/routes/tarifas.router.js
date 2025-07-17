@@ -2,7 +2,7 @@ import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
 import { TarifasPuestosController } from "../controllers/tarifas/tarifas.puestos.controller.js";
 import { TarifasTarjetasController } from "../controllers/tarifas/tarifas.tarjetas.controller.js";
-import { authorize } from "../middlewares/permissions.middleware.js";
+import { authorize, authorizeAny } from "../middlewares/permissions.middleware.js";
 
 
 export const tarifasRouter = Router();
@@ -20,7 +20,10 @@ tarifasRouter.patch("/puestos",
 //TARJETAS
 tarifasRouter.get('/tarjetas',
     authenticate,
-    authorize('catalogs', 'view', 'tarifas_tarjetas'),
+    authorizeAny([
+        { module: 'admin', action: 'view', resource: 'generacion_tarjetas' },
+        { module: 'catalogs', action: 'create', resource: 'tarifas_tarjetas' }
+    ]),
     TarifasTarjetasController.getTarifas
 );
 tarifasRouter.post('/tarjetas',
