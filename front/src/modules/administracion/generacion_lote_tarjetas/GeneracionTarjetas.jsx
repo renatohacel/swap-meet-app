@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import toast from "react-hot-toast"
 import Table from "../../ui/components/table/Table"
 import { useLocation } from "react-router-dom"
