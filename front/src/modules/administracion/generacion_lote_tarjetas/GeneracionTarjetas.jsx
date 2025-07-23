@@ -16,6 +16,7 @@ const GeneracionTarjetas = () => {
   const location = useLocation()
   const { can } = usePermissions();
 
+
   const canCreateLotes = can('admin', 'create', 'generacion_tarjetas');
 
   const { lotes, getLotes, loading, editNavigate, viewNavigate } = useGenLoteTarjetas();

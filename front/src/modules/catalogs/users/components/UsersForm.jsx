@@ -195,7 +195,7 @@ const UsersForm = () => {
     }
   }, [formState['type'], PERSONALIZADO]);
 
-  useEffect(() => { console.log(formState) }, [formState])
+  // useEffect(() => { console.log(formState) }, [formState])
 
   return (
     <CardMain formTitle="USUARIO" cancelButton={true}>
@@ -209,7 +209,8 @@ const UsersForm = () => {
               type={type}
               onChange={onInputChange}
               value={formState[name] || ''}
-              className={'uppercase'}
+              disabled={(userToEdit && name === 'username') ? true : false}
+              className={`${(userToEdit && name === 'username') && 'cursor-not-allowed'} uppercase`}
               autoComplete={"off"}
             />
             {errors[name] && (
