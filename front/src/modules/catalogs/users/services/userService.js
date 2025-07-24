@@ -5,6 +5,11 @@ export const getUsersService = async () => {
   return response.data;
 };
 
+export const getActiveUsersService = async () => {
+  const response = await axiosInstance.get("/users/actives");
+  return response.data;
+}
+
 export const getUserByIdService = async (id) => {
   const response = await axiosInstance.get(`/users/${id}`);
   return response.data;

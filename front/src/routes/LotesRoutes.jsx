@@ -29,7 +29,6 @@ const LotesRoutes = () => {
                 </ProtectedRoute>
             } />
 
-
             <Route path='/*' element={<Navigate to={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS} />} />
         </Routes>
     )

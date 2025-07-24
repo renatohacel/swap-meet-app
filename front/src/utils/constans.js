@@ -127,6 +127,15 @@ export const CONSTANTS = {
     CANCEL_TARJETA: 'CANCEL_TARJETA',
   },
 
+  ASIGNACION_TIANGUIS: {
+    GET_TIANGUIS: 'GET_TIANGUIS',
+    GET_TIANGUIS_BY_USER_ID: 'GET_TIANGUIS_BY_USER_ID',
+  },
+
+  RECARGAS: {
+    GET_RECARGAS: 'GET_RECARGAS'
+  },
+
   //---------------------------------------------------------------------//
   //                            HISTORIAL                                 //
   //---------------------------------------------------------------------//

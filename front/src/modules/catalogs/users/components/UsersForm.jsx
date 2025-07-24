@@ -37,7 +37,6 @@ const UsersForm = () => {
   const navigate = useNavigate();
   const { login, handleLogout } = useContext(AuthContext);
 
-  console.log(login)
 
   const userToEdit = location.state?.user;
 
@@ -267,8 +266,9 @@ const UsersForm = () => {
               id='permissions'
               checkable
               style={{
+                fontFamily: 'var(--font-family-primary)',
                 padding: '2px',
-                color: 'var(--color-dark-primary)',
+                color: 'var(--color-primary)',
                 backgroundColor: 'var(--color-white)',
                 borderRadius: '8px',
               }}

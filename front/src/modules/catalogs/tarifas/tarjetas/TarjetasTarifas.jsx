@@ -64,6 +64,7 @@ const TarjetasTarifas = () => {
                     editFunction={editNavigate}
                     showNuevo={canCreateTarifas}
                     showAcciones={canUpdateTarifas}
+                    showDateFilter={false}
                 />
             )}
         </CardMain>

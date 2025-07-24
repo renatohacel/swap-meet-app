@@ -15,6 +15,17 @@ export const treeData = [
                             { title: 'CANCELACIÓN DE TARJETAS', key: '0-0-0-3' },
                         ],
                     },
+                    {
+                        title: 'ASIGNACIÓN DE TIANGUIS', key: '0-0-1', children: [
+                            { title: 'VISUALIZAR', key: '0-0-1-0' },
+                            { title: 'ACTUALIZAR', key: '0-0-1-1' },
+                        ],
+                    },
+                    {
+                        title: 'RECARGAS', key: '0-0-2', children: [
+                            { title: 'VISUALIZAR', key: '0-0-2-0' },
+                        ],
+                    }
                 ],
             },
             {

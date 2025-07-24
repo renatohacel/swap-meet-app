@@ -27,7 +27,7 @@ const CatalogosMenu = () => {
         CATÁLOGOS
       </button>
       {catalogosOpen && (
-        <ul className="ml-10 space-y-1 mt-2 p-2 bg-secondary-complement/40 rounded-lg">
+        <ul className="ml-10 space-y-3 mt-2 p-2 bg-secondary-complement/40 rounded-lg">
           <li
             className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(CONSTANTS_ROUTES.CATALOGO.USUARIOS)
               ? "text-dark-primary"

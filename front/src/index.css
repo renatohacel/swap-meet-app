@@ -32,6 +32,35 @@
     border-color: var(--color-primary) !important;
 }
 
+.ant-picker-input input::placeholder {
+  color: var(--color-dark-primary) !important; /* Usa tu variable o cualquier color */
+  opacity: 0.4 !important; /* Opcional para opacidad *//* Asegura que el peso de la fuente sea normal */
+  font-size: medium;
+  font-family: 'Lufga', sans-serif;
+}
+/* 
+.ant-transfer .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-dark-primary) !important;
+}
+
+.ant-transfer .ant-checkbox:hover .ant-checkbox-inner {
+    border-color: var(--color-primary) !important;
+}
+
+.ant-transfer .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+    background-color: var(--color-primary) !important;
+}
+
+
+.custom-transfer .ant-transfer-list-header {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+} */
+
+
 @font-face {
     font-family: 'Lufga';
     src: url('./fonts/LufgaRegular.ttf');

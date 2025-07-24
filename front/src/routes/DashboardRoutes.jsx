@@ -10,6 +10,8 @@ import LotesRoutes from "./LotesRoutes";
 import { CONSTANTS_ROUTES } from "../utils/constansRoutes";
 import Historial from "../modules/historial/Historial";
 import ProtectedRoute from "./ProtectedRoute";
+import AsignaTianguisRoutes from "./AsignaTianguisRoutes";
+import RecargasRouter from "./RecargasRouter";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -22,7 +24,7 @@ const DashboardRoutes = () => {
             <Routes location={location} key={location.pathname}>
 
               <Route path="/" element={<Navigate to={CONSTANTS_ROUTES.HOME} />} />
-
+              {/* HOME */}
               <Route
                 path={CONSTANTS_ROUTES.HOME}
                 element={
@@ -32,7 +34,7 @@ const DashboardRoutes = () => {
                 }
               />
 
-
+              {/* CATALOGO */}
               <Route
                 path={`${CONSTANTS_ROUTES.CATALOGO.USUARIOS}/*`}
                 element={
@@ -50,8 +52,9 @@ const DashboardRoutes = () => {
                   </AnimatedPage>
                 }
               />
+              {/* FIN DE CATALOGO */}
 
-
+              {/* ADMINISTRACIÓN */}
               <Route
                 path={`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/*`}
                 element={
@@ -63,6 +66,28 @@ const DashboardRoutes = () => {
               />
 
               <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.ASIGNACION_TIANGUIS}/*`}
+                element={
+                  <AnimatedPage>
+                    <AsignaTianguisRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.RECARGAS}/*`}
+                element={
+                  <AnimatedPage>
+                    <RecargasRouter />
+                  </AnimatedPage>
+                }
+              />
+
+              {/* FIN DE ADMINISTRACIÓN */}
+
+              {/* HISTORIAL */}
+
+              <Route
                 path={`${CONSTANTS_ROUTES.HISTORIAL}/`}
                 element={
                   <ProtectedRoute module={'history'} action={'view'} resource={'historial'}>
@@ -72,6 +97,8 @@ const DashboardRoutes = () => {
                   </ProtectedRoute>
                 }
               />
+
+              {/* FIN DE HISTORIAL */}
 
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

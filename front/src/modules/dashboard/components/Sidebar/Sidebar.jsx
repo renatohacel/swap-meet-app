@@ -104,7 +104,7 @@ const Sidebar = () => {
             </NavLink>
             <hr className="mb-10 text-secondary-complement/50 border-1" />
             <ul className="space-y-2">
-              {can('admin', 'view', 'generacion_tarjetas') && (
+              {(can('admin', 'view', 'generacion_tarjetas') || can('admin', 'view', 'asignacion_tianguis') || can('admin', 'view', 'recargas')) && (
                 <li>
                   <AdministracionMenu />
                 </li>

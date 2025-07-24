@@ -78,6 +78,7 @@ const Users = () => {
           editFunction={editNavigate}
           showNuevo={canCreateUsers}
           showAcciones={canUpdateUsers}
+          showDateFilter={false}
         />
       )}
     </CardMain>

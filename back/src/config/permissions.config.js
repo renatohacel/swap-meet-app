@@ -25,6 +25,30 @@ export const PERMISSIONS_MAP = {
         description: 'Cancelar tarjeta'
     },
 
+    // Administración - Asignación de Tianguis
+    '0-0-1-0': {
+        module: 'admin',
+        action: 'view',
+        resource: 'asignacion_tianguis',
+        description: 'Ver asignación de tianguis'
+    },
+    '0-0-1-1': {
+        module: 'admin',
+        action: 'update',
+        resource: 'asignacion_tianguis',
+        description: 'Actualizar asignación de tianguis'
+    },
+
+    // Administración - Recargas
+
+    '0-0-2-0': {
+        module: 'admin',
+        action: 'view',
+        resource: 'recargas',
+        description: 'Ver recargas'
+    },
+
+
     // Catálogos - Usuarios
     '0-1-0-0': {
         module: 'catalogs',

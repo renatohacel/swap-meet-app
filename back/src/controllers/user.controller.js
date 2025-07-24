@@ -11,6 +11,16 @@ export class UserController {
     }
   }
 
+  static async getActiveUsers(req, res) {
+    try {
+      const usersActives = await UserModel.findAllActive();
+      res.status(200).send(usersActives);
+    } catch (error) {
+      console.error("Error in UserController.getActiveUsers:", error);
+      throw error;
+    }
+  }
+
   static async getUserById(req, res) {
     const { id } = req.params;
     try {

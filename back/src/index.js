@@ -15,6 +15,8 @@ import { lotesRouter } from "./routes/lotes.router.js";
 import { tarjetasRouter } from "./routes/tarjetas.router.js";
 import { historyRouter } from "./routes/history.router.js";
 import { helperRouter } from "./routes/helper.router.js";
+import { asignacionTianguisRouter } from "./routes/asignacion_tianguis.router.js";
+import { recargasRouter } from "./routes/recargas.router.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -37,6 +39,8 @@ app.use('/generacion-lotes', lotesRouter);
 app.use('/tarjetas', tarjetasRouter);
 app.use('/historial', historyRouter);
 app.use('/helper', helperRouter);
+app.use('/asignacion-tianguis', asignacionTianguisRouter);
+app.use('/recargas', recargasRouter);
 
 // RUN
 app.listen(PORT, HOST, () => {

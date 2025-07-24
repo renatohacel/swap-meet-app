@@ -7,6 +7,13 @@ export class UserModel {
     return result[0];
   }
 
+  // para asignación de tianguis
+  static async findAllActive() {
+    const sql = `EXEC usp_ListadoUsuariosActivos`;
+    const result = await sequelize.query(sql);
+    return result[0];
+  }
+
   static async findById(id) {
     const sql = `SELECT * FROM UsuariosApp WHERE IdUsuario = :id`;
     const result = await sequelize.query(sql, {

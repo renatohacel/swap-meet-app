@@ -10,6 +10,13 @@ userRouter.get("/",
     authorize('catalogs', 'view', 'users'),
     UserController.getUsers
 );
+
+userRouter.get('/actives',
+    authenticate,
+    authorize('admin', 'view', 'asignacion_tianguis'),
+    UserController.getActiveUsers
+);
+
 userRouter.get("/:id",
     authenticate,
     authorize('catalogs', 'view', 'users'),

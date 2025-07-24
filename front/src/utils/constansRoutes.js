@@ -11,6 +11,8 @@ export const CONSTANTS_ROUTES = {
         LOTES: {
             GENERACION_TARJETAS: '/administracion/generacion-lotes'
         },
+        ASIGNACION_TIANGUIS: '/administracion/asignacion-tianguis',
+        RECARGAS: '/administracion/recargas',
     },
 
     CATALOGO: {

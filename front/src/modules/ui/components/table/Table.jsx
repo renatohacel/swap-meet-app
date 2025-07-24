@@ -6,6 +6,8 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { DatePicker } from 'antd'
+const { RangePicker } = DatePicker;
 
 const Table = ({
   columns,
@@ -20,13 +22,23 @@ const Table = ({
   cancel = false,
   cancelFunction,
   edit = true,
+  editText = "Editar",
+  showDateFilter = true,
+  dateFilterName = 'fecha',
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [dateRange, setDateRange] = useState([null, null]);
   const rowsPerPage = 10; // Número de filas por página
 
   // Hook de filtro: Aplica el filtro a todos los datos
-  const { filteredData } = useFilter(data, searchInput, filterFields);
+  const { filteredData } = useFilter(
+    data,
+    searchInput,
+    filterFields,
+    dateRange,
+    dateFilterName
+  );
 
   // Calcular datos para la página actual
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -43,6 +55,7 @@ const Table = ({
   // Reiniciar la página actual al buscar
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
+    setDateRange([null, null]); // <-- Reinicia el rango de fechas
     setCurrentPage(1); // Reinicia a la primera página al buscar
   };
 
@@ -78,6 +91,33 @@ const Table = ({
             value={searchInput}
             onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
           />
+
+          {showDateFilter && (
+            <RangePicker
+              name={dateFilterName}
+              value={dateRange}
+              onChange={(dates) => {
+                setDateRange(dates || [null, null]);
+                setCurrentPage(1);
+              }}
+              placeholder={["Fecha inicio", "Fecha fin"]}
+              style={{
+                borderRadius: "0.5rem",
+                padding: "0.5rem",
+                border: "2px solid rgba(111, 73, 189, 0.5)",
+                color: "var(--color-dark-primary)",
+                fontWeight: "600",
+                height: "2.5rem",
+                minWidth: "8rem",
+                fontSize: "0.875rem",
+                transition: "all 0.2s",
+                background: "transparent",
+                fontFamily: 'var(--font-primary)'
+              }}
+              allowClear
+            />
+          )}
+
           <Tippy content="Exportar a Excel">
             <button
               type="button"
@@ -110,10 +150,6 @@ const Table = ({
               >
                 <path d="M 14 3 L 2 5 L 2 19 L 14 21 L 14 19 L 21 19 C 21.552 19 22 18.552 22 18 L 22 6 C 22 5.448 21.552 5 21 5 L 14 5 L 14 3 z M 12 5.3613281 L 12 18.638672 L 4 17.306641 L 4 6.6933594 L 12 5.3613281 z M 14 7 L 16 7 L 16 9 L 14 9 L 14 7 z M 18 7 L 20 7 L 20 9 L 18 9 L 18 7 z M 5.1757812 8.296875 L 7.0605469 11.994141 L 5 15.703125 L 6.7363281 15.703125 L 7.859375 13.308594 C 7.934375 13.079594 7.9847656 12.908922 8.0097656 12.794922 L 8.0253906 12.794922 C 8.0663906 13.032922 8.1162031 13.202109 8.1582031 13.287109 L 9.2714844 15.701172 L 11 15.701172 L 9.0058594 11.966797 L 10.943359 8.296875 L 9.3222656 8.296875 L 8.2929688 10.494141 C 8.1929688 10.779141 8.1257969 10.998625 8.0917969 11.140625 L 8.0664062 11.140625 C 8.0084063 10.902625 7.9509531 10.692719 7.8769531 10.511719 L 6.953125 8.296875 L 5.1757812 8.296875 z M 14 11 L 16 11 L 16 13 L 14 13 L 14 11 z M 18 11 L 20 11 L 20 13 L 18 13 L 18 11 z M 14 15 L 16 15 L 16 17 L 14 17 L 14 15 z M 18 15 L 20 15 L 20 17 L 18 17 L 18 15 z"></path>
               </svg>
-              {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M16 16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M21 15l-5 5m0 0l-5-5m5 5V9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg> */}
             </button>
           </Tippy>
         </div>
@@ -157,7 +193,7 @@ const Table = ({
           <tbody className="bg-secondary-complement">
             {filteredData.length > 0 ? (
               currentData.map((row, index) => (
-                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} cancel={cancel} edit={edit} cancelFunction={cancelFunction} />
+                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} cancel={cancel} edit={edit} cancelFunction={cancelFunction} editText={editText} />
               ))
             ) : (
               // Mostrar "NO HAY REGISTROS" si no hay datos filtrados
