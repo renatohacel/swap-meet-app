@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAsignacionTianguis } from "./hooks/useAsignacionTianguis";
 import Loader from "../../ui/components/Loader";
 import { usePermissions } from "../../auth/hooks/usePermissions";
+import toast from "react-hot-toast";
 
 const AsignacionTianguisUser = () => {
     const location = useLocation();
@@ -20,21 +21,23 @@ const AsignacionTianguisUser = () => {
     const [targetKeys, setTargetKeys] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
 
-    const onChange = (nextTargetKeys, direction, moveKeys) => {
-        setTargetKeys(nextTargetKeys);
-
-        if (direction === 'right') {
-            console.log('INSERTANDO')
-            insertTianguisToUser(id, moveKeys.join(','))
-
-        } else if (direction === 'left') {
-            console.log('QUITANDO')
-            deleteTianguisFromUser(id, moveKeys.join(','))
+    const onChange = async (nextTargetKeys, direction, moveKeys) => {
+        try {
+            if (direction === 'right') {
+                await insertTianguisToUser(id, moveKeys.join(','));
+            } else if (direction === 'left') {
+                await deleteTianguisFromUser(id, moveKeys.join(','));
+            }
+            setTargetKeys(nextTargetKeys);
+            toast.success(`Tianguis ${direction === 'right' ? 'asignados' : 'eliminados'} correctamente`, { position: 'top-right' });
+        } catch {
+            toast.error('Error al asignar/eliminar tianguis al usuario', { position: 'top-right' });
         }
     };
+
     const onSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-        console.log('sourceSelectedKeys:', sourceSelectedKeys);
-        console.log('targetSelectedKeys:', targetSelectedKeys);
+        // console.log('sourceSelectedKeys:', sourceSelectedKeys);
+        // console.log('targetSelectedKeys:', targetSelectedKeys);
         setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
     };
 

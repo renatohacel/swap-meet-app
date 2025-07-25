@@ -59,7 +59,7 @@ const UsersForm = () => {
     setAutoExpandParent(false);
   };
   const onCheck = checkedKeysValue => {
-    console.log('onCheck', checkedKeysValue);
+    // console.log('onCheck', checkedKeysValue);
     setCheckedKeys(checkedKeysValue);
     setFormState({
       ...formState,
@@ -67,7 +67,7 @@ const UsersForm = () => {
     })
   };
   const onSelect = (selectedKeysValue, info) => {
-    console.log('onSelect', info);
+    // console.log('onSelect', info);
     setSelectedKeys(selectedKeysValue);
   };
 
