@@ -48,6 +48,22 @@ export const PERMISSIONS_MAP = {
         description: 'Ver recargas'
     },
 
+    // Administración - Capturar Insen
+    '0-0-3-0': {
+        module: 'admin',
+        action: 'view',
+        resource: 'capturar_insen',
+        description: 'Ver capturar insen'
+    },
+
+    // Administración - Capturar Insen
+    '0-0-3-1': {
+        module: 'admin',
+        action: 'update',
+        resource: 'capturar_insen',
+        description: 'Actualizar capturar insen'
+    },
+
 
     // Catálogos - Usuarios
     '0-1-0-0': {

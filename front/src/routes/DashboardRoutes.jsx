@@ -4,14 +4,15 @@ import { AnimatePresence } from "framer-motion";
 import Sidebar from "../modules/dashboard/components/Sidebar/Sidebar";
 import Home from "../modules/dashboard/Home";
 import AnimatedPage from "../modules/ui/components/AnimatedPage";
-import UsersRoutes from "./UsersRoutes";
-import TarifasRoutes from "./TarifasRoutes";
-import LotesRoutes from "./LotesRoutes";
+import UsersRoutes from "./catalogos/UsersRoutes";
+import TarifasRoutes from "./catalogos/TarifasRoutes";
+import LotesRoutes from "./administracion/LotesRoutes";
 import { CONSTANTS_ROUTES } from "../utils/constansRoutes";
 import Historial from "../modules/historial/Historial";
 import ProtectedRoute from "./ProtectedRoute";
-import AsignaTianguisRoutes from "./AsignaTianguisRoutes";
-import RecargasRouter from "./RecargasRouter";
+import AsignaTianguisRoutes from "./administracion/AsignaTianguisRoutes";
+import CapturarInsenRoutes from "./administracion/CapturarInsenRoutes";
+import RecargasRoutes from "./administracion/RecargasRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -78,7 +79,16 @@ const DashboardRoutes = () => {
                 path={`${CONSTANTS_ROUTES.ADMIN.RECARGAS}/*`}
                 element={
                   <AnimatedPage>
-                    <RecargasRouter />
+                    <RecargasRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.CAPTURAR_INSEN}/*`}
+                element={
+                  <AnimatedPage>
+                    <CapturarInsenRoutes />
                   </AnimatedPage>
                 }
               />

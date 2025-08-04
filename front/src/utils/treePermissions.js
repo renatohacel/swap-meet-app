@@ -25,6 +25,12 @@ export const treeData = [
                         title: 'RECARGAS', key: '0-0-2', children: [
                             { title: 'VISUALIZAR', key: '0-0-2-0' },
                         ],
+                    },
+                    {
+                        title: 'CAPTURAR INSEN', key: '0-0-3', children: [
+                            { title: 'VISUALIZAR', key: '0-0-3-0' },
+                            { title: 'ACTUALIZAR', key: '0-0-3-1' },
+                        ],
                     }
                 ],
             },

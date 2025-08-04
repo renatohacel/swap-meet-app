@@ -12,15 +12,16 @@ const { RangePicker } = DatePicker;
 const Table = ({
   columns,
   data,
+  rawData = [], // <--- NUEVA PROP
   filterFields,
   addLink,
-  editFunction,
+  editFunction = () => { },
   details = false,
-  viewFunction = '',
+  viewFunction = () => { },
   showNuevo = true,
   showAcciones = true,
   cancel = false,
-  cancelFunction,
+  cancelFunction = () => { },
   edit = true,
   editText = "Editar",
   showDateFilter = true,
@@ -61,12 +62,11 @@ const Table = ({
 
   // Exportar a Excel
   const handleExportExcel = () => {
-    // Solo exporta los datos filtrados y visibles
-    const exportData = filteredData.map(row => {
-      // Solo exporta las columnas visibles (no acciones)
+    // Usa rawData si existe y tiene datos, si no usa data
+    const exportSource = rawData.length > 0 ? rawData : filteredData;
+    const exportData = exportSource.map(row => {
       const obj = {};
       columns.forEach((col, idx) => {
-        // Usa el nombre del campo de filterFields si existe, si no, usa el nombre de la columna
         const key = filterFields?.[idx] || col;
         obj[col] = row[key] ?? row[col] ?? "";
       });
@@ -82,12 +82,12 @@ const Table = ({
   return (
     <div>
       <div className="flex flex-col md:flex-row md:justify-between justify-center items-center mb-10 gap-3">
-        <div className="flex gap-4 items-center">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
           <input
             type="text"
             name="search"
             placeholder="Buscar"
-            className="rounded-lg p-2 border-2 border-primary/50 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:border-dark-primary focus:text-dark-primary transition-all"
+            className="rounded-lg p-2 border-2 border-primary/50 text-primary font-semibold h-full w-32 md:w-auto overflow-x-auto text-sm md:text-base focus:border-primary focus:outline-none focus:text-dark-primary transition-all"
             value={searchInput}
             onChange={handleSearchChange} // Cambia aquí para reiniciar la página al buscar
           />

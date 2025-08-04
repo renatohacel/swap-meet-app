@@ -13,6 +13,7 @@ export const CONSTANTS_ROUTES = {
         },
         ASIGNACION_TIANGUIS: '/administracion/asignacion-tianguis',
         RECARGAS: '/administracion/recargas',
+        CAPTURAR_INSEN: '/administracion/capturar-insen',
     },
 
     CATALOGO: {

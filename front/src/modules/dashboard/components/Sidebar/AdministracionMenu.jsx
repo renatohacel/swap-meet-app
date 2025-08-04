@@ -29,7 +29,7 @@ const AdministracionMenu = () => {
                                 }`}
                         >
                             <NavLink className={`flex`} to={CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}>
-                                GENERACIÓN DE TARJETAS
+                                • GENERACIÓN DE TARJETAS
                             </NavLink>
                         </li>
                     )}
@@ -42,7 +42,7 @@ const AdministracionMenu = () => {
                                 }`}
                         >
                             <NavLink className={`flex`} to={CONSTANTS_ROUTES.ADMIN.ASIGNACION_TIANGUIS}>
-                                ASIGNACIÓN DE TIANGUIS
+                                • ASIGNACIÓN DE TIANGUIS
                             </NavLink>
                         </li>
                     )}
@@ -55,7 +55,20 @@ const AdministracionMenu = () => {
                                 }`}
                         >
                             <NavLink className={`flex`} to={CONSTANTS_ROUTES.ADMIN.RECARGAS}>
-                                RECARGAS
+                                • RECARGAS
+                            </NavLink>
+                        </li>
+                    )}
+
+                    {can('admin', 'view', 'capturar_insen') && (
+                        <li
+                            className={`font-semibold w-full text-sm hover:text-dark-primary cursor-pointer transition-all duration-200 ${location.pathname.includes(CONSTANTS_ROUTES.ADMIN.CAPTURAR_INSEN)
+                                ? "text-dark-primary"
+                                : "text-white"
+                                }`}
+                        >
+                            <NavLink className={`flex`} to={CONSTANTS_ROUTES.ADMIN.CAPTURAR_INSEN}>
+                                • CAPTURAR INSEN
                             </NavLink>
                         </li>
                     )}

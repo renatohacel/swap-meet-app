@@ -37,7 +37,7 @@ const CatalogosMenu = () => {
             {
               can('catalogs', 'view', 'users') && (
                 <NavLink className={`flex`} to={CONSTANTS_ROUTES.CATALOGO.USUARIOS}>
-                  USUARIOS
+                  • USUARIOS
                 </NavLink>
               )
             }
@@ -48,7 +48,9 @@ const CatalogosMenu = () => {
             }`}>
             {
               can('catalogs', 'view', 'tarifas_puestos') && (
-                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`} className={`flex`}>TARIFAS DE PUESTOS</NavLink>
+                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.PUESTOS}`} className={`flex`}>
+                  • TARIFAS DE PUESTOS
+                </NavLink>
               )
             }
           </li>
@@ -58,7 +60,9 @@ const CatalogosMenu = () => {
             }`}>
             {
               can('catalogs', 'view', 'tarifas_tarjetas') && (
-                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`} className={`flex`}>TARIFAS DE TARJETAS</NavLink>
+                <NavLink to={`${CONSTANTS_ROUTES.CATALOGO.TARIFAS.BASE}${CONSTANTS_ROUTES.CATALOGO.TARIFAS.TARJETAS}`} className={`flex`}>
+                  • TARIFAS DE TARJETAS
+                </NavLink>
               )
             }
           </li>

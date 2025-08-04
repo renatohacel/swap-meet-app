@@ -136,11 +136,23 @@ export const CONSTANTS = {
     GET_RECARGAS: 'GET_RECARGAS'
   },
 
+  CAPTURAR_INSEN:{
+    GET_INSEN_BY_ID: 'GET_INSEN_BY_ID',
+  },
+
+
+
   //---------------------------------------------------------------------//
   //                            HISTORIAL                                 //
   //---------------------------------------------------------------------//
   HISTORIAL: {
     GET_HISTORIAL: 'GET_HISTORIAL',
+  },
+
+
+  HELPER: {
+    GET_GROUPS: 'GET_GROUPS',
+    GET_COMERCIANTES_NAMES: 'GET_COMERCIANTES_NAMES',
   },
 
 };

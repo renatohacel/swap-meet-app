@@ -55,7 +55,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <Toaster />
+      <Toaster/>
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -104,18 +104,28 @@ const Sidebar = () => {
             </NavLink>
             <hr className="mb-10 text-secondary-complement/50 border-1" />
             <ul className="space-y-2">
-              {(can('admin', 'view', 'generacion_tarjetas') || can('admin', 'view', 'asignacion_tianguis') || can('admin', 'view', 'recargas')) && (
-                <li>
-                  <AdministracionMenu />
-                </li>
-              )}
-              {(can('catalogs', 'view', 'users') ||
+              {(
+                can('admin', 'view', 'generacion_tarjetas') ||
+                can('admin', 'view', 'asignacion_tianguis') ||
+                can('admin', 'view', 'recargas') ||
+                can('admin', 'view', 'capturar_insen')
+              ) && (
+                  <li>
+                    <AdministracionMenu />
+                  </li>
+                )
+              }
+
+              {(
+                can('catalogs', 'view', 'users') ||
                 can('catalogs', 'view', 'tarifas_puestos') ||
-                can('catalogs', 'view', 'tarifas_tarjetas')) && (
+                can('catalogs', 'view', 'tarifas_tarjetas')
+              ) && (
                   <li>
                     <CatalogosMenu />
                   </li>
-                )}
+                )
+              }
               {can('history', 'view', 'historial') && (
                 <li>
                   <HistorialMenu />

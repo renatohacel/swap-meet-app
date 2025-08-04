@@ -21,6 +21,8 @@ const AsignacionTianguisUser = () => {
     const [targetKeys, setTargetKeys] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
 
+    const [ready, setReady] = useState(false);
+
     const onChange = async (nextTargetKeys, direction, moveKeys) => {
         try {
             if (direction === 'right') {
@@ -47,24 +49,22 @@ const AsignacionTianguisUser = () => {
     }, [])
 
     useEffect(() => {
-        if (tianguis.length > 0) {
+        if (tianguis.length > 0 && tianguisByUserId.length >= 0 && !loading) {
             const sourceKeys = tianguis.map(t => ({
                 key: t.idtianguis?.toString(),
                 title: t.Tianguis,
                 description: t.Tianguis || 'No description available'
-            }))
+            }));
+
+            const asignedKeys = tianguisByUserId.map(t => (t.IdTianguis?.toString()));
+
+            // Actualiza ambos estados juntos
             setSourceDataTianguis(sourceKeys);
-        }
-
-    }, [tianguis]);
-
-    useEffect(() => {
-        if (tianguisByUserId.length > 0) {
-            const asignedKeys = tianguisByUserId.map(t => (t.IdTianguis?.toString()))
             setTargetKeys(asignedKeys);
-        }
 
-    }, [tianguisByUserId]);
+            setReady(true);
+        }
+    }, [tianguis, tianguisByUserId]);
 
     return (
         <CardMain formTitle={`TIANGUIS`} cancelButton={true}>
@@ -111,7 +111,7 @@ const AsignacionTianguisUser = () => {
                         padding: '1rem'
                     }}
                     locale={{
-                        notFoundContent: loading ? (
+                        notFoundContent: !ready ? (
                             <div className="flex justify-center items-center h-full">
                                 <Loader className="w-16 h-16 text-primary/50" />
                             </div>
