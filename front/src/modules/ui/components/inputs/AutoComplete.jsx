@@ -8,8 +8,8 @@ const AutoComplete = ({
     data = [],
     fields = ["name"],
     onSelect = () => { },
-    onNoMatch = () => { }, // Nuevo prop
-    value = "", 
+    onNoMatch = () => { },
+    value = "",
     onClear = () => { },
 }) => {
     const [searchText, setSearchText] = useState(value ?? "");
