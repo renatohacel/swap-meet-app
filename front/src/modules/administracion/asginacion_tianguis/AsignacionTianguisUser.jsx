@@ -31,7 +31,7 @@ const AsignacionTianguisUser = () => {
                 await deleteTianguisFromUser(id, moveKeys.join(','));
             }
             setTargetKeys(nextTargetKeys);
-            toast.success(`Tianguis ${direction === 'right' ? 'asignados' : 'eliminados'} correctamente`, { position: 'top-right' });
+            toast.success(`Tianguis ${direction === 'right' ? 'asignados' : 'desasignados'} correctamente`, { position: 'top-right' });
         } catch {
             toast.error('Error al asignar/eliminar tianguis al usuario', { position: 'top-right' });
         }
