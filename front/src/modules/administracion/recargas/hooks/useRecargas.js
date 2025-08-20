@@ -10,19 +10,22 @@ export const useRecargas = () => {
     const [loading, setLoading] = useState(false);
     const [recargas, dispatch] = useReducer(recargasReducer, []);
 
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-    const getRecargas = async () => {
-        setLoading(true);
+
+    const getRecargas = async (isPolling = false) => {
+        if (!isPolling) setLoading(true);
         try {
             const response = await getRecargasService();
             dispatch({
                 type: CONSTANTS.RECARGAS.GET_RECARGAS,
                 payload: response
             });
+            if (isInitialLoad) setIsInitialLoad(false);
         } catch (error) {
             validateSession(error);
         } finally {
-            setLoading(false);
+            if (!isPolling) setLoading(false);
         }
     }
 
@@ -31,5 +34,6 @@ export const useRecargas = () => {
         recargas,
         loading,
         getRecargas,
+        isInitialLoad,
     }
 }

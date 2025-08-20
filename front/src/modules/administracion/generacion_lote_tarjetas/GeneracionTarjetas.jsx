@@ -7,6 +7,7 @@ import { useGenLoteTarjetas } from "./hooks/useGenLoteTarjetas"
 import Loader from "../../ui/components/Loader"
 import { CardMain } from "../../ui/components/cards/CardMain"
 import { usePermissions } from "../../auth/hooks/usePermissions"
+import { usePolling } from "../../ui/hooks/usePolling"
 
 const COLUMNS = ['ID', 'FECHA DE CREACIÓN', 'USUARIO RESPONSABLE', 'COMENTARIO', 'TARJETAS GENERADAS']
 const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
@@ -19,12 +20,14 @@ const GeneracionTarjetas = () => {
 
   const canCreateLotes = can('admin', 'create', 'generacion_tarjetas');
 
-  const { lotes, getLotes, loading, editNavigate, viewNavigate } = useGenLoteTarjetas();
+  const { lotes, getLotes, loading, editNavigate, viewNavigate, isInitialLoad } = useGenLoteTarjetas();
   const [lotesCleaned, setLotesCleaned] = useState([])
 
   useEffect(() => {
     getLotes();
   }, [])
+
+  usePolling(() => getLotes(true), 3000);
 
   useEffect(() => {
     if (location.state?.toast) {
@@ -56,7 +59,7 @@ const GeneracionTarjetas = () => {
 
   return (
     <CardMain title="GENERACIÓN DE TARJETAS">
-      {loading ? (
+      {(loading && isInitialLoad) ? (
         <div className="flex justify-center items-center">
           <Loader className="w-32 opacity-60 text-primary" />
         </div>

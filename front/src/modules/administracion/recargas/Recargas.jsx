@@ -3,6 +3,7 @@ import { CardMain } from "../../ui/components/cards/CardMain"
 import { useRecargas } from "./hooks/useRecargas"
 import Loader from "../../ui/components/Loader";
 import Table from "../../ui/components/table/Table";
+import { usePolling } from "../../ui/hooks/usePolling";
 
 const COLUMNS = ['ID', 'FECHA DE ALTA', 'USUARIO', 'NUMERO DE TARJETA', 'IMPORTE', 'TIPO', 'TRANSACCIÓN SIR'];
 
@@ -11,12 +12,18 @@ const FIELDS = ['id', 'fecha', 'usuario', 'num_tarjeta', 'importe', 'tipo', 'tra
 
 const Recargas = () => {
 
-    const { recargas, loading, getRecargas } = useRecargas();
+    const { recargas, loading, getRecargas, isInitialLoad } = useRecargas();
     const [recargasCleaned, setRecargasCleaned] = useState([]);
 
+    // Carga inicial
     useEffect(() => {
-        getRecargas();
-    }, [])
+        getRecargas(false);
+    }, []);
+
+    // Polling
+    usePolling(() => getRecargas(true), 3000);
+
+
 
     useEffect(() => {
         if (recargas.length > 0) {
@@ -40,7 +47,7 @@ const Recargas = () => {
 
     return (
         <CardMain title="RECARGAS">
-            {loading ? (
+            {(loading && isInitialLoad) ? (
                 <div className="flex justify-center items-center">
                     <Loader className="w-32 opacity-60 text-primary" />
                 </div>

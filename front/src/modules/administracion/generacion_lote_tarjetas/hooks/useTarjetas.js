@@ -13,18 +13,21 @@ export const useTarjetas = () => {
     const [loading, setLoading] = useState(false)
     const [tarjetas, dispatch] = useReducer(tarjetasReducer, [])
 
-    const getTarjetas = async (id) => {
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+    const getTarjetas = async (id, isPolling = false) => {
         try {
-            setLoading(true)
+            if(!isPolling) setLoading(true)
             const result = await getTarjetasService(id)
             dispatch({
                 type: CONSTANTS.TARJETAS.GET_TARJETAS,
                 payload: result
             })
+            if (isInitialLoad) setIsInitialLoad(false);
         } catch (error) {
             validateSession(error);
         } finally {
-            setLoading(false)
+            if(!isPolling) setLoading(false)
         }
     }
 
@@ -56,5 +59,6 @@ export const useTarjetas = () => {
         getTarjetas,
         loading,
         cancelFunction,
+        isInitialLoad,
     }
 }

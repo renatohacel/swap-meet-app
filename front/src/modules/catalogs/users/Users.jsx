@@ -22,7 +22,7 @@ const FIELDS = ["id", "username", "first_lastname", "second_lastname", "full_nam
 
 const Users = () => {
   const location = useLocation()
-  const { users, getUsers, loading, editNavigate } = useUser();
+  const { users, getUsers, loading, editNavigate, isInitialLoad } = useUser();
   const { groups, getGroups } = useHelper();
   const [usersCleaned, setUsersCleaned] = useState([]);
   const { can } = usePermissions();
@@ -65,7 +65,7 @@ const Users = () => {
 
   return (
     <CardMain title="USUARIOS">
-      {(loading || groups.length <= 0) ? (
+      {((loading || groups.length <= 0) && isInitialLoad) ? (
         <div className="flex justify-center items-center">
           <Loader className="w-32 opacity-60 text-primary" />
         </div>

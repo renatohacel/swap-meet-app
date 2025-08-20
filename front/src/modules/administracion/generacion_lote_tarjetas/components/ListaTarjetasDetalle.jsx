@@ -6,13 +6,14 @@ import Loader from "../../../ui/components/Loader";
 import Table from "../../../ui/components/table/Table";
 import { Modal } from 'antd';
 import { usePermissions } from "../../../auth/hooks/usePermissions";
+import { usePolling } from "../../../ui/hooks/usePolling";
 
 const COLUMNS = ['ID', 'FECHA DE REGISTRO', 'NÚMERO DE TARJETA', 'ESTATUS', 'NO. DE LOTE']
 const FIELDS = ['id', 'fecha', 'numero_tarjeta', 'estatus', 'id_lote']
 
 export const ListaTarjetasDetalle = () => {
     const location = useLocation();
-    const { getTarjetas, tarjetas, loading, cancelFunction } = useTarjetas();
+    const { getTarjetas, tarjetas, loading, cancelFunction, isInitialLoad } = useTarjetas();
     const [tarjetasCleaned, setTarjetasCleaned] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [tarjetaToCancel, setTarjetaToCancel] = useState(null);
@@ -43,6 +44,8 @@ export const ListaTarjetasDetalle = () => {
         getTarjetas(id);
     }, [])
 
+    usePolling(() => getTarjetas(location.state.lote.id, true), 3000);
+
     useEffect(() => {
         if (tarjetas.length > 0) {
             const cleanedTarjetas = tarjetas.map((tarjeta) => ({
@@ -68,7 +71,7 @@ export const ListaTarjetasDetalle = () => {
     return (
         <>
             <CardMain formTitle="DETALLE DE TARJETAS" cancelButton={true}>
-                {loading ? (
+                {(loading && isInitialLoad) ? (
                     <div className="flex justify-center items-center">
                         <Loader className="w-32 opacity-60 text-primary" />
                     </div>

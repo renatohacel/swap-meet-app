@@ -15,18 +15,21 @@ export const useGenLoteTarjetas = () => {
     const [tarjetasGen, dispatchTG] = useReducer(tarjetasGenReducer, [])
     const [loading, setLoading] = useState(false);
 
-    const getLotes = async () => {
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+    const getLotes = async (isPolling = false) => {
         try {
-            setLoading(true);
+            if(!isPolling) setLoading(true);
             const result = await getLotesService();
             dispatch({
                 type: CONSTANTS.LOTES.GET_LOTES,
                 payload: result,
             });
+            if (isInitialLoad) setIsInitialLoad(false);
         } catch (error) {
             validateSession(error);
         } finally {
-            setLoading(false);
+            if(!isPolling) setLoading(false);
         }
     }
 
@@ -116,5 +119,6 @@ export const useGenLoteTarjetas = () => {
         handleDeleteLote,
         tarjetasGen,
         viewNavigate,
+        isInitialLoad,
     }
 }

@@ -13,18 +13,21 @@ export const useUser = () => {
   const [users, dispatch] = useReducer(userReducer, []);
   const [loading, setLoading] = useState(false);
 
-  const getUsers = async () => {
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const getUsers = async (isPolling = false) => {
     try {
-      setLoading(true);
+      if(!isPolling) setLoading(true);
       const result = await getUsersService();
       dispatch({
         type: CONSTANTS.USERS.GET_USERS,
         payload: result,
       });
+      if (isInitialLoad) setIsInitialLoad(false);
     } catch (error) {
       validateSession(error);
     } finally {
-      setLoading(false);
+      if(!isPolling) setLoading(false);
     }
   };
 
@@ -161,5 +164,6 @@ export const useUser = () => {
     handleUpdatePassword,
     editNavigate,
     getUserById,
+    isInitialLoad,
   };
 };
