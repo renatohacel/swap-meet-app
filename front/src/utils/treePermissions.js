@@ -31,7 +31,12 @@ export const treeData = [
                             { title: 'VISUALIZAR', key: '0-0-3-0' },
                             { title: 'ACTUALIZAR', key: '0-0-3-1' },
                         ],
-                    }
+                    },
+                    {
+                        title: 'BOLETOS', key: '0-0-4', children: [
+                            { title: 'IMPRESIÓN', key: '0-0-4-0' },
+                        ],
+                    },
                 ],
             },
             {

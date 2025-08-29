@@ -46,7 +46,7 @@ const Recargas = () => {
 
 
     return (
-        <CardMain title="RECARGAS">
+        <CardMain title="RECARGAS"> 
             {(loading && isInitialLoad) ? (
                 <div className="flex justify-center items-center">
                     <Loader className="w-32 opacity-60 text-primary" />

@@ -13,6 +13,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import AsignaTianguisRoutes from "./administracion/AsignaTianguisRoutes";
 import CapturarInsenRoutes from "./administracion/CapturarInsenRoutes";
 import RecargasRoutes from "./administracion/RecargasRoutes";
+import BoletosRoutes from "./administracion/BoletosRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -89,6 +90,15 @@ const DashboardRoutes = () => {
                 element={
                   <AnimatedPage>
                     <CapturarInsenRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.BOLETOS}/*`}
+                element={
+                  <AnimatedPage>
+                    <BoletosRoutes />
                   </AnimatedPage>
                 }
               />

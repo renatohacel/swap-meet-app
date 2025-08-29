@@ -140,6 +140,11 @@ export const CONSTANTS = {
     GET_INSEN_BY_ID: 'GET_INSEN_BY_ID',
   },
 
+  BOLETOS: {
+    GET_BOLETOS: 'GET_BOLETOS'
+  },
+
+
 
 
   //---------------------------------------------------------------------//
