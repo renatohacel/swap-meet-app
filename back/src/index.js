@@ -1,5 +1,7 @@
 //dependencies
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 //db init
 import "./config/db.config.js";
 //middlewares
@@ -18,9 +20,17 @@ import { helperRouter } from "./routes/helper.router.js";
 import { asignacionTianguisRouter } from "./routes/admin/asignacion_tianguis.router.js";
 import { recargasRouter } from "./routes/admin/recargas.router.js";
 import { insenRouter } from "./routes/admin/insen.router.js";
+import { boletosRouter } from "./routes/admin/boletos.router.js";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.disable("x-powered-by");
+// CONFIGURACION DE VISTAS EJS
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 // MIDDLEWARES
 app.use(express.json());
@@ -43,6 +53,7 @@ app.use('/helper', helperRouter);
 app.use('/asignacion-tianguis', asignacionTianguisRouter);
 app.use('/recargas', recargasRouter);
 app.use('/capturar-insen', insenRouter);
+app.use('/boletos', boletosRouter);
 
 // RUN
 app.listen(PORT, HOST, () => {

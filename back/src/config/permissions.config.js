@@ -64,6 +64,13 @@ export const PERMISSIONS_MAP = {
         description: 'Actualizar capturar insen'
     },
 
+    // Administración - Boletos
+    '0-0-4-0': {
+        module: 'admin',
+        action: 'create',
+        resource: 'boletos',
+        description: 'Crear boletos'
+    },
 
     // Catálogos - Usuarios
     '0-1-0-0': {

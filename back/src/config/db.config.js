@@ -19,10 +19,10 @@ export const sequelize = new Sequelize({
     options: {
       encrypt: false,
       trustServerCertificate: true,
-      requestTimeout: 120000,
+      requestTimeout: 300000,
     },
   },
-  connectionTimeout: 120000,
+  connectionTimeout: 300000,
 });
 
 async function testConnection() {
