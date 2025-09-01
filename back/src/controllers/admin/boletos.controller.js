@@ -21,7 +21,9 @@ export class BoletosController {
 
     static async generatePDF(req, res) {
         try {
-            const boletos = await BoletosModel.findAll();
+
+            const { id } = req.params;
+            const boletos = await BoletosModel.findAll(id);
 
             // Renderizar la plantilla EJS a HTML
             const filePath = path.join(__dirname, "../../templates/ticketsTemplate.ejs");

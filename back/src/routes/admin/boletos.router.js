@@ -13,7 +13,7 @@ boletosRouter.get('/',
     BoletosController.getBoletos
 );
 
-boletosRouter.get('/pdf',
+boletosRouter.get('/print/:id',
     authenticate,
     authorize('admin', 'create', 'boletos'),
     BoletosController.generatePDF
