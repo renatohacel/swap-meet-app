@@ -25,12 +25,13 @@ export const useBoletos = () => {
         }
     }
 
-    const printBoletos = (id) => {
+    const printBoletos = async (id) => {
         try {
             setLoading(true);
-            printBoletosService(id);
+            await printBoletosService(id);
         } catch (error) {
             validateSession(error);
+            
         } finally {
             setLoading(false);
         }

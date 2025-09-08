@@ -3,6 +3,7 @@ const GenericButton = ({ className, isSubmit = false, children, ...props }) => {
     return (
         <button
             {...props}
+            disabled={isSubmit}
             className={`
                 ${className}
                 ${isSubmit ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}

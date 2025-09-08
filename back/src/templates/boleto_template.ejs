@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 8pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        line-height: 0.5;
+        margin-bottom: 0.4cm;
+    }
+
+    #talon {
+        margin-left: 1.6cm;
+    }
+
+    #boleto {
+        margin-right: 1.4cm;
+    }
+
+</style>
+
+
+<body>
+
+    <% 
+        function formatDate(fechaStr) {
+        if (!fechaStr) return '';
+        const fecha = new Date(fechaStr);
+        const d = String(fecha.getDate()).padStart(2, '0');
+        const m = String(fecha.getMonth()+1).padStart(2, '0');
+        const y = fecha.getFullYear();
+        return `${d}/${m}/${y}`;
+        }
+        const boletosPorPagina=4; 
+        for (let i=0; i < boletos.length; i +=boletosPorPagina) { 
+            const paginaBoletos=boletos.slice(i, i + boletosPorPagina); 
+    %>
+        <% paginaBoletos.forEach(boleto=> { %>
+
+            <main>
+                <!-- TALON -->
+                <div id="talon">
+
+                    <p>
+                        <%= formatDate(boleto.Fecha) || '04/02/2024' %>
+                    </p>
+                    <p>DOMINGO</p>
+                    <p>MIRAMAR 1</p> 
+
+                    <p style="margin-top: 0.63cm;"><%= boleto.Titular %></p>
+                    <!-- <p><%= boleto.Giro %></p> -->
+
+                    <p style="margin-top: 0.60cm;"><%= boleto.Ubicacion %></p>
+                    <p style="margin-left: -0.5cm;">7.00</p>
+
+                    <div style="margin-top: 0.4cm; line-height: 0.3;">
+                        <p><%= boleto.Cuota.toFixed(2) %></p>
+                        <p><%= (boleto.Cuota * 9).toFixed(2) %></p>
+                        <p><%= (boleto.Cuota * 6).toFixed(2) %></p>
+                    </div>
+
+                </div>
+
+                <div id="boleto">
+
+                    <p style=" text-align: end; font-size: 7pt;">Redondeo Art. 17 LIMZ 2021</p>
+
+                    <p>
+                         <%= formatDate(boleto.Fecha) || '04/02/2024' %>
+                    </p>
+                    <p>DOMINGO</p>
+                    <p>MIRAMAR 1</p> 
+                    <p>AMPARA UNICAMENTE EL USO DE PISO</p>
+                    <p><%= boleto.Titular %></p>
+                    <p><%= boleto.Giro %></p>
+
+                    <div style="position: relative;">
+
+                    </div>
+
+                </div>
+
+
+            </main>
+
+        <% }); %>
+    <% } %>
+</body>
+
+</html>

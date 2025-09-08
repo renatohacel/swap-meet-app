@@ -7,7 +7,7 @@ import { BoletosController } from "../../controllers/admin/boletos.controller.js
 export const boletosRouter = Router();
 
 //TARJETAS
-boletosRouter.get('/',
+boletosRouter.get('/:id',
     authenticate,
     authorize('admin', 'create', 'boletos'),
     BoletosController.getBoletos

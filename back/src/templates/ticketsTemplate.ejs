@@ -3,99 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <style>
+    @page {
+      size: letter;
+      margin: 0;
+    }
     body {
-      font-family: Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
       font-size: 9pt;
       margin: 0;
-      padding: 10px;
+      padding: 0.5cm;
     }
-
     .page {
-      width: 100%;
-      height: 100%;
-      page-break-after: always;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(5, 1fr);
+      gap: 0.2cm 0.5cm;
+      height: 26.5cm;
+      width: 20.5cm;
+      margin: auto;
     }
-
     .boleto {
-      width: 100%;
-      border: 1px solid black;
-      margin-bottom: 4px;
-      height: 150px;
-      overflow: hidden;
-      display: table; /* simulamos row */
-    }
-
-    .column, .column-right {
-      display: table-cell;
-      width: 50%;
-      vertical-align: top;
-      padding: 6px;
+      border: 1px dashed transparent; /* guía opcional */
+      width: 9.8cm;
+      height: 5.1cm;
+      padding: 0.3cm;
       box-sizing: border-box;
     }
-
-    .column {
-      border-right: 1px solid black;
+    .folio {
+      color: red;
+      font-weight: bold;
+      font-size: 12pt;
     }
-
-    .right-top {
-      text-align: right;
+    .small {
       font-size: 8pt;
-    }
-
-    .footer {
-      font-size: 7pt;
-      margin-top: 4px;
     }
   </style>
 </head>
 <body>
   <% 
-    // agrupar boletos en páginas de 5
-    const chunked = [];
-    for (let i = 0; i < boletos.length; i += 5) {
-      chunked.push(boletos.slice(i, i + 5));
+    function formatDate(fechaStr) {
+      if (!fechaStr) return '';
+      const fecha = new Date(fechaStr);
+      const d = String(fecha.getDate()).padStart(2, '0');
+      const m = String(fecha.getMonth()+1).padStart(2, '0');
+      const y = fecha.getFullYear();
+      return `${d}/${m}/${y}`;
     }
+    const boletosPorPagina = 10;
+    for (let i = 0; i < boletos.length; i += boletosPorPagina) {
+      const paginaBoletos = boletos.slice(i, i + boletosPorPagina);
   %>
-
-  <% chunked.forEach((grupo) => { %>
     <div class="page">
-      <% grupo.forEach((boleto) => { %>
+      <% paginaBoletos.forEach(boleto => { %>
         <div class="boleto">
-          <!-- Columna izquierda -->
-          <div class="column">
-            <div><%= boleto.Fecha || "----" %></div>
-            <div>LUNES</div>
-            <div>BALCONES DE LA CANTERA</div>
-            <div><%= boleto.Titular %></div>
-            <div><%= boleto.Giro %></div>
-            <div><%= boleto.Ubicacion %></div>
-            <div><%= boleto.Cuota.toFixed(2) %></div>
-            <div><%= (boleto.Cuota*9).toFixed(2) %></div>
-            <div><%= (boleto.Cuota*6).toFixed(2) %></div>
-            <div><%= (boleto.Cuota*15).toFixed(2) %></div>
-          </div>
-
-          <!-- Columna derecha -->
-          <div class="column-right">
-            <div class="right-top">Redondeo Art. 17 LIMZ 2021</div>
-            <div><%= boleto.Fecha || "----" %></div>
-            <div>LUNES</div>
-            <div>BALCONES DE LA CANTERA</div>
-            <div>AMPARA UNICAMENTE EL USO DE PISO</div>
-            <div><%= boleto.Titular %></div>
-            <div><%= boleto.Giro %></div>
-            <div><%= boleto.Ubicacion %></div>
-            <div><%= boleto.Cuota.toFixed(2) %></div>
-            <div><%= (boleto.Cuota*9).toFixed(2) %></div>
-            <div><%= (boleto.Cuota*6).toFixed(2) %></div>
-            <div><%= (boleto.Cuota*15).toFixed(2) %></div>
-            <div class="footer">
-              Art. 100. El presente boleto representa la asistencia del tianguista por este día.
-            </div>
-          </div>
+          <p><strong>Fecha:</strong> <%= formatDate(boleto.Fecha) %></p>
+          <p><strong>Día:</strong> <%= boleto.Dia || '' %></p>
+          <p><strong>Tianguis:</strong> <%= boleto.Tianguis || '' %></p>
+          <p><strong>Ubicación:</strong> <%= boleto.Ubicacion || '' %></p>
+          <p><strong>Titular:</strong> <%= boleto.Titular || '' %></p>
+          <p><strong>Giro:</strong> <%= boleto.Giro || '' %></p>
+          <p><strong>No. Cred:</strong> <%= boleto.Credencial || '' %></p>
+          <p><strong>No. Puesto:</strong> <%= boleto.Puesto || '' %></p>
+          <p><strong>Longitud:</strong> <%= boleto.Longitud || '' %> m</p>
+          <p><strong>Folio:</strong> <span class="folio"><%= boleto.Folio %></span></p>
         </div>
       <% }) %>
     </div>
-  <% }) %>
+    <div style="page-break-after: always;"></div>
+  <% } %>
 </body>
 </html>
