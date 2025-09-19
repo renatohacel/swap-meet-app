@@ -36,7 +36,8 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(
   cors({
-    origin: FRONT_BASE_URL,
+    origin: [FRONT_BASE_URL],
+    // origin: '*',
     credentials: true,
   })
 );

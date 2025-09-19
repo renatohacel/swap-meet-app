@@ -18,6 +18,7 @@ import SaveButton from "../../../ui/components/buttons/SaveButton";
 import { useHelper } from "../../../helper/hooks/useHelper";
 import { AuthContext } from "../../../auth/context/AuthContext";
 import toast from "react-hot-toast";
+import Select from "../../../ui/components/inputs/Select";
 
 
 
@@ -240,20 +241,14 @@ const UsersForm = () => {
 
         {userToEdit && (<SectionForm>
           <Label htmlFor="status">ESTATUS</Label>
-          <select
+          <Select
+            options={CONSTANTS.USERS.USERS_STATUS}
             onChange={onInputChange}
             value={formState['status'] || ''}
             id="status"
             name="status"
-            className="px-4 py-2 bg-white focus:text-dark-primary rounded-lg outline-2 outline-primary font-semibold focus:outline-dark-primary"
             required
-          >
-            {CONSTANTS.USERS.USERS_STATUS.map((type, index) => (
-              <option key={index} value={type.value} className="font-semibold">
-                {type.label}
-              </option>
-            ))}
-          </select>
+          />
         </SectionForm>)}
 
         {personalized && <>

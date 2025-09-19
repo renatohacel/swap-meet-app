@@ -15,6 +15,9 @@ export const CONSTANTS_ROUTES = {
         RECARGAS: '/administracion/recargas',
         CAPTURAR_INSEN: '/administracion/capturar-insen',
         BOLETOS: '/administracion/boletos',
+        REPORTES: {
+            TOTALES_POR_DIA: '/administracion/reportes/totales-por-dia'
+        }
     },
 
     CATALOGO: {

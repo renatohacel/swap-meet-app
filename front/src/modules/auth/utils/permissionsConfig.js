@@ -71,6 +71,14 @@ export const PERMISSIONS_MAP = {
         description: 'Crear boletos'
     },
 
+    // Administración - Reportes - Totales por Día
+    '0-0-5-0': {
+        module: 'admin',
+        action: 'create',
+        resource: 'reportes_totales_dia',
+        description: 'Crear reportes totales por día'
+    },
+
     // Catálogos - Usuarios
     '0-1-0-0': {
         module: 'catalogs',

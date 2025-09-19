@@ -11,6 +11,8 @@ const AutoComplete = ({
     onNoMatch = () => { },
     value = "",
     onClear = () => { },
+    ...props
+    
 }) => {
     const [searchText, setSearchText] = useState(value ?? "");
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -170,6 +172,7 @@ const AutoComplete = ({
           pr-8
           bg-white
         "
+        {...props}
             />
             {searchText && (
                 <button

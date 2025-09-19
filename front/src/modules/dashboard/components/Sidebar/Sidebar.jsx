@@ -108,7 +108,9 @@ const Sidebar = () => {
                 can('admin', 'view', 'generacion_tarjetas') ||
                 can('admin', 'view', 'asignacion_tianguis') ||
                 can('admin', 'view', 'recargas') ||
-                can('admin', 'view', 'capturar_insen')
+                can('admin', 'view', 'capturar_insen') ||
+                can('admin', 'create', 'boletos') ||
+                can('admin', 'create', 'reportes_totales_dia')
               ) && (
                   <li>
                     <AdministracionMenu />

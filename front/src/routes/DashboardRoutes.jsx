@@ -14,6 +14,8 @@ import AsignaTianguisRoutes from "./administracion/AsignaTianguisRoutes";
 import CapturarInsenRoutes from "./administracion/CapturarInsenRoutes";
 import RecargasRoutes from "./administracion/RecargasRoutes";
 import BoletosRoutes from "./administracion/BoletosRoutes";
+import ReportesRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
+import ReporteTotalesPorDiaRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -99,6 +101,15 @@ const DashboardRoutes = () => {
                 element={
                   <AnimatedPage>
                     <BoletosRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.REPORTES.TOTALES_POR_DIA}/*`}
+                element={
+                  <AnimatedPage>
+                    <ReporteTotalesPorDiaRoutes />
                   </AnimatedPage>
                 }
               />
