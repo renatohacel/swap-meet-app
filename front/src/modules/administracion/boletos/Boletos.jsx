@@ -12,9 +12,11 @@ import { useEffect, useRef, useState } from "react";
 import AutoComplete from "../../ui/components/inputs/AutoComplete";
 import Label from "../../ui/components/form/Label";
 import SectionForm from "../../ui/components/form/SectionForm";
+import Input from "../../ui/components/form/Input";
 
 const initialFormBoletos = {
     id_tianguis: '',
+    fecha: '',
 }
 
 const Boletos = () => {
@@ -24,7 +26,7 @@ const Boletos = () => {
 
     const printButtonRef = useRef(null);
 
-    const { id_tianguis } = formState;
+    const { id_tianguis, fecha } = formState;
 
     // Estados para los autocompletes
     const [selectedId, setSelectedId] = useState('');
@@ -114,6 +116,21 @@ const Boletos = () => {
 
             <div className="flex md:flex-row flex-col gap-4 mt-2">
                 <SectionForm>
+                    <Label>FECHA</Label>
+                    <Input
+                        value={fecha}
+                        onChange={(e) => {
+                            setFormState({
+                                ...formState,
+                                fecha: e.target.value,
+                            })
+                        }}
+                        name="fecha"
+                        type="date"
+                        className={"py-1"}
+                    />
+                </SectionForm>
+                <SectionForm>
                     <Label>ID TIANGUIS</Label>
                     <AutoComplete
                         placeholder={"Buscar ID"}
@@ -142,8 +159,11 @@ const Boletos = () => {
                     ref={printButtonRef}
                     className={"h-full self-center mt-4"}
                     onClick={() => {
-                        if (!id_tianguis) {toast.error("Ingrese un ID o un Nombre de Tianguis", { position: "top-right" }); return;}
-                        printBoletos(id_tianguis);
+                        if (!id_tianguis || !fecha) {
+                            toast.error("Ingrese un ID/NOMBRE de Tianguis y la fecha", { position: "top-right" }); 
+                            return;
+                        }
+                        printBoletos(id_tianguis, fecha);
                     }}
                     isSubmit={loading}
                     type="button"

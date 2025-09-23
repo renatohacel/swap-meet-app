@@ -26,7 +26,8 @@ export class BoletosController {
     static async generatePDF(req, res) {
         try {
             const { id } = req.params;
-            const boletos = await BoletosModel.findAll(id);
+            const { fecha } = req.query;
+            const boletos = await BoletosModel.findAll(id, fecha);
 
             if (boletos[0].error_message) {
                 return res.status(400).send(boletos[0].error_message);

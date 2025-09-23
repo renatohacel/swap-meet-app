@@ -6,9 +6,9 @@ export const getBoletosService = async () => {
     return response.data;
 };
 
-export const printBoletosService = async (id) => {
+export const printBoletosService = async (id, fecha) => {
     try {
-        const response = await axiosInstance.get(`/boletos/print/${id}`, {
+        const response = await axiosInstance.get(`/boletos/print/${id}?fecha=${encodeURIComponent(fecha)}`, {
             responseType: "blob",
         });
 

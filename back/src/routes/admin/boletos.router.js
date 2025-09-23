@@ -17,4 +17,4 @@ boletosRouter.get('/print/:id',
     authenticate,
     authorize('admin', 'create', 'boletos'),
     BoletosController.generatePDF
-)
+);

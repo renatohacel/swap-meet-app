@@ -40,7 +40,6 @@ const ReporteTotalesDia = () => {
             toast.error("El día seleccionado no coincide con la fecha", { position: "top-right" });
             return;
         }
-
     }
 
     useEffect(() => {
