@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { printReporteTotalesDiaService } from "./reporteTotalesDiaService";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 export const useReporteTotalesDia = () => {
+    const { validateSession } = useAuth();
 
     const [loading, setLoading] = useState(false);
 
-    const generarReporte = async () => {
-        setLoading(true);
+    const generarReporte = async (dia, fecha) => {
         try {
-            // Lógica para generar el reporte
+            setLoading(true);
+            await printReporteTotalesDiaService(dia, fecha);
         } catch (error) {
-            console.error("Error al generar el reporte:", error);
+            validateSession(error);
         } finally {
             setLoading(false);
         }

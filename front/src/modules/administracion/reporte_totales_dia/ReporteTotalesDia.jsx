@@ -7,7 +7,6 @@ import SectionForm from "../../ui/components/form/SectionForm"
 import PrintIcon from "../../ui/components/icons/PrintIcon"
 import Spinner from "../../ui/components/Spinner"
 import { useReporteTotalesDia } from "./useReporteTotalesDia"
-import { useEffect } from "react"
 import Select from "../../ui/components/inputs/Select"
 import { useForm } from "../../ui/hooks/useForm"
 
@@ -34,17 +33,14 @@ const ReporteTotalesDia = () => {
     const { fecha, dia } = formState;
 
     const onPrint = () => {
-        console.log(dias[new Date(fecha).getDay() + 1].value, dia)
+        // console.log(dias[new Date(fecha).getDay() + 1].value, dia)
         if (!fecha || !dia) { toast.error("Por favor, complete todos los campos", { position: "top-right" }); return; }
         if (dias[new Date(fecha).getDay() + 1].value !== dia) {
             toast.error("El día seleccionado no coincide con la fecha", { position: "top-right" });
             return;
         }
+        generarReporte(dia, fecha);
     }
-
-    useEffect(() => {
-        generarReporte();
-    }, []);
 
     return (
         <CardMain title="REPORTE TOTALES POR DÍA">
@@ -84,7 +80,7 @@ const ReporteTotalesDia = () => {
                 >
                     {loading ? (
                         <div className="flex justify-center items-center gap-2">
-                            GENERANDO BOLETOS
+                            GENERANDO REPORTE
                             <Spinner className="w-5 text-white" />
                         </div>
                     ) : (

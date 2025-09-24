@@ -21,6 +21,7 @@ import { asignacionTianguisRouter } from "./routes/admin/asignacion_tianguis.rou
 import { recargasRouter } from "./routes/admin/recargas.router.js";
 import { insenRouter } from "./routes/admin/insen.router.js";
 import { boletosRouter } from "./routes/admin/boletos.router.js";
+import { reportesRouter } from "./routes/admin/reportes.router.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -55,6 +56,7 @@ app.use('/asignacion-tianguis', asignacionTianguisRouter);
 app.use('/recargas', recargasRouter);
 app.use('/capturar-insen', insenRouter);
 app.use('/boletos', boletosRouter);
+app.use('/reportes', reportesRouter);
 
 // RUN
 app.listen(PORT, HOST, () => {

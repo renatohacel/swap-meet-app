@@ -32,11 +32,17 @@ const AdministracionMenu = () => {
                     {can('admin', 'view', 'capturar_insen') && (
                         <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.CAPTURAR_INSEN} name="CAPTURAR INSEN" />
                     )}
-                    {can('admin','create', 'boletos') && (
+
+                    {can('admin', 'create', 'boletos') && (
                         <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.BOLETOS} name="BOLETOS" />
                     )}
+
                     {can('admin', 'create', 'reportes_totales_dia') && (
                         <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.REPORTES.TOTALES_POR_DIA} name="REPORTE TOTALES POR DÍA" />
+                    )}
+                    
+                    {can('admin', 'create', 'reportes_totales_insen') && (
+                        <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.REPORTES.TOTALES_POR_INSEN} name="REPORTE TOTALES POR INSEN" />
                     )}
                 </ul>
             )}
