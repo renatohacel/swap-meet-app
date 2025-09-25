@@ -110,7 +110,9 @@ const Sidebar = () => {
                 can('admin', 'view', 'recargas') ||
                 can('admin', 'view', 'capturar_insen') ||
                 can('admin', 'create', 'boletos') ||
-                can('admin', 'create', 'reportes_totales_dia')
+                can('admin', 'create', 'reportes_totales_dia') ||
+                can('admin', 'create', 'reportes_totales_insen') ||
+                can('admin', 'create', 'reportes_totales_generales')
               ) && (
                   <li>
                     <AdministracionMenu />

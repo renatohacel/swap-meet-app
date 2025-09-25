@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { authorize } from "../../middlewares/permissions.middleware.js";
-import { ReporteTotalDiaController } from "../../controllers/admin/reportes/reporte-total-dia.controller.js";
+import { ReporteTotalDiaController } from "../../controllers/admin/reportes/reporte_total_dia.controller.js";
+import { ReporteTotalInsenController } from "../../controllers/admin/reportes/reporte_total_insen.controller.js";
+import { ReporteTotalGeneralesController } from "../../controllers/admin/reportes/reporte_total_generales.controller.js";
 
 
 export const reportesRouter = Router();
@@ -10,4 +12,16 @@ reportesRouter.get('/print/reporte-total-dia',
     authenticate,
     authorize('admin', 'create', 'reportes_totales_dia'),
     ReporteTotalDiaController.generateExcelReport
+);
+
+reportesRouter.get('/print/reporte-total-insen',
+    authenticate,
+    authorize('admin', 'create', 'reportes_totales_insen'),
+    ReporteTotalInsenController.generateExcelReport
+);
+
+reportesRouter.get('/print/reporte-total-generales',
+    authenticate,
+    authorize('admin', 'create', 'reportes_totales_generales'),
+    ReporteTotalGeneralesController.generateExcelReport
 );

@@ -33,7 +33,7 @@ export class BoletosController {
                 return res.status(400).send(boletos[0].error_message);
             }
 
-            const filePath = path.join(__dirname, "../../templates/boleto_template_example.ejs");
+            const filePath = path.join(__dirname, "../../templates/boleto_template.ejs");
             const html = await ejs.renderFile(filePath, { boletos });
 
             const browser = await puppeteer.launch({

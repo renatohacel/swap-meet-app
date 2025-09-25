@@ -87,6 +87,14 @@ export const PERMISSIONS_MAP = {
         resource: 'reportes_totales_insen',
         description: 'Crear reportes totales por insen'
     },
+    
+    // Administración - Reportes - Totales Generales
+    '0-0-5-2': {
+        module: 'admin',
+        action: 'create',
+        resource: 'reportes_totales_generales',
+        description: 'Crear reportes totales generales'
+    },
 
     // Catálogos - Usuarios
     '0-1-0-0': {

@@ -41,6 +41,7 @@ export const treeData = [
                         title: 'REPORTES', key: '0-0-5', children: [
                             { title: 'TOTALES POR DÍA', key: '0-0-5-0' },
                             { title: 'TOTALES POR INSEN', key: '0-0-5-1' },
+                            { title: 'TOTALES GENERALES', key: '0-0-5-2' },
                         ],
                     },
                 ],

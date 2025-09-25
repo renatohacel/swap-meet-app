@@ -17,6 +17,7 @@ import BoletosRoutes from "./administracion/BoletosRoutes";
 import ReportesRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
 import ReporteTotalesPorDiaRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
 import ReporteTotalesPorInsenRoutes from "./administracion/ReporteTotalesPorInsenRoutes";
+import ReporteTotalesGeneralesRoutes from "./administracion/ReporteTotalesGeneralesRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -120,6 +121,15 @@ const DashboardRoutes = () => {
                 element={
                   <AnimatedPage>
                     <ReporteTotalesPorInsenRoutes />
+                  </AnimatedPage>
+                }
+              />
+
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.REPORTES.TOTALES_GENERALES}/*`}
+                element={
+                  <AnimatedPage>
+                    <ReporteTotalesGeneralesRoutes />
                   </AnimatedPage>
                 }
               />

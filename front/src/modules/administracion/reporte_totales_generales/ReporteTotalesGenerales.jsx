@@ -2,14 +2,15 @@ import GenericButton from "../../ui/components/buttons/GenericButton";
 import { CardMain } from "../../ui/components/cards/CardMain"
 import PrintIcon from "../../ui/components/icons/PrintIcon";
 import Spinner from "../../ui/components/Spinner";
-import { useReporteTotalesInsen } from "./useReporteTotalesInsen";
+import { useReporteTotalesGenerales } from "./useReporteTotalesGenerales";
 
-const ReporteTotalesInsen = () => {
+const ReporteTotalesGenerales = () => {
 
-    const { loading, generarReporte } = useReporteTotalesInsen();
+    const { loading, generarReporte } = useReporteTotalesGenerales();
+
 
     return (
-        <CardMain title="REPORTE TOTALES POR INSEN">
+        <CardMain title="REPORTE TOTALES GENERALES">
             <GenericButton
                 className={"h-full self-center mt-4"}
                 onClick={() => {
@@ -41,4 +42,4 @@ const ReporteTotalesInsen = () => {
     )
 }
 
-export default ReporteTotalesInsen
+export default ReporteTotalesGenerales

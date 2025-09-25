@@ -1,4 +1,4 @@
-import { ReporteTotalDiaModel } from "../../../models/admin/reportes/reporte-total-dia.model.js";
+import { ReporteTotalDiaModel } from "../../../models/admin/reportes/reporte_total_dia.model.js";
 import ExcelJS from "exceljs";
 import path from "path";
 import { fileURLToPath } from "url";

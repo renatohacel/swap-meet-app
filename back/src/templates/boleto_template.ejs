@@ -24,68 +24,105 @@
     }
 
     #boleto {
-        margin-right: 1.4cm;
+        margin-right: 1cm;
+        margin-left: 1cm;
     }
-
 </style>
 
 
 <body>
 
-    <% 
-        function formatDate(fechaStr) {
-        if (!fechaStr) return '';
-        const fecha = new Date(fechaStr);
-        const d = String(fecha.getDate()).padStart(2, '0');
-        const m = String(fecha.getMonth()+1).padStart(2, '0');
-        const y = fecha.getFullYear();
-        return `${d}/${m}/${y}`;
-        }
+    <%  
         const boletosPorPagina=4; 
-        for (let i=0; i < boletos.length; i +=boletosPorPagina) { 
-            const paginaBoletos=boletos.slice(i, i + boletosPorPagina); 
-    %>
-        <% paginaBoletos.forEach(boleto=> { %>
+        for (let i=0; i < boletos.length; i
+        +=boletosPorPagina) { 
+            const paginaBoletos=boletos.slice(i, i + boletosPorPagina); %>
+            <% paginaBoletos.forEach(boleto=> { 
+
+                switch(boleto.dia_semana) {
+                    case 'MONDAY':
+                        boleto.dia_semana = 'LUNES'
+                        break;
+                    case 'TUESDAY':
+                        boleto.dia_semana = 'MARTES'
+                        break;
+                    case 'WEDNESDAY':
+                        boleto.dia_semana = 'MIÉRCOLES'
+                        break;
+                    case 'THURSDAY':
+                        boleto.dia_semana = 'JUEVES'
+                        break;
+                    case 'FRIDAY':
+                        boleto.dia_semana = 'VIERNES'
+                        break;
+                    case 'SATURDAY':
+                        boleto.dia_semana = 'SÁBADO'
+                        break;
+                    case 'SUNDAY':
+                        boleto.dia_semana = 'DOMINGO'
+                        break;
+                    default:
+                        boleto.dia_semana;
+                }
+
+            %>
 
             <main>
                 <!-- TALON -->
                 <div id="talon">
 
-                    <p>
-                        <%= formatDate(boleto.Fecha) || '04/02/2024' %>
-                    </p>
-                    <p>DOMINGO</p>
-                    <p>MIRAMAR 1</p> 
+                    <p><%= boleto.fecha_actual %></p>
+                    <p><%= boleto.dia_semana %></p>
+                    <p><%= boleto.nombre_tianguis %></p>
 
-                    <p style="margin-top: 0.63cm;"><%= boleto.Titular %></p>
-                    <!-- <p><%= boleto.Giro %></p> -->
+                    <p style="margin-top: 0.63cm;"><%= boleto.titular %></p>
+                    <p><%= boleto.giro %></p>
 
-                    <p style="margin-top: 0.60cm;"><%= boleto.Ubicacion %></p>
-                    <p style="margin-left: -0.5cm;">7.00</p>
+                    <p style="margin-top: 0.60cm;"><%= boleto.ubicacion %></p>
+                    <p style="margin-left: -0.7cm;"><%= boleto.dimension.toFixed(2) %></p>
 
                     <div style="margin-top: 0.4cm; line-height: 0.3;">
-                        <p><%= boleto.Cuota.toFixed(2) %></p>
-                        <p><%= (boleto.Cuota * 9).toFixed(2) %></p>
-                        <p><%= (boleto.Cuota * 6).toFixed(2) %></p>
+                        <p><%= boleto.piso.toFixed(2) %></p>
+                        <p><%= boleto.basura.toFixed(2) %></p>
+                        <p><%= boleto.total_redondeado.toFixed(2) %></p>
                     </div>
 
                 </div>
 
-                <div id="boleto">
+                <div id="boleto" style="margin-top: 0.38cm;">
 
                     <p style=" text-align: end; font-size: 7pt;">Redondeo Art. 17 LIMZ 2021</p>
 
-                    <p>
-                         <%= formatDate(boleto.Fecha) || '04/02/2024' %>
-                    </p>
-                    <p>DOMINGO</p>
-                    <p>MIRAMAR 1</p> 
-                    <p>AMPARA UNICAMENTE EL USO DE PISO</p>
-                    <p><%= boleto.Titular %></p>
-                    <p><%= boleto.Giro %></p>
+                    <div style="margin-top: 0.45cm; line-height: 0.35;">
+                        <p><%= boleto.fecha_actual %></p>
+                        <p style="margin-top: 0.2cm;"><%= boleto.dia_semana %></p>
+                        <p><%= boleto.nombre_tianguis %></p>
+                        <p>AMPARA UNICAMENTE EL USO DE PISO</p>
+                        <p><%= boleto.titular %></p>
+                    </div>
 
-                    <div style="position: relative;">
 
+                    <div style="position: relative; margin-top: 0.2cm;">
+                        <p><%= boleto.giro %></p>
+
+                        <p
+                            style="width: 3.5cm; position: absolute; top: 0.1cm; font-size: 7pt; line-height: 0.27cm; left: 2cm;">
+                            Art 100. El presente boleto representa la asistencia del tianguista por este día.
+                        </p>
+
+                        <div style="position: absolute; margin-top: 0.07cm;">
+                            <p><%= boleto.ubicacion %></p>
+                            <p style="margin-left: -0.6cm;"><%= boleto.dimension.toFixed(2) %></p>
+                        </div>
+
+                        <div style="position: absolute; text-align: end; left: 6.5cm; top: -0.35cm
+                        ">
+                            <p><%= boleto.cuota.toFixed(2) %></p>
+                            <p><%= boleto.tarifa_basura.toFixed(2) %></p>
+                            <p><%= boleto.piso.toFixed(2) %></p>
+                            <p><%= boleto.basura.toFixed(2) %></p>
+                            <p><%= boleto.total_redondeado.toFixed(2) %></p>
+                        </div>
                     </div>
 
                 </div>
@@ -93,8 +130,8 @@
 
             </main>
 
-        <% }); %>
-    <% } %>
+            <% }); %>
+                <% } %>
 </body>
 
 </html>

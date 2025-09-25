@@ -92,7 +92,7 @@ const ReporteTotalesDia = () => {
                                 tracking-wider
                             "
                         >
-                            IMPRIMIR
+                            GENERAR
                             <PrintIcon />
                         </span>
                     )}

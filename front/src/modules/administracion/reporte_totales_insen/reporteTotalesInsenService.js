@@ -1,9 +1,13 @@
 import { axiosInstance } from "../../../utils/axiosInstance";
 
-export const printReporteTotalesDiaService = async (dia, fecha) => {
-    const response = await axiosInstance.get(`/reportes/print/reporte-total-dia?dia_semana=${dia}&fecha=${encodeURIComponent(fecha)}`, {
+export const printReporteTotalesInsenService = async () => {
+    const response = await axiosInstance.get(`/reportes/print/reporte-total-insen`, {
         responseType: "blob",
     });
+
+    // Obtener fecha actual para el nombre
+    const now = new Date();
+    const fechaActual = now.toISOString().slice(0, 10);
 
     // Verifica si el tipo de contenido es Excel
     const contentType = response.headers["content-type"];
@@ -12,7 +16,7 @@ export const printReporteTotalesDiaService = async (dia, fecha) => {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `reporte-totales-${fecha}.xlsx`;
+        link.download = `reporte-total-insen-${fechaActual}.xlsx`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
