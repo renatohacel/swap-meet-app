@@ -36,22 +36,23 @@ export class ReporteTotalGeneralesController {
             const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
             const fechaActual = now.toISOString().slice(0, 10);
             const diaActual = dias[now.getDay()];
-            worksheet.getCell('K2').value = fechaActual;
-            worksheet.getCell('K3').value = diaActual.toUpperCase();
+            worksheet.getCell('L2').value = fechaActual;
+            worksheet.getCell('L3').value = diaActual.toUpperCase();
 
             // Agregar headers en la fila 5
             worksheet.getCell('A5').value = 'DÍA';
-            worksheet.getCell('B5').value = 'TIANGUIS';
-            worksheet.getCell('C5').value = 'CATEGORÍA';
-            worksheet.getCell('D5').value = 'COMERCIANTES';
-            worksheet.getCell('E5').value = 'DIMENSIÓN';
-            worksheet.getCell('F5').value = 'PISO S/INSEN';
-            worksheet.getCell('G5').value = 'BASURA';
-            worksheet.getCell('H5').value = 'POTENCIAL';
-            worksheet.getCell('I5').value = 'TOTAL INSEN';
-            worksheet.getCell('J5').value = 'PISO INSEN';
-            worksheet.getCell('K5').value = 'DESC. PISO INSEN';
-            worksheet.getCell('L5').value = 'METROS INSEN';
+            worksheet.getCell('B5').value = 'ID';
+            worksheet.getCell('C5').value = 'TIANGUIS';
+            worksheet.getCell('D5').value = 'CATEGORÍA';
+            worksheet.getCell('E5').value = 'COMERCIANTES';
+            worksheet.getCell('F5').value = 'DIMENSIÓN';
+            worksheet.getCell('G5').value = 'PISO S/INSEN';
+            worksheet.getCell('H5').value = 'BASURA';
+            worksheet.getCell('I5').value = 'POTENCIAL';
+            worksheet.getCell('J5').value = 'TOTAL INSEN';
+            worksheet.getCell('K5').value = 'PISO INSEN';
+            worksheet.getCell('L5').value = 'DESC. PISO INSEN';
+            worksheet.getCell('M5').value = 'METROS INSEN';
 
             // Formato para headers
             const headerRow = worksheet.getRow(5);
@@ -84,20 +85,20 @@ export class ReporteTotalGeneralesController {
                 // Escribir todos los tianguis de este día
                 diaObj.tianguis.forEach(tianguis => {
                     // Dejar la columna A vacía (el día ya está arriba)
-                    worksheet.getCell(`B${currentRow}`).value = tianguis.nombre;
-                    worksheet.getCell(`C${currentRow}`).value = tianguis.categoria;
-                    worksheet.getCell(`D${currentRow}`).value = tianguis.num_comerciantes;
-                    worksheet.getCell(`E${currentRow}`).value = tianguis.dimension;
-                    worksheet.getCell(`F${currentRow}`).value = tianguis.piso_sin_insen;
-                    worksheet.getCell(`G${currentRow}`).value = tianguis.basura;
-                    worksheet.getCell(`H${currentRow}`).value = tianguis.potencial;
-                    worksheet.getCell(`I${currentRow}`).value = tianguis.total_insen;
-                    worksheet.getCell(`J${currentRow}`).value = tianguis.piso_insen;
-                    worksheet.getCell(`K${currentRow}`).value = tianguis.desc_piso_insen;
-                    worksheet.getCell(`L${currentRow}`).value = tianguis.metros_insen;
+                    worksheet.getCell(`B${currentRow}`).value = tianguis.id;
+                    worksheet.getCell(`C${currentRow}`).value = tianguis.nombre;
+                    worksheet.getCell(`D${currentRow}`).value = tianguis.categoria;
+                    worksheet.getCell(`E${currentRow}`).value = tianguis.num_comerciantes;
+                    worksheet.getCell(`F${currentRow}`).value = tianguis.dimension;
+                    worksheet.getCell(`G${currentRow}`).value = tianguis.piso_sin_insen;
+                    worksheet.getCell(`H${currentRow}`).value = tianguis.basura;
+                    worksheet.getCell(`I${currentRow}`).value = tianguis.potencial;
+                    worksheet.getCell(`J${currentRow}`).value = tianguis.total_insen;
+                    worksheet.getCell(`K${currentRow}`).value = tianguis.piso_insen;
+                    worksheet.getCell(`L${currentRow}`).value = tianguis.desc_piso_insen;
+                    worksheet.getCell(`M${currentRow}`).value = tianguis.metros_insen;
 
                     // Formato numérico
-                    worksheet.getCell(`E${currentRow}`).numFmt = '#,##0.00';
                     worksheet.getCell(`F${currentRow}`).numFmt = '#,##0.00';
                     worksheet.getCell(`G${currentRow}`).numFmt = '#,##0.00';
                     worksheet.getCell(`H${currentRow}`).numFmt = '#,##0.00';
@@ -105,6 +106,7 @@ export class ReporteTotalGeneralesController {
                     worksheet.getCell(`J${currentRow}`).numFmt = '#,##0.00';
                     worksheet.getCell(`K${currentRow}`).numFmt = '#,##0.00';
                     worksheet.getCell(`L${currentRow}`).numFmt = '#,##0.00';
+                    worksheet.getCell(`M${currentRow}`).numFmt = '#,##0.00';
 
                     currentRow++;
                 });

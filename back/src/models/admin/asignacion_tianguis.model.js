@@ -8,7 +8,7 @@ export class AsignacionTianguisModel {
         return result[0];
     }
     static async findByUserId(userId) {
-        const sql = `EXEC usp_TianguisporUsuario @IdInspector = :userId`;
+        const sql = `EXEC usp_TianguisporUsuario @IdUsuario = :userId`;
         const result = await sequelize.query(sql, {
             replacements: { userId },
         });

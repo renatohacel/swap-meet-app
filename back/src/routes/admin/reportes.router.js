@@ -24,4 +24,5 @@ reportesRouter.get('/print/reporte-total-generales',
     authenticate,
     authorize('admin', 'create', 'reportes_totales_generales'),
     ReporteTotalGeneralesController.generateExcelReport
+    // ReporteTotalGeneralesController.getReporteTotalGenerales
 );
