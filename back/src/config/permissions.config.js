@@ -24,6 +24,12 @@ export const PERMISSIONS_MAP = {
         resource: 'generacion_tarjetas',
         description: 'Cancelar tarjeta'
     },
+    '0-0-0-4': {
+        module: 'admin',
+        action: 'print',
+        resource: 'generacion_tarjetas',
+        description: 'Imprimir tarjeta'
+    },
 
     // Administración - Asignación de Tianguis
     '0-0-1-0': {
@@ -71,7 +77,7 @@ export const PERMISSIONS_MAP = {
         resource: 'boletos',
         description: 'Crear boletos'
     },
-    
+
     // Administración - Reportes - Totales por Día
     '0-0-5-0': {
         module: 'admin',
@@ -87,7 +93,7 @@ export const PERMISSIONS_MAP = {
         resource: 'reportes_totales_insen',
         description: 'Crear reportes totales por insen'
     },
-    
+
     // Administración - Reportes - Totales Generales
     '0-0-5-2': {
         module: 'admin',

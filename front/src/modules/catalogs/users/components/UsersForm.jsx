@@ -43,7 +43,7 @@ const UsersForm = () => {
 
   const { onInputChange, formState, setFormState } = useForm(userToEdit || initialForm);
 
-  const { handleInsertUser, handleUpdateUser, getUserById } = useUser();
+  const { handleInsertUser, handleUpdateUser, getUserById, loading} = useUser();
 
   const { groups, getGroups } = useHelper();
 
@@ -282,7 +282,7 @@ const UsersForm = () => {
         </>}
 
         <div className='md:row-end-6 md:col-start-2 mt-8 flex justify-center'>
-          <SaveButton />
+          <SaveButton isSubmit={loading} />
         </div>
 
 

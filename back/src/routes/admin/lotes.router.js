@@ -27,4 +27,8 @@ lotesRouter.delete('/:id',
     authorize('admin', 'delete', 'generacion_tarjetas'),
     LotesTarjetasController.deleteLote
 );
-
+lotesRouter.get('/print/:id',
+    authenticate,
+    authorize('admin', 'print', 'generacion_tarjetas'),
+    LotesTarjetasController.generateCardsPDF
+);

@@ -26,6 +26,8 @@ const Table = ({
   editText = "Editar",
   showDateFilter = true,
   dateFilterName = 'fecha',
+  showPrint = false,
+  printFunction = () => { },
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -193,7 +195,7 @@ const Table = ({
           <tbody className="bg-secondary-complement">
             {filteredData.length > 0 ? (
               currentData.map((row, index) => (
-                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} cancel={cancel} edit={edit} cancelFunction={cancelFunction} editText={editText} />
+                <TableRow key={index} row={row} editFunction={editFunction} details={details} viewFunction={viewFunction} showAcciones={showAcciones} cancel={cancel} edit={edit} cancelFunction={cancelFunction} editText={editText} print={showPrint} printFunction={printFunction}/>
               ))
             ) : (
               // Mostrar "NO HAY REGISTROS" si no hay datos filtrados

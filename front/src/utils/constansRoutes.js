@@ -19,6 +19,7 @@ export const CONSTANTS_ROUTES = {
             TOTALES_POR_DIA: '/administracion/reportes/totales-por-dia',
             TOTALES_POR_INSEN: '/administracion/reportes/totales-por-insen',
             TOTALES_GENERALES: '/administracion/reportes/totales-generales',
+            PADRON_TIANGUIS: '/administracion/reportes/padron-tianguis',
         }
     },
 

@@ -13,6 +13,7 @@ export const treeData = [
                             { title: 'CREAR', key: '0-0-0-1' },
                             { title: 'ELIMINACIÓN DE LOTE', key: '0-0-0-2' },
                             { title: 'CANCELACIÓN DE TARJETAS', key: '0-0-0-3' },
+                            { title: 'IMPRESIÓN DE TARJETAS', key: '0-0-0-4' },
                         ],
                     },
                     {
@@ -42,6 +43,7 @@ export const treeData = [
                             { title: 'TOTALES POR DÍA', key: '0-0-5-0' },
                             { title: 'TOTALES POR INSEN', key: '0-0-5-1' },
                             { title: 'TOTALES GENERALES', key: '0-0-5-2' },
+                            { title: 'PADRÓN TIANGUIS', key: '0-0-5-3' },
                         ],
                     },
                 ],

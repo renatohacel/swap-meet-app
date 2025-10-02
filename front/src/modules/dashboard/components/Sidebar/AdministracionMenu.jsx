@@ -47,6 +47,9 @@ const AdministracionMenu = () => {
                     {can('admin', 'create', 'reportes_totales_generales') && (
                         <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.REPORTES.TOTALES_GENERALES} name="REPORTE TOTALES GENERALES" />
                     )}
+                    {can('admin', 'create', 'reportes_padron_tianguis') && (
+                        <SubMenuPoint route={CONSTANTS_ROUTES.ADMIN.REPORTES.PADRON_TIANGUIS} name="REPORTE PADRÓN TIANGUIS" />
+                    )}
                 </ul>
             )}
         </>

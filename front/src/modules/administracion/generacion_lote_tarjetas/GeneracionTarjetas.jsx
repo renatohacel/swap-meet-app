@@ -8,6 +8,8 @@ import Loader from "../../ui/components/Loader"
 import { CardMain } from "../../ui/components/cards/CardMain"
 import { usePermissions } from "../../auth/hooks/usePermissions"
 import { usePolling } from "../../ui/hooks/usePolling"
+import { Modal } from "antd"
+import Spinner from "../../ui/components/Spinner"
 
 const COLUMNS = ['ID', 'FECHA DE CREACIÓN', 'USUARIO RESPONSABLE', 'COMENTARIO', 'TARJETAS GENERADAS']
 const FIELDS = ['id', 'fecha', 'usuario', 'comentario', 'tarjetas']
@@ -19,15 +21,16 @@ const GeneracionTarjetas = () => {
 
 
   const canCreateLotes = can('admin', 'create', 'generacion_tarjetas');
+  const canPrintLotes = can('admin', 'print', 'generacion_tarjetas');
 
-  const { lotes, getLotes, loading, editNavigate, viewNavigate, isInitialLoad } = useGenLoteTarjetas();
+  const { lotes, getLotes, loading, editNavigate, viewNavigate, isInitialLoad, printLote, printing } = useGenLoteTarjetas();
   const [lotesCleaned, setLotesCleaned] = useState([])
 
   useEffect(() => {
     getLotes();
   }, [])
 
-  usePolling(() => getLotes(true), 3000);
+  usePolling(() => getLotes(true), 10000);
 
   useEffect(() => {
     if (location.state?.toast) {
@@ -73,8 +76,44 @@ const GeneracionTarjetas = () => {
           details={true}
           showNuevo={canCreateLotes}
           viewFunction={viewNavigate}
+          showPrint={canPrintLotes}
+          printFunction={printLote}
         />
       )}
+
+      <Modal
+        title={
+          <div>
+            Generando archivo de impresión<br />
+            Espere...
+          </div>
+        }
+        open={printing}
+        onCancel={() => { }}
+        closable={false}
+        footer={[]}
+        width={300}
+        style={{ 
+          fontFamily: 'var(--font-family-primary)',
+          top: '40%'
+        }}
+        styles={{
+          header: {
+            textAlign: 'center'
+          },
+          body: {
+            padding: '40px 20px',
+            textAlign: 'center',
+            minHeight: '120px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }
+        }}
+      >
+        <Spinner className="w-18 text-primary" />
+      </Modal>
+
     </CardMain>
   )
 }

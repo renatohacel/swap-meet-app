@@ -173,4 +173,18 @@ export class LotesTarjetasModel {
         });
 
     }
+
+
+    static async getLoteToPrint(id) {
+        const sql = `
+            EXEC usp_InfoLoteToPrint
+            @IdLote = :id
+        `;
+
+        const result = await sequelize.query(sql, {
+            replacements: { id },
+        });
+        return result[0];
+    }
+
 }

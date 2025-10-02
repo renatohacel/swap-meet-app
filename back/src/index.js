@@ -58,6 +58,9 @@ app.use('/capturar-insen', insenRouter);
 app.use('/boletos', boletosRouter);
 app.use('/reportes', reportesRouter);
 
+// Servir archivos estáticos de la carpeta media
+app.use('/media', express.static(path.resolve(__dirname, 'templates', 'media')));
+
 // RUN
 app.listen(PORT, HOST, () => {
   console.log(`Server is running on http://${HOST}:${PORT}`);

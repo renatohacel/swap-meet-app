@@ -24,6 +24,12 @@ export const PERMISSIONS_MAP = {
         resource: 'generacion_tarjetas',
         description: 'Cancelar tarjeta'
     },
+    '0-0-0-4': {
+        module: 'admin',
+        action: 'print',
+        resource: 'generacion_tarjetas',
+        description: 'Imprimir tarjeta'
+    },
 
     // Administración - Asignación de Tianguis
     '0-0-1-0': {
@@ -93,6 +99,14 @@ export const PERMISSIONS_MAP = {
         action: 'create',
         resource: 'reportes_totales_generales',
         description: 'Crear reportes totales generales'
+    },
+
+    // Administración - Reportes - Padrón Tianguis
+    '0-0-5-3': {
+        module: 'admin',
+        action: 'create',
+        resource: 'reportes_padron_tianguis',
+        description: 'Crear reportes padrón tianguis'
     },
 
     // Catálogos - Usuarios

@@ -17,7 +17,7 @@ export const useUser = () => {
 
   const getUsers = async (isPolling = false) => {
     try {
-      if(!isPolling) setLoading(true);
+      if (!isPolling) setLoading(true);
       const result = await getUsersService();
       dispatch({
         type: CONSTANTS.USERS.GET_USERS,
@@ -27,7 +27,7 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
     } finally {
-      if(!isPolling) setLoading(false);
+      if (!isPolling) setLoading(false);
     }
   };
 
@@ -56,6 +56,7 @@ export const useUser = () => {
   }
 
   const handleInsertUser = async (newUser) => {
+    setLoading(true);
     try {
       const result = await insertUserService(newUser)
 
@@ -78,10 +79,13 @@ export const useUser = () => {
         position: "top-right",
         duration: 1500,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUpdateUser = async (updatedUser) => {
+    setLoading(true);
     try {
       const result = await updateUserService(updatedUser);
 
@@ -105,6 +109,8 @@ export const useUser = () => {
         position: "top-right",
         duration: 1500,
       });
+    } finally {
+      setLoading(false);
     }
   }
 

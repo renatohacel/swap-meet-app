@@ -5,7 +5,7 @@ import { useAuth } from "../../../auth/hooks/useAuth";
 import { CONSTANTS } from "../../../../utils/constans";
 import { useNavigate } from "react-router-dom";
 import { CONSTANTS_ROUTES } from "../../../../utils/constansRoutes";
-import { deleteLoteService, getLotesService, getTarjetasGService, insertLoteService } from "../services/genLoteService";
+import { deleteLoteService, getLotesService, getTarjetasGService, insertLoteService, printLoteService } from "../services/genLoteService";
 import toast from "react-hot-toast";
 
 export const useGenLoteTarjetas = () => {
@@ -14,12 +14,13 @@ export const useGenLoteTarjetas = () => {
     const [lotes, dispatch] = useReducer(lotesReducer, [])
     const [tarjetasGen, dispatchTG] = useReducer(tarjetasGenReducer, [])
     const [loading, setLoading] = useState(false);
+    const [printing, setPrinting] = useState(false);
 
     const [isInitialLoad, setIsInitialLoad] = useState(true);
 
     const getLotes = async (isPolling = false) => {
         try {
-            if(!isPolling) setLoading(true);
+            if (!isPolling) setLoading(true);
             const result = await getLotesService();
             dispatch({
                 type: CONSTANTS.LOTES.GET_LOTES,
@@ -29,7 +30,7 @@ export const useGenLoteTarjetas = () => {
         } catch (error) {
             validateSession(error);
         } finally {
-            if(!isPolling) setLoading(false);
+            if (!isPolling) setLoading(false);
         }
     }
 
@@ -109,6 +110,17 @@ export const useGenLoteTarjetas = () => {
         navigate(`${CONSTANTS_ROUTES.ADMIN.LOTES.GENERACION_TARJETAS}/view`, { state: { lote: row } })
     }
 
+    const printLote = async (row) => {
+        setPrinting(true);
+        try {
+            await printLoteService(row.id);
+        } catch (error) {
+            validateSession(error);
+        } finally {
+            setPrinting(false);
+        }
+    }
+
     return {
         lotes,
         loading,
@@ -120,5 +132,7 @@ export const useGenLoteTarjetas = () => {
         tarjetasGen,
         viewNavigate,
         isInitialLoad,
+        printLote,
+        printing,
     }
 }
