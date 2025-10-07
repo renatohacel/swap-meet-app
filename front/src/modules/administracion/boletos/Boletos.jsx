@@ -32,9 +32,7 @@ const Boletos = () => {
     const [selectedId, setSelectedId] = useState('');
     const [selectedNombre, setSelectedNombre] = useState('');
 
-    useEffect(() => { getListadoTianguis(); }, []);
-
-    // Cuando seleccionas un ID
+// Cuando seleccionas un ID
     const onSelectId = (item) => { 
         const found = tianguis.find(t => t.idtianguis === item.idtianguis);
         if (!found) {
