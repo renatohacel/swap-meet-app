@@ -102,6 +102,14 @@ export const PERMISSIONS_MAP = {
         description: 'Crear reportes totales generales'
     },
 
+    // Administración - Reportes - Padrón Tianguis
+    '0-0-5-3': {
+        module: 'admin',
+        action: 'create',
+        resource: 'reportes_padron_tianguis',
+        description: 'Crear reportes padrón tianguis'
+    },
+
     // Catálogos - Usuarios
     '0-1-0-0': {
         module: 'catalogs',

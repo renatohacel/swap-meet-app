@@ -14,10 +14,10 @@ import AsignaTianguisRoutes from "./administracion/AsignaTianguisRoutes";
 import CapturarInsenRoutes from "./administracion/CapturarInsenRoutes";
 import RecargasRoutes from "./administracion/RecargasRoutes";
 import BoletosRoutes from "./administracion/BoletosRoutes";
-import ReportesRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
 import ReporteTotalesPorDiaRoutes from "./administracion/ReporteTotalesPorDiaRoutes";
 import ReporteTotalesPorInsenRoutes from "./administracion/ReporteTotalesPorInsenRoutes";
 import ReporteTotalesGeneralesRoutes from "./administracion/ReporteTotalesGeneralesRoutes";
+import ReportePadronTianguisRoutes from "./administracion/ReportePadronTianguisRoutes";
 
 const DashboardRoutes = () => {
   const location = useLocation();
@@ -134,6 +134,14 @@ const DashboardRoutes = () => {
                 }
               />
 
+              <Route
+                path={`${CONSTANTS_ROUTES.ADMIN.REPORTES.PADRON_TIANGUIS}/*`}
+                element={
+                  <AnimatedPage>
+                    <ReportePadronTianguisRoutes />
+                  </AnimatedPage>
+                }
+              />
               {/* FIN DE ADMINISTRACIÓN */}
 
               {/* HISTORIAL */}
