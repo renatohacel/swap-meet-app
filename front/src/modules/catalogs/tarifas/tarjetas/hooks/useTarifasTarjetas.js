@@ -49,7 +49,7 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1500,
             });
         }
@@ -73,7 +73,7 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1500,
             });
         }
@@ -97,7 +97,7 @@ export const useTarifasTarjetas = () => {
         } catch (error) {
             validateSession(error);
             return toast.error(error.response?.data?.message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1500,
             });
         }

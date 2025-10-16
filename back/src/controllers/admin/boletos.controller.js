@@ -36,8 +36,18 @@ export class BoletosController {
             const filePath = path.join(__dirname, "../../templates/boleto_template.ejs");
             const html = await ejs.renderFile(filePath, { boletos });
 
+
             const browser = await puppeteer.launch({
-                executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+                executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
+                args: [
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-accelerated-2d-canvas",
+                    "--no-first-run",
+                    "--no-zygote",
+                    "--disable-gpu"
+                ],
                 headless: true,
             });
 

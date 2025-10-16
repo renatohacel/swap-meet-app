@@ -33,7 +33,7 @@ export const CardMain = ({ children, aTerminacion = false, title = '', formTitle
     } else {
         return (
             <section>
-                <Toaster position="top-right" reverseOrder={true} />
+                <Toaster position="top-center" reverseOrder={true} />
 
                 <div className="flex flex-col sm:flex-row items-center gap-3">
                     <button

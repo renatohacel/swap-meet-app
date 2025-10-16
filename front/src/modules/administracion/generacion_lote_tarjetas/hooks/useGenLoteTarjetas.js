@@ -69,7 +69,7 @@ export const useGenLoteTarjetas = () => {
                 error: (err) => err.message,
             },
             {
-                position: 'top-right',
+                position: 'top-center',
             }
         );
     }
@@ -97,7 +97,7 @@ export const useGenLoteTarjetas = () => {
                 error: (err) => err.message,
             },
             {
-                position: 'top-right',
+                position: 'top-center',
             }
         );
     }

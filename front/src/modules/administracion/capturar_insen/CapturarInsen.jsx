@@ -79,7 +79,7 @@ export const CapturarInsen = () => {
         // Si falta tarifa
         if (!tarifa) {
             toast.error("Por favor, selecciona una tarifa", {
-                position: "top-right",
+                position: "top-center",
             });
             return;
         }
@@ -87,7 +87,7 @@ export const CapturarInsen = () => {
         // Si falta número de tarjeta
         if (!num_tarjeta) {
             toast.error("Por favor, ingresa un número de tarjeta", {
-                position: "top-right",
+                position: "top-center",
             });
             return;
         }

@@ -11,6 +11,7 @@ const AutoComplete = ({
     onNoMatch = () => { },
     value = "",
     onClear = () => { },
+    sending = false,
     ...props
     
 }) => {
@@ -199,6 +200,7 @@ const AutoComplete = ({
                     cursor-pointer
                     focus:outline-none"
                     tabIndex={-1}
+                    disabled={sending}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 20 20" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 6l8 8M6 14L14 6" />

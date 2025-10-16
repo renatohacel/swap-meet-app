@@ -36,7 +36,7 @@ const Boletos = () => {
     const onSelectId = (item) => { 
         const found = tianguis.find(t => t.idtianguis === item.idtianguis);
         if (!found) {
-            toast.error("No se encontró un tianguis con ese ID", { position: "top-right" });
+            toast.error("No se encontró un tianguis con ese ID", { position: "top-center" });
             onNoMatch();
             return;
         }
@@ -49,7 +49,7 @@ const Boletos = () => {
     const onSelectNombre = (item) => {
         const found = tianguis.find(t => t.Tianguis === item.Tianguis);
         if (!found) {
-            toast.error("No se encontró un tianguis con ese nombre", { position: "top-right" });
+            toast.error("No se encontró un tianguis con ese nombre", { position: "top-center" });
             onNoMatch();
             return;
         }
@@ -63,7 +63,7 @@ const Boletos = () => {
         setSelectedId("");
         setSelectedNombre("");
         setFormState(initialFormBoletos);
-        toast.error("No se encontró tianguis", { position: "top-right" });
+        toast.error("No se encontró tianguis", { position: "top-center" });
     };
 
     // Limpiar selección
@@ -126,6 +126,7 @@ const Boletos = () => {
                         name="fecha"
                         type="date"
                         className={"py-1"}
+                        disabled={loading}
                     />
                 </SectionForm>
                 <SectionForm>
@@ -138,6 +139,8 @@ const Boletos = () => {
                         value={selectedId}
                         onNoMatch={onNoMatch}
                         onClear={onClear}
+                        disabled={loading}
+                        sending={loading}
                     />
                 </SectionForm>
 
@@ -151,6 +154,8 @@ const Boletos = () => {
                         value={selectedNombre}
                         onNoMatch={onNoMatch}
                         onClear={onClear}
+                        disabled={loading}
+                        sending={loading}
                     />
                 </SectionForm>
                 <GenericButton
@@ -158,7 +163,7 @@ const Boletos = () => {
                     className={"h-full self-center mt-4"}
                     onClick={() => {
                         if (!id_tianguis || !fecha) {
-                            toast.error("Ingrese un ID/NOMBRE de Tianguis y la fecha", { position: "top-right" }); 
+                            toast.error("Ingrese un ID/NOMBRE de Tianguis y la fecha", { position: "top-center" }); 
                             return;
                         }
                         printBoletos(id_tianguis, fecha);

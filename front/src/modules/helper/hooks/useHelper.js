@@ -33,14 +33,14 @@ export const useHelper = () => {
         try {
             const result = await updateComerciantesTarjetaService(id, tarifa, num_tarjeta);
             toast.success(result.message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1200,
             });
         } catch (error) {
             validateSession(error);
             if (error.response?.status === 409) {
                 toast.error(error.response.data.message, {
-                    position: "top-right",
+                    position: "top-center",
                 });
             }
         }

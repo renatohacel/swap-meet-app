@@ -1,0 +1,49 @@
+FROM node:22-alpine3.19
+
+# Instalar dependencias del sistema y Chromium
+RUN apk update && apk add --no-cache \
+    dumb-init \
+    chromium \
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    python3 \
+    make \
+    g++
+
+RUN apk version chromium
+
+# Configurar variables de entorno para Puppeteer y aplicación
+ENV PUPPETEER_SKIP_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PORT=3000 \
+    HOST=0.0.0.0 \
+    DB_HOST=172.16.4.50 \
+    DB_PORT=1433 \
+    DB_NAME=simercadosPruebas \
+    DB_USER=si_merca \
+    DB_PASSWORD=mercados \
+    DB_DIALECT=mssql \
+    FRONT_BASE_URL=http://localhost:5173 \
+    JWT_SECRET=Q0lTWi1aQVBPUEFOLVRJQU5HVUlTLUFQUA== \
+    SALT_ROUNDS=12 \
+    NODE_ENV=development
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
+COPY package-lock.json ./
+
+RUN npm config set strict-ssl false && \
+    npm config set registry http://registry.npmjs.org/ && \
+    npm install && \
+    npm install -g pm2
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["pm2-runtime", "src/index.js"]

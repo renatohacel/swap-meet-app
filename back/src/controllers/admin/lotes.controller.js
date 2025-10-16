@@ -65,28 +65,20 @@ export class LotesTarjetasController {
     static async generateCardsPDF(req, res) {
         const { id } = req.params;
         try {
-            console.log(`🚀 Iniciando generación de PDF para lote: ${id}`);
             const startTime = Date.now();
 
             const cards = await LotesTarjetasModel.getLoteToPrint(id);
             if (!cards) return res.status(404).send({ message: "Lote no encontrado" });
-            console.log(`📋 Tarjetas obtenidas: ${cards.length} en ${Date.now() - startTime}ms`);
 
             // Procesar en lotes de máximo 50 tarjetas para evitar sobrecarga
             const BATCH_SIZE = 50;
             const totalBatches = Math.ceil(cards.length / BATCH_SIZE);
-            
-            if (totalBatches > 1) {
-                console.log(`📦 Procesando ${cards.length} tarjetas en ${totalBatches} lotes de ${BATCH_SIZE}`);
-            }
 
             const filePath = path.join(__dirname, "../../templates/cards_template.ejs");
             const mediaPath = path.join(__dirname, "../../templates/media");
 
             // Función helper para procesar un lote de tarjetas
             const processBatch = async (batchCards, batchIndex) => {
-                console.log(`📦 Procesando lote ${batchIndex + 1}/${totalBatches} (${batchCards.length} tarjetas)`);
-                
                 // Cache de imágenes para evitar lecturas repetidas
                 const imageCache = {};
                 
@@ -129,13 +121,11 @@ export class LotesTarjetasController {
                         qrCode: qrCodeDataURL
                     };
                 }));
-                console.log(`🖼️ Lote ${batchIndex + 1} procesado en: ${Date.now() - imageStart}ms`);
 
                 const renderStart = Date.now();
                 const html = await ejs.renderFile(filePath, {
                     cards: processedCards
                 });
-                console.log(`📄 HTML lote ${batchIndex + 1} renderizado en: ${Date.now() - renderStart}ms`);
 
                 return html;
             };
@@ -153,7 +143,6 @@ export class LotesTarjetasController {
                     '--max_old_space_size=4096'
                 ]
             });
-            console.log(`🌐 Browser iniciado en: ${Date.now() - puppeteerStart}ms`);
 
             const allPDFBuffers = [];
 
@@ -174,7 +163,6 @@ export class LotesTarjetasController {
                         waitUntil: "domcontentloaded",
                         timeout: 90000 // Aumentado timeout a 90 segundos
                     });
-                    console.log(`📝 Contenido lote ${i + 1} cargado en: ${Date.now() - pageStart}ms`);
 
                     const pdfStart = Date.now();
                     const pdfBuffer = await page.pdf({
@@ -183,7 +171,6 @@ export class LotesTarjetasController {
                         margin: { left: "0.5cm", right: "0.5cm", top: "0.5cm", bottom: "0.5cm" },
                         timeout: 90000
                     });
-                    console.log(`📋 PDF lote ${i + 1} generado en: ${Date.now() - pdfStart}ms`);
 
                     // Validar que el buffer del lote no esté vacío
                     if (!pdfBuffer || pdfBuffer.length === 0) {
@@ -205,7 +192,6 @@ export class LotesTarjetasController {
             await browser.close();
 
             // Combinar todos los PDFs en uno solo
-            console.log(`🔗 Combinando ${allPDFBuffers.length} PDFs...`);
             const combineStart = Date.now();
             
             const finalPDF = await PDFDocument.create();
@@ -218,13 +204,9 @@ export class LotesTarjetasController {
                 pages.forEach((page) => {
                     finalPDF.addPage(page);
                 });
-                
-                console.log(`📄 PDF lote ${i + 1} agregado al documento final`);
             }
             
             const finalPDFBuffer = await finalPDF.save();
-            console.log(`🔗 PDFs combinados en: ${Date.now() - combineStart}ms`);
-            console.log(`✅ Proceso completo en: ${Date.now() - startTime}ms`);
 
             // Validar que el buffer del PDF no esté vacío
             if (!finalPDFBuffer || finalPDFBuffer.length === 0) {

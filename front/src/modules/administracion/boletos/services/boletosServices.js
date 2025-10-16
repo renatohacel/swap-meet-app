@@ -32,7 +32,7 @@ export const printBoletosService = async (id, fecha) => {
         if (error.response && error.response.data) {
             const reader = new FileReader();
             reader.onload = () => {
-                toast.error(reader.result || "Error al imprimir boletos", { position: "top-right", duration: 3000 });
+                toast.error(reader.result || "Error al imprimir boletos", { position: "top-center", duration: 3000 });
                 return
             };
             reader.readAsText(error.response.data);

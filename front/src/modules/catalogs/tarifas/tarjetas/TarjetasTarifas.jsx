@@ -41,7 +41,7 @@ const TarjetasTarifas = () => {
         if (location.state?.toast) {
             const { type, message } = location.state.toast;
             toast[type](message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1500,
             });
 

@@ -44,10 +44,10 @@ export const useTarjetas = () => {
             })
 
             // Simular éxito por ahora
-            toast.success(`Tarjeta ${row.numero_tarjeta} cancelada exitosamente`, { duration: 1000, position: 'top-right' });
+            toast.success(`Tarjeta ${row.numero_tarjeta} cancelada exitosamente`, { duration: 1000, position: 'top-center' });
 
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Error al cancelar la tarjeta', { duration: 1500, position: 'top-right' });
+            toast.error(error.response?.data?.message || 'Error al cancelar la tarjeta', { duration: 1500, position: 'top-center' });
             validateSession(error);
         } finally {
             setLoading(false);

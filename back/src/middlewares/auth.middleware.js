@@ -6,6 +6,7 @@ export const authenticate = (req, res, next) => {
   const token = req.cookies.access_token;
 
   if (!token) {
+    console.log(token)
     return res.status(401).send({ message: "Unauthorized: No token provided" });
   }
 

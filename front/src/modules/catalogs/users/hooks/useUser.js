@@ -76,7 +76,7 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
       return toast.error(error.response?.data?.message, {
-        position: "top-right",
+        position: "top-center",
         duration: 1500,
       });
     } finally {
@@ -106,7 +106,7 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
       return toast.error(error.response?.data?.message, {
-        position: "top-right",
+        position: "top-center",
         duration: 1500,
       });
     } finally {
@@ -119,7 +119,7 @@ export const useUser = () => {
       const result = await updatePasswordService(passwords);
       if (result?.Error) {
         return toast.error(result.Error, {
-          position: "top-right",
+          position: "top-center",
           duration: 1500,
         });
       }
@@ -148,7 +148,7 @@ export const useUser = () => {
     } catch (error) {
       validateSession(error);
       return toast.error(error.response?.data?.message, {
-        position: "top-right",
+        position: "top-center",
         duration: 1500,
       });
     }

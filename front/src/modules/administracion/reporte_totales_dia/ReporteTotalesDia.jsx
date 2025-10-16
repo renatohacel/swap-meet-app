@@ -9,6 +9,7 @@ import Spinner from "../../ui/components/Spinner"
 import { useReporteTotalesDia } from "./useReporteTotalesDia"
 import Select from "../../ui/components/inputs/Select"
 import { useForm } from "../../ui/hooks/useForm"
+import ExcelIcon from "../../ui/components/icons/ExcelIcon"
 
 const dias = [
     { value: '', label: 'Seleccione un día' },
@@ -34,9 +35,9 @@ const ReporteTotalesDia = () => {
 
     const onPrint = () => {
         // console.log(dias[new Date(fecha).getDay() + 1].value, dia)
-        if (!fecha || !dia) { toast.error("Por favor, complete todos los campos", { position: "top-right" }); return; }
+        if (!fecha || !dia) { toast.error("Por favor, complete todos los campos", { position: "top-center" }); return; }
         if (dias[new Date(fecha).getDay() + 1].value !== dia) {
-            toast.error("El día seleccionado no coincide con la fecha", { position: "top-right" });
+            toast.error("El día seleccionado no coincide con la fecha", { position: "top-center" });
             return;
         }
         generarReporte(dia, fecha);
@@ -59,6 +60,7 @@ const ReporteTotalesDia = () => {
                         name="fecha"
                         type="date"
                         className={"py-1"}
+                        disabled={loading}
                     />
                 </SectionForm>
                 <SectionForm>
@@ -68,6 +70,7 @@ const ReporteTotalesDia = () => {
                         name="dia"
                         value={dia}
                         options={dias}
+                        disabled={loading}
                     />
                 </SectionForm>
                 <GenericButton
@@ -92,8 +95,9 @@ const ReporteTotalesDia = () => {
                                 tracking-wider
                             "
                         >
-                            GENERAR
-                            <PrintIcon />
+                            GENERAR EXCEL
+                            {/* <PrintIcon /> */}
+                            <ExcelIcon className="h-5 w-5" />
                         </span>
                     )}
                 </GenericButton>

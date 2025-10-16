@@ -13,13 +13,14 @@ export class AuthController {
 
       const token = jwt.sign(user, JWT_SECRET, { expiresIn: "16h" });
 
-      // Configuración específica para desarrollo
+      // Configuración de cookie que funcione tanto local como en Docker
       const cookieOptions = {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production' ? false : false, // Cambiar a true cuando uses HTTPS
         sameSite: "lax",
         path: "/",
         maxAge: 8 * 60 * 60 * 1000,
+        domain: undefined // No establecer dominio específico
       };
 
       res.cookie("access_token", token, cookieOptions).send({ user });

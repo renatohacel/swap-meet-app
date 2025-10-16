@@ -37,7 +37,7 @@ export const useCapturaInsen = (comerciantes, initialFormTarifa, getComerciantes
         setSelectedDomicilio("");
         setFormState(initialFormTarifa)
         toast.error("No se encontró comerciante", {
-            position: "top-right",
+            position: "top-center",
         });
     }
     const onClear = () => {
@@ -89,7 +89,7 @@ export const useCapturaInsen = (comerciantes, initialFormTarifa, getComerciantes
                 // console.log(found)
 
                 toast.success("Comerciante encontrado", {
-                    position: "top-right",
+                    position: "top-center",
                     duration: 1000,
                 });
             } else {
@@ -119,7 +119,7 @@ export const useCapturaInsen = (comerciantes, initialFormTarifa, getComerciantes
                 // console.log(found)
 
                 toast.success("Comerciante encontrado", {
-                    position: "top-right",
+                    position: "top-center",
                     duration: 1000,
                 });
             } else {
@@ -148,14 +148,14 @@ export const useCapturaInsen = (comerciantes, initialFormTarifa, getComerciantes
         try {
             const result = await updateInsenService(id, movimiento);
             toast.success(result.message, {
-                position: "top-right",
+                position: "top-center",
                 duration: 1200,
             });
         } catch (error) {
             validateSession(error);
             if (error.response?.status === 409) {
                 toast.error(error.response.data.message, {
-                    position: "top-right",
+                    position: "top-center",
                 });
             }
         }

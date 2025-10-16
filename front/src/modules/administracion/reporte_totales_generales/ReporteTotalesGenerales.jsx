@@ -1,5 +1,6 @@
 import GenericButton from "../../ui/components/buttons/GenericButton";
 import { CardMain } from "../../ui/components/cards/CardMain"
+import ExcelIcon from "../../ui/components/icons/ExcelIcon";
 import PrintIcon from "../../ui/components/icons/PrintIcon";
 import Spinner from "../../ui/components/Spinner";
 import { useReporteTotalesGenerales } from "./useReporteTotalesGenerales";
@@ -33,8 +34,8 @@ const ReporteTotalesGenerales = () => {
                                 tracking-wider
                             "
                     >
-                        GENERAR
-                        <PrintIcon />
+                        GENERAR EXCEL
+                        <ExcelIcon className="h-5 w-5" />
                     </span>
                 )}
             </GenericButton>

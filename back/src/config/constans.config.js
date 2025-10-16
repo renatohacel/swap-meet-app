@@ -4,7 +4,7 @@ config();
 export const {
   FRONT_BASE_URL = "http://localhost:5173",
   PORT = 3000,
-  HOST = "10.20.17.44",
+  HOST = "0.0.0.0",
   DB_HOST = "172.16.4.50",
   DB_PORT = "1433",
   DB_NAME = "simercadosPruebas",
