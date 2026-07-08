@@ -102,8 +102,8 @@ npm run dev
 ### 3. Configurar el frontend
 ```bash
 cd ../front
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
  
 La aplicación quedará disponible en el puerto que indique la terminal.
