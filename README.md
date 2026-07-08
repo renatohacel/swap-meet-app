@@ -1,4 +1,4 @@
-# Sistema de Gestión de Tarjetas Recargables para Mercados
+# Sistema de Gestión de Tarjetas Recargables para Mercados Ambulantes
  
 Sistema web full-stack para la administración de tarjetas de saldo recargables en mercados o tianguis. Permite emitir tarjetas a vendedores, recargar saldo, cobrar el pago de espacios, administrar usuarios con distintos roles y generar comprobantes en PDF. Construido con una **API REST propia** en Node.js + Express, un frontend en **React**, y **SQL Server** como base de datos.
  
